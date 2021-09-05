@@ -32,9 +32,9 @@ void Simulation::UpdateSimulation()
 				{
 
 					//Check down
-					if (cells[(y + 1) * (width)+x].type == CellType::EMPTY)
+					if (cells[(y + 1) * (width)+x].type == CellType::EMPTY || cells[(y + 1) * (width)+x].type == CellType::WATER)
 					{
-						cells[(y) * (width)+x].type = CellType::EMPTY;
+						cells[y * (width)+ x].type = cells[(y + 1) * (width)+x].type;
 						cells[(y + 1) * (width)+x].type = CellType::SAND;
 					}
 				
@@ -46,22 +46,21 @@ void Simulation::UpdateSimulation()
 						if (random == 1)
 						{
 							//check left
-							if (cells[(y + 1) * (width)+(x - 1)].type == CellType::EMPTY)
+							if (cells[(y + 1) * (width)+(x - 1)].type == CellType::EMPTY || cells[(y + 1) * (width)+(x - 1)].type == CellType::WATER)
 							{
-								cells[(y) * (width)+x].type = CellType::EMPTY;
+								cells[(y) * (width)+x].type = cells[(y + 1) * (width)+(x - 1)].type;
 								cells[(y + 1) * (width)+(x - 1)].type = CellType::SAND;
 							}
 						}
 						else
 						{
 							//check right
-							if (cells[(y + 1) * (width)+(x + 1)].type == CellType::EMPTY)
+							if (cells[(y + 1) * (width)+(x + 1)].type == CellType::EMPTY || cells[(y + 1) * (width)+(x + 1)].type == CellType::WATER)
 							{
-								cells[(y) * (width)+x].type = CellType::EMPTY;
+								cells[(y) * (width)+x].type = cells[(y + 1) * (width)+(x + 1)].type;
 								cells[(y + 1) * (width)+(x + 1)].type = CellType::SAND;
 							}
 						}
-
 					}
 				}
 

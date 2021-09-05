@@ -21,14 +21,14 @@
     <ClCompile Include="Source\Simulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enum\Direction.h">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Cell.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Enum\CellType.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Cell.h">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Enum\Direction.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
