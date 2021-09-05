@@ -145,7 +145,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Cell.h" />
+    <ClCompile Include="Source\Enum\CellType.h" />
+    <ClCompile Include="Source\Enum\Direction.h" />
+    <ClCompile Include="Source\Simulation.cpp" />
     <ClCompile Include="Source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Simulation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

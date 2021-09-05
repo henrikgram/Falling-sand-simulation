@@ -1,4 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include "Simulation.h"
+#include "Cell.h"
+#include "Enum/CellType.h";
+
 #include <chrono>
 #include <thread>
 #include <iostream>;
@@ -10,24 +14,24 @@
 using namespace sf;
 using namespace std;
 
-enum class Direction
-{
-	NONE,
-	DOWN,
-	LEFT,
-	RIGHT
-};
-enum class CellType {
-	EMPTY,
-	SAND,
-	ROCK,
-	WATER
-};
-struct Cell
-{
-	CellType type = CellType::EMPTY;
-	Direction direction = Direction::NONE;
-};
+//enum class Direction
+//{
+//	NONE  = 0b00000000,
+//	DOWN  = 0b00000001,
+//	LEFT  = 0b00000010,
+//	RIGHT = 0b00000100
+//};
+//enum class CellType {
+//	EMPTY,
+//	SAND,
+//	ROCK,
+//	WATER
+//};
+//struct Cell
+//{
+//	CellType type = CellType::EMPTY;
+//	Direction direction = Direction::NONE;
+//};
 
 void Draw()
 {
@@ -37,12 +41,12 @@ void Draw()
 int main()
 {
 	int scale = 4;
-	Cell* cells = new Cell[HEIGHT * WIDTH];
-	sf::RenderWindow window(sf::VideoMode(WIDTH * scale, HEIGHT * scale), "SFML works!");
-
-
-
-	cells[190 * (WIDTH)+100].type = CellType::ROCK;
+	//Cell* cells = new Cell[HEIGHT * WIDTH];
+	sf::RenderWindow window(sf::VideoMode(WIDTH * scale, HEIGHT * scale), "PowderGame clone");
+	Simulation* sim = new Simulation(HEIGHT, WIDTH);
+	
+	sim->SetCell(100, 150, CellType::ROCK);
+	//cells[190 * (WIDTH)+100].type = CellType::ROCK;
 
 	while (window.isOpen())
 	{
@@ -55,109 +59,21 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Key::P))
 		{
-			cells[100 * (WIDTH)+100].type = CellType::SAND;
+			sim->SetCell(100, 100, CellType::SAND);
+			//cells[100 * (WIDTH)+100].type = CellType::SAND;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Key::O))
 		{
-			cells[100 * (WIDTH)+100].type = CellType::WATER;
+			sim->SetCell(100, 100, CellType::WATER);
+			//cells[100 * (WIDTH)+100].type = CellType::WATER;
 		}
 
 		window.clear();
 
-		//UPDATE
-		for (auto y = 0; y < HEIGHT - 1; y++)
-		{
-			for (auto x = 0; x < WIDTH - 1; x++)
-			{
-
-				if (cells[y * (WIDTH)+x].type == CellType::EMPTY)
-				{
-					continue;
-				}
-				else
-				{
-
-					if (cells[y * (WIDTH)+x].type == CellType::SAND)
-					{
-
-						//Check down
-						if (cells[(y + 1) * (WIDTH)+x].type == CellType::EMPTY)
-						{
-							cells[(y) * (WIDTH)+x].type = CellType::EMPTY;
-							cells[(y + 1) * (WIDTH)+x].type = CellType::SAND;
-						}
-						else
-						{
-							//random number
-							int random = rand() % 2 + 1;
-
-							if (random == 1)
-							{
-								//check left
-								if (cells[(y + 1) * (WIDTH)+(x - 1)].type == CellType::EMPTY)
-								{
-									cells[(y) * (WIDTH)+x].type = CellType::EMPTY;
-									cells[(y + 1) * (WIDTH)+(x - 1)].type = CellType::SAND;
-								}
-							}
-							else
-							{
-								//check right
-								if (cells[(y + 1) * (WIDTH)+(x + 1)].type == CellType::EMPTY)
-								{
-									cells[(y) * (WIDTH)+x].type = CellType::EMPTY;
-									cells[(y + 1) * (WIDTH)+(x + 1)].type = CellType::SAND;
-								}
-							}
-						
-						}
-					}
-
-
-					if (cells[y * (WIDTH)+x].type == CellType::WATER)
-					{
-
-						//Check down
-						if (cells[(y + 1) * (WIDTH)+x].type == CellType::EMPTY)
-						{
-							cells[(y) * (WIDTH)+x].type = CellType::EMPTY;
-							cells[(y + 1) * (WIDTH)+x].type = CellType::WATER;
-						}
-						else
-						{
-							//random number
-							int random = rand() % 2 + 1;
-
-							if (random == 1)
-							{
-								//check left
-								if (cells[(y) * (WIDTH)+(x - 1)].type == CellType::EMPTY)
-								{
-									cells[(y) * (WIDTH)+x].type = CellType::EMPTY;
-									cells[(y ) * (WIDTH)+(x - 1)].type = CellType::WATER;
-								}
-							}
-							else
-							{
-								//check right
-								if (cells[(y) * (WIDTH)+(x + 1)].type == CellType::EMPTY)
-								{
-									cells[(y) * (WIDTH)+x].type = CellType::EMPTY;
-									cells[(y ) * (WIDTH)+(x + 1)].type = CellType::WATER;
-								}
-							}
-
-						}
-					}
-
-				}
-
-
-
-			}
-		}
+		
 		//DRAW
+		sim->UpdateSimulation();
 
 
 
@@ -166,7 +82,9 @@ int main()
 			for (auto x = 0; x < WIDTH; x++)
 			{
 
-				if (cells[y * (WIDTH)+x].type == CellType::EMPTY)
+				CellType type = sim->GetCellType(x, y);
+
+				if (type == CellType::EMPTY)
 				{
 					continue;
 				}
@@ -174,18 +92,18 @@ int main()
 				{
 					RectangleShape shape(Vector2f(1 * scale, 1 * scale));
 					shape.setPosition(Vector2f(x * scale, y * scale));
-					if (cells[y * (WIDTH)+x].type == CellType::SAND)
+					if (type == CellType::SAND)
 					{
 						shape.setFillColor(Color::Yellow);
 
 					}
 
-					if (cells[y * (WIDTH)+x].type == CellType::WATER)
+					if (type == CellType::WATER)
 					{
 						shape.setFillColor(Color::Blue);
 
 					}
-					else if (cells[y * (WIDTH)+x].type == CellType::ROCK)
+					else if (type == CellType::ROCK)
 					{
 						shape.setFillColor(Color::Red);
 					}
