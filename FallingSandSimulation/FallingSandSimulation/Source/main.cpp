@@ -14,24 +14,6 @@
 using namespace sf;
 using namespace std;
 
-//enum class Direction
-//{
-//	NONE  = 0b00000000,
-//	DOWN  = 0b00000001,
-//	LEFT  = 0b00000010,
-//	RIGHT = 0b00000100
-//};
-//enum class CellType {
-//	EMPTY,
-//	SAND,
-//	ROCK,
-//	WATER
-//};
-//struct Cell
-//{
-//	CellType type = CellType::EMPTY;
-//	Direction direction = Direction::NONE;
-//};
 
 void Draw()
 {
@@ -41,6 +23,8 @@ void Draw()
 int main()
 {
 	int scale = 4;
+	CellType brushMode = CellType::SAND;
+
 	//Cell* cells = new Cell[HEIGHT * WIDTH];
 	sf::RenderWindow window(sf::VideoMode(WIDTH * scale, HEIGHT * scale), "PowderGame clone");
 	Simulation* sim = new Simulation(HEIGHT, WIDTH);
@@ -57,25 +41,35 @@ int main()
 				window.close();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Key::P))
+		if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
-			sim->SetCell(100, 100, CellType::SAND);
-			//cells[100 * (WIDTH)+100].type = CellType::SAND;
+			sim->SetCell(sf::Mouse::getPosition(window).x / scale, sf::Mouse::getPosition(window).y / scale, brushMode);
+		}
+		
+
+		if (Keyboard::isKeyPressed(Keyboard::Key::S))
+		{
+			brushMode = CellType::SAND;
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Key::O))
+		if (Keyboard::isKeyPressed(Keyboard::Key::W))
 		{
-			sim->SetCell(100, 100, CellType::WATER);
-			//cells[100 * (WIDTH)+100].type = CellType::WATER;
+			brushMode = CellType::WATER;
 		}
 
+		if (Keyboard::isKeyPressed(Keyboard::Key::R))
+		{
+			brushMode = CellType::ROCK;
+		}
+
+
+
+	
 		window.clear();
 
 		
 		//DRAW
 		sim->UpdateSimulation();
-
-
 
 		for (auto y = 0; y < HEIGHT; y++)
 		{

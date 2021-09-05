@@ -9,6 +9,12 @@ Simulation::Simulation(int width, int height)
 	//cells[190 * (width)+100].type = CellType::ROCK;
 }
 
+Simulation::~Simulation()
+{
+	delete cells;
+	cells = nullptr;
+}
+
 void Simulation::UpdateSimulation()
 {
 	for (auto y = height - 1; y > 0; y--)
@@ -31,6 +37,7 @@ void Simulation::UpdateSimulation()
 						cells[(y) * (width)+x].type = CellType::EMPTY;
 						cells[(y + 1) * (width)+x].type = CellType::SAND;
 					}
+				
 					else
 					{
 						//random number
