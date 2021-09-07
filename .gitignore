@@ -387,3 +387,4 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 FallingSandSimulation/.vs/FallingSandSimulation/v16/ipch/AutoPCH/4a2cb9c2f294d3b6/MAIN.ipch
+*.ipch

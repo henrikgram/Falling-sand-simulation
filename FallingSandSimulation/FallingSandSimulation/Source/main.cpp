@@ -9,6 +9,8 @@
 #include <thread>
 #include <iostream>;
 #include <random>
+#include <vector>
+#include <cmath>
 #define HEIGHT 200
 #define WIDTH 200
 
@@ -66,8 +68,50 @@ void Draw(Simulation* sim)
 	window.display();
 }
 
+vector<Vector2i> TraverseMatrix(Vector2f pos1, Vector2f pos2)
+{
+	// y = mx+ b
+	bool isHorisontal = true;
+	int distanceX = abs(pos2.x - pos1.x);
+	int distanceY = abs(pos2.y - pos1.y);
+
+	int distance;
+
+	if (distanceX > distanceY)
+	{
+		isHorisontal = true;
+		distance = distanceX;
+	}
+	else
+	{
+		isHorisontal = false;
+		distance = distanceY;
+	}
+
+	float slope = (pos2.y - pos1.y) / (pos2.x - pos1.x);
+
+	vector<Vector2i> points;
+
+	for (int i = 0; i <= distance; i++)
+	{
+		if (isHorisontal)
+		{
+			points.push_back(Vector2i(i, round(pos1.y + (slope * i))));
+		}
+		else
+		{
+			points.push_back(Vector2i(round(pos1.x + (slope * i)),i));
+		}
+		
+	}
+
+	return points;
+}
+
 int main()
 {
+	int counter = 0;
+	Vector2f lastFramePos(0, 0);
 
 	CellType brushMode = CellType::SAND;
 
@@ -81,6 +125,7 @@ int main()
 	while (window.isOpen())
 	{
 
+		
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -90,7 +135,13 @@ int main()
 
 		if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
-			sim->SetCell(sf::Mouse::getPosition(window).x / scale, sf::Mouse::getPosition(window).y / scale, brushMode);
+			vector<Vector2i> points = TraverseMatrix(lastFramePos, Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
+
+			for (int i = 0; i < points.size(); i++)
+			{
+				sim->SetCell(points[i].x / scale, points[i].y / scale, brushMode);
+			}
+			
 		}
 		
 
@@ -128,6 +179,15 @@ int main()
 
 		Draw(sim);
 
+		counter++;
+		lastFramePos.x = Mouse::getPosition(window).x;
+		lastFramePos.y = Mouse::getPosition(window).y;
+
+		if (counter >= 2)
+		{
+			counter = 0;
+		}
+	
 	}
 
 	return 0;
