@@ -1,6 +1,4 @@
-﻿  Simulation.cpp
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  main.cpp
+﻿  main.cpp
 C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(10,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
@@ -36,7 +34,7 @@ C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\F
           [
               T=int
           ]
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(138,124): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(186,46): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -45,7 +43,7 @@ C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\F
           [
               T=float
           ]
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(138,94): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(187,46): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -54,24 +52,4 @@ C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\F
           [
               T=float
           ]
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(140,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(183,46): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(184,46): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-  Generating Code...
   FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe

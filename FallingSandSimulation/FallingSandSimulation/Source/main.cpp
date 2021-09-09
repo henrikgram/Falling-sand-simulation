@@ -135,12 +135,15 @@ int main()
 
 		if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
-			vector<Vector2i> points = TraverseMatrix(lastFramePos, Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
+
+			sim->SetCell(Mouse::getPosition(window).x/scale, Mouse::getPosition(window).y / scale, brushMode);
+
+			/*vector<Vector2i> points = TraverseMatrix(lastFramePos, Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
 
 			for (int i = 0; i < points.size(); i++)
 			{
 				sim->SetCell(points[i].x / scale, points[i].y / scale, brushMode);
-			}
+			}*/
 			
 		}
 		
