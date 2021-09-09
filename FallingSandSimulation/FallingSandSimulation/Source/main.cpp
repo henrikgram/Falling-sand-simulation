@@ -25,9 +25,9 @@ sf::RenderWindow window(sf::VideoMode(WIDTH* scale, HEIGHT* scale), "PowderGame 
 void Draw(Simulation* sim)
 {
 
-	for (auto y = 0; y < HEIGHT; y++)
+	for (auto y = HEIGHT; y >= 0; y--)
 	{
-		for (auto x = 0; x < WIDTH; x++)
+		for (auto x = WIDTH; x >= 0; x--)
 		{
 
 			CellType type = sim->GetCellType(x, y);

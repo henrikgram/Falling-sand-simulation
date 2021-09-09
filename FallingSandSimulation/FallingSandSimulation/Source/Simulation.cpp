@@ -17,9 +17,9 @@ Simulation::~Simulation()
 
 void Simulation::UpdateSimulation()
 {
-	for (auto y = height - 1; y > 0; y--)
+	for (auto y = height; y >= 0; y--)
 	{
-		for (auto x = width - 1; x > 0; x--)
+		for (auto x = width; x >= 0; x--)
 		{
 
 			if (cells[y * (width)+x].type == CellType::EMPTY)

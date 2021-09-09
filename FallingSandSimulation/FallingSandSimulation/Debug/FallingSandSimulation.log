@@ -1,4 +1,6 @@
-﻿  main.cpp
+﻿  Simulation.cpp
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  main.cpp
 C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(10,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
@@ -71,4 +73,5 @@ C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\F
           [
               T=float
           ]
+  Generating Code...
   FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe
