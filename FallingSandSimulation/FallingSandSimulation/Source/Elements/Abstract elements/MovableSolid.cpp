@@ -1,6 +1,10 @@
 #include "MovableSolid.h"
 
-MovableSolid::MovableSolid(Vector2i position) : Solid(position), Element(position)
+MovableSolid::MovableSolid(int posX, int posY) : Solid(posX, posY), Element(posX, posY)
+{
+}
+
+MovableSolid::~MovableSolid()
 {
 }
 

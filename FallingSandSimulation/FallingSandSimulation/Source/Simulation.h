@@ -5,19 +5,24 @@ class Element;
 #include "Elements/Abstract elements/Element.h"
 #include "Enum/ElementTag.h"
 #include <vector>
+#include <stack>
 
 class Simulation
 {
 private:
-	
-public:
-	Simulation(int width, int height);
-	ElementTag GetElementTag(int x, int y);
-	void SetElement(Element* element, int y, int x);
-
 	int width;
 	int height;
 	std::vector<Element*>* SimWorld;
+	std::stack<Element*>* ElementsToDelete;
+
+public:
+	Simulation(int width, int height);
+	ElementTag GetElementTag(int x, int y);
+	void SetElement(Element* element);
+	void DeleteElements();
+
+
+
 };
 
 #endif // !SIMULATION_H

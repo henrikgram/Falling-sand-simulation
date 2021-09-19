@@ -3,6 +3,7 @@
 class Solid : virtual public Element
 {
 public:
-	Solid(Vector2i position);
+	Solid(int posX, int posY);
+	virtual ~Solid();
 };
 

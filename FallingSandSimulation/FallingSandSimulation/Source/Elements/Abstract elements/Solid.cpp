@@ -1,5 +1,9 @@
 #include "Solid.h"
 
-Solid::Solid(Vector2i position) : Element(position)
+Solid::Solid(int posX, int posY) : Element(posX, posY)
+{
+}
+
+Solid::~Solid()
 {
 }

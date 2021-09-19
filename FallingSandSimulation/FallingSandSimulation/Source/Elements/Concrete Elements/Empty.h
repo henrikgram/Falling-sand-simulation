@@ -3,9 +3,10 @@
 class Empty : public Element
 {
 public:
-	Empty(Vector2i position);
+	Empty(int posX, int posY);
 	void UpdateElement(Simulation* sim) override;
 	Empty();
+	virtual ~Empty();
 
 };
 

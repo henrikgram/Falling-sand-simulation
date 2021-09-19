@@ -1,6 +1,10 @@
 #include "Sand.h"
 
-Sand::Sand(Vector2i position) : MovableSolid(position), Solid(position), Element(position)
+Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Solid(posX, posY), Element(posX, posY)
 {
 	tag = ElementTag::SAND;
+}
+
+Sand::~Sand()
+{
 }

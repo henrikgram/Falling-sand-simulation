@@ -6,10 +6,13 @@ sf::RenderWindow window(sf::VideoMode(200 * scale, 200 * scale), "SFML works!");
 
 int main()
 {
+	int width = 200;
+	int height = 200;
 
-
-	Simulation* sim = new Simulation(200, 200);
-	sim->SetElement(new Sand(Vector2i(100, 100)), 100, 100);
+	Simulation* sim = new Simulation(width, width);
+	//sim->SetElement(new Sand(Vector2i(2, 2)), 2, 2);
+	sim->SetElement(new Sand(100,100));
+	
 
 	while (window.isOpen())
 	{
@@ -19,20 +22,23 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-	
 
+	
+	
+		if (Mouse::isButtonPressed(Mouse::Button::Left))
+		{
+			int x = Mouse::getPosition(window).x / scale;
+			int y = Mouse::getPosition(window).y / scale;
+
+			sim->SetElement(new Sand(x,y));
+		}
 	
 		window.clear();
-
-		//RectangleShape shape(Vector2f(1 * scale, 1 * scale));
-		//shape.setPosition(Vector2f(100 * scale, 100 * scale));
-		//shape.setFillColor(Color::Yellow);
-		//window.draw(shape);
-		//window.display();
-
-		for (int y = 0; y < 200; y++)
+		//sim->DeleteElements();
+	
+		for (int y = 0; y < height; y++)
 		{
-			for (int x = 0; x < 200; x++)
+			for (int x = 0; x < width; x++)
 			{
 
 				ElementTag type = sim->GetElementTag(x, y);
@@ -49,7 +55,7 @@ int main()
 					RectangleShape shape(Vector2f(1 * scale, 1 * scale));
 					shape.setPosition(Vector2f(x * scale, y * scale));
 					shape.setFillColor(Color::Yellow);
-					window.draw(shape);
+				
 
 					if (type == ElementTag::SAND)
 					{
@@ -61,7 +67,7 @@ int main()
 						int pik = 4;
 					}
 
-					
+					window.draw(shape);
 
 					
 				}

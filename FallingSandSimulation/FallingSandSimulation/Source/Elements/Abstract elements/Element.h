@@ -12,14 +12,19 @@ using namespace sf;
 class Element
 {
 protected:
-	Vector2i position;
+	int posX;
+	int posY;
 	Color color;
 	ElementTag tag;
 
 public:
-	Element(Vector2i position );
+	Element(int posX, int posY);
 	Element();
+	virtual ~Element();
+	void SwapPositions(Simulation* sim, Element* swapElement, int swapX, int swapY);
 	virtual void UpdateElement(Simulation* sim) = 0;
+	int GetPosX();
+	int GetPosY();
 	ElementTag GetTag();
 };
 

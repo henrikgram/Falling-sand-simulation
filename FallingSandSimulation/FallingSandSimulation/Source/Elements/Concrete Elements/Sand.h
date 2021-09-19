@@ -3,7 +3,8 @@
 class Sand : public MovableSolid
 {
 public:
-	Sand(Vector2i position);
+	Sand(int posX, int posY);
 	Sand();
+	virtual ~Sand();
 };
 
