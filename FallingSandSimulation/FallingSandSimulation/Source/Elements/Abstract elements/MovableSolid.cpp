@@ -10,4 +10,8 @@ MovableSolid::~MovableSolid()
 
 void MovableSolid::UpdateElement(Simulation* sim)
 {
+	if (sim->GetElementTag(posX,posY-1) == ElementTag::EMPTY)
+	{
+		SwapPositions(sim, posX, posY - 1);
+	}
 }

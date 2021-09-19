@@ -14,44 +14,71 @@ Simulation::Simulation(int width, int height)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			SimWorld->at(y * width + x) = new Empty(x,y);
+			SimWorld->at(Index(x,y)) = new Empty(x,y);
 		}
 	}
 }
 
-ElementTag Simulation::GetElementTag(int x, int y)
+void Simulation::UpdateSimulation()
 {
-	return SimWorld->at(y * width + x)->GetTag();
+	std::vector<Element*>::iterator it;
+	int i = 0;
+	for (it = SimWorld->begin(); it < SimWorld->end(); it++)
+	{
+		i++;
+		if ((*it)->GetTag() == ElementTag::EMPTY)
+		{
+			continue;
+		}
+
+		//(*it)->UpdateElement(this);
+	}
+	
 }
 
-void Simulation::SetElement(Element* element)
+ElementTag Simulation::GetElementTag(int x, int y)
+{
+	if (Index(x,y) < 0 || Index(x, y) > width*height)
+	{
+		return ElementTag::BOUNDS;
+	}
+	else
+	{
+		return SimWorld->at(Index(x, y))->GetTag();
+	}
+	
+}
+
+Element* Simulation::GetElement(int x, int y)
+{
+	return SimWorld->at(Index(x, y));
+}
+
+void Simulation::SetElement(int x, int y, Element* element)
+{
+	
+	SimWorld->at(Index(x, y)) = element;
+}
+
+
+void Simulation::ReplaceElement(Element* element)
 {
 	//TODO: memory leak
 	int x = element->GetPosX();
 	int y = element->GetPosY();
 
-	delete (SimWorld->at(y * width + x));
-	(SimWorld->at(y * width + x)) = nullptr;
+	delete (SimWorld->at(Index(x, y)));
+	(SimWorld->at(Index(x, y))) = nullptr;
 
-	SimWorld->at(y * width + x) = element;
+	SimWorld->at(Index(x, y)) = element;
 }
 
-void Simulation::DeleteElements()
+int Simulation::Index(int x, int y)
 {
-	while (!ElementsToDelete->empty())
-	{
-		Element * e = ElementsToDelete->top();
-		
-
-		delete e;
-		e = nullptr;
-
-		ElementsToDelete->pop();
-
-	
-
-	}
+	return (y * width + x);
 }
+
+
 
 
 

@@ -21,7 +21,8 @@ public:
 	Element(int posX, int posY);
 	Element();
 	virtual ~Element();
-	void SwapPositions(Simulation* sim, Element* swapElement, int swapX, int swapY);
+	void SwapPositions(Simulation* sim, int swapX, int swapY);
+	void UpdatePosition(int x, int y);
 	virtual void UpdateElement(Simulation* sim) = 0;
 	int GetPosX();
 	int GetPosY();

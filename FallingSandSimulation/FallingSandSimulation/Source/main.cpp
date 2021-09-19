@@ -1,6 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include "Simulation.h"
 #include "Elements/Concrete Elements/Sand.h"
+#include <Windows.h>
+#include <chrono>
+#include <thread>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+using namespace std::chrono;
+
 int scale = 4;
 sf::RenderWindow window(sf::VideoMode(200 * scale, 200 * scale), "SFML works!");
 
@@ -10,8 +18,8 @@ int main()
 	int height = 200;
 
 	Simulation* sim = new Simulation(width, width);
-	//sim->SetElement(new Sand(Vector2i(2, 2)), 2, 2);
-	sim->SetElement(new Sand(100,100));
+	//sim->ReplaceElement(new Sand(Vector2i(2, 2)), 2, 2);
+	sim->ReplaceElement(new Sand(100,100));
 	
 
 	while (window.isOpen())
@@ -22,20 +30,28 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-
-	
 	
 		if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
 			int x = Mouse::getPosition(window).x / scale;
 			int y = Mouse::getPosition(window).y / scale;
 
-			sim->SetElement(new Sand(x,y));
+			sim->ReplaceElement(new Sand(x,y));
 		}
 	
 		window.clear();
+		auto start = high_resolution_clock::now();
 		//sim->DeleteElements();
-	
+		sim->UpdateSimulation();
+
+		auto stop = high_resolution_clock::now();
+
+		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+
+		std::cout << "Time taken by Update(): "
+			<< duration.count() << " microseconds" << std::endl;
+
+
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)

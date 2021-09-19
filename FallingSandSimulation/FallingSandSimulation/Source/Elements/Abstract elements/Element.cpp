@@ -14,9 +14,22 @@ Element::~Element()
 {
 }
 
-void Element::SwapPositions(Simulation* sim, Element* swapElement, int swapX, int swapY)
+void Element::SwapPositions(Simulation* sim, int swapX, int swapY)
 {
+	Element* swapElement = sim->GetElement(swapX, swapY);
 
+	swapElement->UpdatePosition(this->posX, this->posY);
+
+	sim->SetElement(this->posX, this->posY, swapElement);
+	sim->SetElement(swapX, swapY, this);
+
+	this->UpdatePosition(swapX, swapY);
+}
+
+void Element::UpdatePosition(int x, int y)
+{
+	posX = x;
+	posY = y;
 }
 
 int Element::GetPosX()

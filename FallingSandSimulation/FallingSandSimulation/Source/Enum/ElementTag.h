@@ -5,7 +5,8 @@
 
 enum class ElementTag
 {
-	SAND,
-	EMPTY
+	EMPTY,
+	BOUNDS,
+	SAND
 };
 #endif // !ELEMENTTAG_H

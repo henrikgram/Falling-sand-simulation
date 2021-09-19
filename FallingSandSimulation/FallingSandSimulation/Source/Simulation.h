@@ -17,9 +17,13 @@ private:
 
 public:
 	Simulation(int width, int height);
+	void UpdateSimulation();
 	ElementTag GetElementTag(int x, int y);
-	void SetElement(Element* element);
-	void DeleteElements();
+	Element* GetElement(int x, int y);
+	void SetElement(int x, int y, Element* element);
+	void ReplaceElement(Element* element);
+	int Index(int x, int y);
+
 
 
 
