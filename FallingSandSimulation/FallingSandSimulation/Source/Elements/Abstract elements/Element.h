@@ -15,7 +15,7 @@ protected:
 	int posX;
 	int posY;
 	Color color;
-	ElementTag tag;
+	
 
 public:
 	Element(int posX, int posY);
@@ -27,6 +27,7 @@ public:
 	int GetPosX();
 	int GetPosY();
 	ElementTag GetTag();
+	ElementTag tag;
 };
 
 #endif // !ELEMENT_H

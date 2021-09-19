@@ -13,6 +13,7 @@ private:
 	int width;
 	int height;
 	std::vector<Element*>* SimWorld;
+	Element* SimWorld2;
 	std::stack<Element*>* ElementsToDelete;
 
 public:

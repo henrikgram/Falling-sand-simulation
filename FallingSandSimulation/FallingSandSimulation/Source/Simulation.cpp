@@ -8,6 +8,7 @@ Simulation::Simulation(int width, int height)
 	this->height = height;
 
 	SimWorld = new std::vector<Element*>(width * height);
+	SimWorld2 = new Empty[width * height];
 	ElementsToDelete = new std::stack<Element*>;
 	
 	for (int y = 0; y < height; y++)
@@ -21,18 +22,50 @@ Simulation::Simulation(int width, int height)
 
 void Simulation::UpdateSimulation()
 {
-	std::vector<Element*>::iterator it;
-	int i = 0;
-	for (it = SimWorld->begin(); it < SimWorld->end(); it++)
+	//std::vector<Element*>::iterator it;
+	//int i = 0;
+
+	/*for (auto it = SimWorld->begin(); it < SimWorld->end(); it++)
 	{
-		i++;
-		if ((*it)->GetTag() == ElementTag::EMPTY)
+	
+	}*/
+
+	/*int size = SimWorld->size();*/
+
+	for (auto i: *SimWorld)
+	{
+		if (i->GetTag() == ElementTag::EMPTY)
 		{
 			continue;
 		}
-
-		//(*it)->UpdateElement(this);
+		i->UpdateElement(this);
 	}
+	//for (std::size_t i = 0; i < size; i++)
+	//{
+	//	if (*(&SimWorld[i]) == ElementTag::EMPTY);
+	//	{
+
+	//	}
+	//}
+
+	/*for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+
+		}
+	}*/
+
+	//for (it = SimWorld->begin(); it < SimWorld->end(); it++)
+	//{
+	///*	i++;
+	//	if ((*it)->GetTag() == ElementTag::EMPTY)
+	//	{
+	//		continue;
+	//	}*/
+
+	//	//(*it)->UpdateElement(this);
+	//}
 	
 }
 
