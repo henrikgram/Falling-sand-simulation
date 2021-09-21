@@ -24,13 +24,24 @@ void Simulation::UpdateSimulation()
 {
 
 
-	for (auto i: *SimWorld)
+	//for (auto i: *SimWorld)
+	//{
+	//	/*if (i->GetTag() == ElementTag::EMPTY)
+	//	{
+	//		continue;
+	//	}
+	//	i->UpdateElement(this);*/
+	//}
+
+	int size = SimWorld->size();
+
+	for (int i = size-1; i >= 0; i--)
 	{
-		if (i->GetTag() == ElementTag::EMPTY)
+		if ((*SimWorld)[i]->GetTag() == ElementTag::EMPTY)
 		{
 			continue;
 		}
-		i->UpdateElement(this);
+		(*SimWorld)[i]->UpdateElement(this);
 	}
 	
 	
