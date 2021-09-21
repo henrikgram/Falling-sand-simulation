@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Simulation.h"
 #include "Elements/Concrete Elements/Sand.h"
+#include "Elements/Concrete Elements/Water.h"
 #include <Windows.h>
 #include <chrono>
 #include <thread>
@@ -30,6 +31,7 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
 	
 		if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
@@ -37,6 +39,13 @@ int main()
 			int y = Mouse::getPosition(window).y / scale;
 
 			sim->ReplaceElement(new Sand(x,y));
+		}
+		if (Mouse::isButtonPressed(Mouse::Button::Right))
+		{
+			int x = Mouse::getPosition(window).x / scale;
+			int y = Mouse::getPosition(window).y / scale;
+
+			sim->ReplaceElement(new Water(x, y));
 		}
 	
 		window.clear();
@@ -77,6 +86,10 @@ int main()
 					{
 						shape.setFillColor(Color::Yellow);
 
+					}
+					else if (type == ElementTag::WATER)
+					{
+						shape.setFillColor(Color::Blue);
 					}
 					else
 					{

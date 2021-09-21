@@ -26,7 +26,7 @@ public:
 	virtual void UpdateElement(Simulation* sim) = 0;
 	int GetPosX();
 	int GetPosY();
-	ElementTag GetTag();
+	const ElementTag& GetTag();
 	ElementTag tag;
 };
 

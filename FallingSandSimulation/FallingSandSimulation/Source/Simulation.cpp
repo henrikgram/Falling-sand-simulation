@@ -22,15 +22,7 @@ Simulation::Simulation(int width, int height)
 
 void Simulation::UpdateSimulation()
 {
-	//std::vector<Element*>::iterator it;
-	//int i = 0;
 
-	/*for (auto it = SimWorld->begin(); it < SimWorld->end(); it++)
-	{
-	
-	}*/
-
-	/*int size = SimWorld->size();*/
 
 	for (auto i: *SimWorld)
 	{
@@ -40,38 +32,17 @@ void Simulation::UpdateSimulation()
 		}
 		i->UpdateElement(this);
 	}
-	//for (std::size_t i = 0; i < size; i++)
-	//{
-	//	if (*(&SimWorld[i]) == ElementTag::EMPTY);
-	//	{
-
-	//	}
-	//}
-
-	/*for (int y = 0; y < height; y++)
-	{
-		for (int x = 0; x < width; x++)
-		{
-
-		}
-	}*/
-
-	//for (it = SimWorld->begin(); it < SimWorld->end(); it++)
-	//{
-	///*	i++;
-	//	if ((*it)->GetTag() == ElementTag::EMPTY)
-	//	{
-	//		continue;
-	//	}*/
-
-	//	//(*it)->UpdateElement(this);
-	//}
+	
 	
 }
 
 ElementTag Simulation::GetElementTag(int x, int y)
 {
 	if (Index(x,y) < 0 || Index(x, y) > width*height)
+	{
+		return ElementTag::BOUNDS;
+	}
+	else if (x < 0 || x > width)
 	{
 		return ElementTag::BOUNDS;
 	}

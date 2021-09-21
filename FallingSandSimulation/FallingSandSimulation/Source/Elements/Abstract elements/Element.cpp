@@ -42,7 +42,7 @@ int Element::GetPosY()
 	return posY;
 }
 
-ElementTag Element::GetTag()
+const ElementTag& Element::GetTag()
 {
 	return tag;
 }

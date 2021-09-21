@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Abstract elements\Liquid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Empty.cpp" />
     <ClCompile Include="Source\Simulation.cpp" />
     <ClCompile Include="Source\Elements\Abstract elements\Solid.cpp" />
@@ -152,8 +153,10 @@
     <ClCompile Include="Source\Elements\Abstract elements\MovableSolid.cpp" />
     <ClCompile Include="Source\Elements\Abstract elements\Element.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Abstract elements\Liquid.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Empty.h" />
     <ClInclude Include="Source\Enum\ElementTag.h" />
     <ClInclude Include="Source\Simulation.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="Source\Elements\Concrete Elements\Sand.h" />
     <ClInclude Include="Source\Elements\Abstract elements\MovableSolid.h" />
     <ClInclude Include="Source\Elements\Abstract elements\Element.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Water.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

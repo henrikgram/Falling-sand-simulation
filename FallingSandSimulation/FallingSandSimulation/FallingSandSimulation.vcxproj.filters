@@ -36,6 +36,12 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Empty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Elements\Concrete Elements\Water.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Elements\Abstract elements\Liquid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Elements\Abstract elements\Element.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enum\ElementTag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Elements\Concrete Elements\Water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Elements\Abstract elements\Liquid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
