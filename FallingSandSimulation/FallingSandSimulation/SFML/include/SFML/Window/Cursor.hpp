@@ -78,7 +78,7 @@ public:
         Arrow,                  ///< Arrow cursor (default)
         ArrowWait,              ///< Busy arrow cursor
         Wait,                   ///< Busy cursor
-        Text,                   ///< I-beam, cursor when hovering over a field allowing text entry
+        Text,                   ///< I-beam, cursor when hovering over a field allowing SandText entry
         Hand,                   ///< Pointing hand cursor
         SizeHorizontal,         ///< Horizontal double arrow cursor
         SizeVertical,           ///< Vertical double arrow cursor

@@ -228,7 +228,7 @@ protected:
 ///    // Draw some graphical entities
 ///    window.draw(sprite);
 ///    window.draw(circle);
-///    window.draw(text);
+///    window.draw(SandText);
 ///
 ///    // End the current frame and display its contents on screen
 ///    window.display();
@@ -243,9 +243,9 @@ protected:
 /// // Create the render window
 /// sf::RenderWindow window(sf::VideoMode(800, 600), "SFML OpenGL");
 ///
-/// // Create a sprite and a text to display
+/// // Create a sprite and a SandText to display
 /// sf::Sprite sprite;
-/// sf::Text text;
+/// sf::Text SandText;
 /// ...
 ///
 /// // Perform OpenGL initializations
@@ -269,9 +269,9 @@ protected:
 ///         ...
 ///     glEnd();
 ///
-///     // Draw text on top of the 3D object
+///     // Draw SandText on top of the 3D object
 ///     window.pushGLStates();
-///     window.draw(text);
+///     window.draw(SandText);
 ///     window.popGLStates();
 ///
 ///     // Finally, display the rendered frame on screen

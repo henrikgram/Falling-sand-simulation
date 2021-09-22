@@ -16,6 +16,7 @@ private:
 	Element* SimWorld2;
 	std::stack<Element*>* ElementsToDelete;
 
+
 public:
 	Simulation(int width, int height);
 	void UpdateSimulation();
@@ -24,6 +25,8 @@ public:
 	void SetElement(int x, int y, Element* element);
 	void ReplaceElement(Element* element);
 	int Index(int x, int y);
+
+	int Elements = 0;
 
 
 

@@ -489,7 +489,7 @@ private:
 ///
 /// sf::RenderTarget defines the common behavior of all the
 /// 2D render targets usable in the graphics module. It makes
-/// it possible to draw 2D entities like sprites, shapes, text
+/// it possible to draw 2D entities like sprites, shapes, SandText
 /// without using any OpenGL command directly.
 ///
 /// A sf::RenderTarget is also able to use views (sf::View),

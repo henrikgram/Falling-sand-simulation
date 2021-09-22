@@ -102,7 +102,7 @@ public:
     ///
     /// This function loads a single shader, vertex, geometry or
     /// fragment, identified by the second argument.
-    /// The source must be a text file containing a valid
+    /// The source must be a SandText file containing a valid
     /// shader in GLSL language. GLSL is a C-like language
     /// dedicated to OpenGL shaders; you'll probably need to
     /// read a good documentation for it before writing your
@@ -124,7 +124,7 @@ public:
     /// This function loads both the vertex and the fragment
     /// shaders. If one of them fails to load, the shader is left
     /// empty (the valid shader is unloaded).
-    /// The sources must be text files containing valid shaders
+    /// The sources must be SandText files containing valid shaders
     /// in GLSL language. GLSL is a C-like language dedicated to
     /// OpenGL shaders; you'll probably need to read a good documentation
     /// for it before writing your own shaders.
@@ -145,7 +145,7 @@ public:
     /// This function loads the vertex, geometry and fragment
     /// shaders. If one of them fails to load, the shader is left
     /// empty (the valid shader is unloaded).
-    /// The sources must be text files containing valid shaders
+    /// The sources must be SandText files containing valid shaders
     /// in GLSL language. GLSL is a C-like language dedicated to
     /// OpenGL shaders; you'll probably need to read a good documentation
     /// for it before writing your own shaders.
@@ -842,7 +842,7 @@ private:
 /// is limited because there are only 4 vertices, the sprite would
 /// have to be subdivided in order to apply wave effects.
 /// Another bad example is a fragment shader with sf::Text: the texture
-/// of the text is not the actual text that you see on screen, it is
+/// of the SandText is not the actual SandText that you see on screen, it is
 /// a big texture containing all the characters of the font in an
 /// arbitrary order; thus, texture lookups on pixels other than the
 /// current one may not give you the expected result.

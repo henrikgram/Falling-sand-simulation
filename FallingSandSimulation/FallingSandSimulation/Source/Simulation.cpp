@@ -26,12 +26,14 @@ void Simulation::UpdateSimulation()
 
 	//for (auto i: *SimWorld)
 	//{
-	//	/*if (i->GetTag() == ElementTag::EMPTY)
+	//	if (i->GetTag() == ElementTag::EMPTY)
 	//	{
 	//		continue;
 	//	}
-	//	i->UpdateElement(this);*/
+	//	i->UpdateElement(this);
 	//}
+
+	Elements = 0;
 
 	int size = SimWorld->size();
 
@@ -41,7 +43,14 @@ void Simulation::UpdateSimulation()
 		{
 			continue;
 		}
+
+		if ((*SimWorld)[i]->GetTag() == ElementTag::SAND && (*SimWorld)[i]->GetPosY() == 198)
+		{
+			int er = 1;
+		}
+
 		(*SimWorld)[i]->UpdateElement(this);
+		Elements++;
 	}
 	
 	
@@ -49,14 +58,13 @@ void Simulation::UpdateSimulation()
 
 ElementTag Simulation::GetElementTag(int x, int y)
 {
-	if (Index(x,y) < 0 || Index(x, y) > width*height)
+	//TODO: this works but doesn't seem right
+	if (Index(x,y) <= 0 || Index(x, y) >= (width)*(height))
+	//if(x > width && x > 0 && y < height && y >  0)
 	{
 		return ElementTag::BOUNDS;
 	}
-	else if (x < 0 || x > width)
-	{
-		return ElementTag::BOUNDS;
-	}
+
 	else
 	{
 		return SimWorld->at(Index(x, y))->GetTag();

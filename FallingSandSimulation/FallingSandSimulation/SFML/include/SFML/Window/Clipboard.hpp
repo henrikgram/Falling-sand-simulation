@@ -65,7 +65,7 @@ public:
     ///          guaranteed to work if there is currently an
     ///          open window for which events are being handled.
     ///
-    /// \param text sf::String containing the data to be sent
+    /// \param SandText sf::String containing the data to be sent
     /// to the clipboard
     ///
     ////////////////////////////////////////////////////////////
