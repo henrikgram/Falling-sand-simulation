@@ -135,7 +135,7 @@ public:
 /// \li the texture: what image is mapped to the object
 /// \li the shader: what custom effect is applied to the object
 ///
-/// High-level objects such as sprites or text force some of
+/// High-level objects such as sprites or SandText force some of
 /// these states when they are drawn. For example, a sprite
 /// will set its own texture, so that you don't have to care
 /// about it when drawing the sprite.

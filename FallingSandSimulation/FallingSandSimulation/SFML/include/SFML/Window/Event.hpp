@@ -190,7 +190,7 @@ public:
         Resized,                ///< The window was resized (data in event.size)
         LostFocus,              ///< The window lost the focus (no data)
         GainedFocus,            ///< The window gained the focus (no data)
-        TextEntered,            ///< A character was entered (data in event.text)
+        TextEntered,            ///< A character was entered (data in event.SandText)
         KeyPressed,             ///< A key was pressed (data in event.key)
         KeyReleased,            ///< A key was released (data in event.key)
         MouseWheelMoved,        ///< The mouse wheel was scrolled (data in event.mouseWheel) (deprecated)
@@ -258,7 +258,7 @@ public:
 /// be read if the type of the event doesn't match. For example,
 /// if you received a KeyPressed event, then you must read the
 /// event.key member, all other members such as event.mouseMove
-/// or event.text will have undefined values.
+/// or event.SandText will have undefined values.
 ///
 /// Usage example:
 /// \code

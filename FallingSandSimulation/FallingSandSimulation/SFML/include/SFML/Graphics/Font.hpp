@@ -201,7 +201,7 @@ public:
     /// \brief Get the line spacing
     ///
     /// Line spacing is the vertical offset to apply between two
-    /// consecutive lines of text.
+    /// consecutive lines of SandText.
     ///
     /// \param characterSize Reference character size
     ///
@@ -381,14 +381,14 @@ private:
 ///
 /// Fonts alone are not very useful: they hold the font data
 /// but cannot make anything useful of it. To do so you need to
-/// use the sf::Text class, which is able to properly output text
+/// use the sf::Text class, which is able to properly output SandText
 /// with several options such as character size, style, color,
 /// position, rotation, etc.
 /// This separation allows more flexibility and better performances:
 /// indeed a sf::Font is a heavy resource, and any operation on it
 /// is slow (often too slow for real-time applications). On the other
 /// side, a sf::Text is a lightweight object which can combine the
-/// glyphs data and metrics of a sf::Font to display any text on a
+/// glyphs data and metrics of a sf::Font to display any SandText on a
 /// render target.
 /// Note that it is also possible to bind several sf::Text instances
 /// to the same sf::Font.
@@ -397,7 +397,7 @@ private:
 /// copy the font that it uses, it only keeps a reference to it.
 /// Thus, a sf::Font must not be destructed while it is
 /// used by a sf::Text (i.e. never write a function that
-/// uses a local sf::Font instance for creating a text).
+/// uses a local sf::Font instance for creating a SandText).
 ///
 /// Usage example:
 /// \code
@@ -410,13 +410,13 @@ private:
 ///     // error...
 /// }
 ///
-/// // Create a text which uses our font
+/// // Create a SandText which uses our font
 /// sf::Text text1;
 /// text1.setFont(font);
 /// text1.setCharacterSize(30);
 /// text1.setStyle(sf::Text::Regular);
 ///
-/// // Create another text using the same font, but with different parameters
+/// // Create another SandText using the same font, but with different parameters
 /// sf::Text text2;
 /// text2.setFont(font);
 /// text2.setCharacterSize(50);
@@ -431,7 +431,7 @@ private:
 /// Note that if the font is a bitmap font, it is not scalable,
 /// thus not all requested sizes will be available to use. This
 /// needs to be taken into consideration when using sf::Text.
-/// If you need to display text of a certain size, make sure the
+/// If you need to display SandText of a certain size, make sure the
 /// corresponding bitmap font that supports that size is used.
 ///
 /// \see sf::Text
