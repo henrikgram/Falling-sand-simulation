@@ -24,34 +24,43 @@ void Simulation::UpdateSimulation()
 {
 
 
-	//for (auto i: *SimWorld)
-	//{
-	//	if (i->GetTag() == ElementTag::EMPTY)
-	//	{
-	//		continue;
-	//	}
-	//	i->UpdateElement(this);
-	//}
-
 	Elements = 0;
 
 	int size = SimWorld->size();
 
 	for (int i = size-1; i >= 0; i--)
 	{
+		ElementTag tag = (*SimWorld)[i]->GetTag();
+		if (tag == ElementTag::EMPTY ||  tag == ElementTag::ROCK)
+		{
+			continue;
+		}
+
+
+
+		if (!(*SimWorld)[i]->HasUpdated)
+		{
+			(*SimWorld)[i]->HasUpdated = true;
+			(*SimWorld)[i]->UpdateElement(this);
+			Elements++;
+		}
+		
+		
+	}
+
+
+	//Reset has updated
+	for (int i = size - 1; i >= 0; i--)
+	{
 		if ((*SimWorld)[i]->GetTag() == ElementTag::EMPTY)
 		{
 			continue;
 		}
 
-		if ((*SimWorld)[i]->GetTag() == ElementTag::SAND && (*SimWorld)[i]->GetPosY() == 198)
-		{
-			int er = 1;
-		}
+		(*SimWorld)[i]->HasUpdated = false;
 
-		(*SimWorld)[i]->UpdateElement(this);
-		Elements++;
 	}
+	
 	
 	
 }

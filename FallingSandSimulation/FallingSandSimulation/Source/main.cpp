@@ -2,6 +2,8 @@
 #include "Simulation.h"
 #include "Elements/Concrete Elements/Sand.h"
 #include "Elements/Concrete Elements/Water.h"
+#include "Elements/Concrete Elements/Rock.h"
+#include "Elements/Concrete Elements/Smoke.h"
 #include <Windows.h>
 #include <chrono>
 #include <thread>
@@ -87,6 +89,16 @@ void Draw(Simulation* sim)
 				{
 					shape.setFillColor(Color::Blue);
 				}
+
+				else if (type == ElementTag::ROCK)
+				{
+					shape.setFillColor(Color::Red);
+				}
+
+				else if (type == ElementTag::SMOKE)
+				{
+					shape.setFillColor(Color(80,80,80));
+				}
 				else
 				{
 					int pik = 4;
@@ -117,30 +129,33 @@ int main()
 		cout << "C:\\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Minecraft.ttf";
 		system("pause");
 	}
+	if (true)
+	{
+		SandText.setFont(font);
+		SandText.setFillColor(Color::Yellow);
+		SandText.setString("Sand");
+		SandText.setPosition(Vector2f(0, width * scale));
 
-	SandText.setFont(font);
-	SandText.setFillColor(Color::Yellow);
-	SandText.setString("Sand");
-	SandText.setPosition(Vector2f(0, width * scale));
+		WaterText.setFont(font);
+		WaterText.setFillColor(Color::Blue);
+		WaterText.setString("Water");
+		WaterText.setPosition(Vector2f(0, width * scale + offset * scale + offset));
 
-	WaterText.setFont(font);
-	WaterText.setFillColor(Color::Blue);
-	WaterText.setString("Water");
-	WaterText.setPosition(Vector2f(0, width * scale + offset * scale + offset));
+		MousePositionText.setFont(font);
+		MousePositionText.setFillColor(Color::White);
+		MousePositionText.setString("Sand");
+		MousePositionText.setPosition(Vector2f(width * scale - 200, width * scale));
 
-	MousePositionText.setFont(font);
-	MousePositionText.setFillColor(Color::White);
-	MousePositionText.setString("Sand");
-	MousePositionText.setPosition(Vector2f(width*scale-200, width * scale));
+		ElementCountText.setFont(font);
+		ElementCountText.setFillColor(Color::White);
+		ElementCountText.setString("Sand");
+		ElementCountText.setPosition(Vector2f(width * scale - 200, width * scale + offset * scale));
 
-	ElementCountText.setFont(font);
-	ElementCountText.setFillColor(Color::White);
-	ElementCountText.setString("Sand");
-	ElementCountText.setPosition(Vector2f(width * scale - 200, width * scale + offset * scale));
+		ui.setFillColor(Color(50, 50, 50));
+		ui.setPosition(Vector2f(0, width * scale));
 
-	ui.setFillColor(Color(50, 50, 50));
-	ui.setPosition(Vector2f(0, width * scale));
-
+	}
+	
 
 	Simulation* sim = new Simulation(width, width);
 	sim->ReplaceElement(new Sand(199, 100));
@@ -167,10 +182,11 @@ int main()
 
 			if (x < width && x > 0 && y < 200 && y > 0)
 			{
-				sim->ReplaceElement(new Sand(x, y));
+				sim->ReplaceElement(new Smoke(x, y));
+				/*sim->ReplaceElement(new Sand(x, y));
 				sim->ReplaceElement(new Sand(x+1, y));
 				sim->ReplaceElement(new Sand(x+1, y+1));
-				sim->ReplaceElement(new Sand(x, y+1));
+				sim->ReplaceElement(new Sand(x, y+1));*/
 			}
 		
 		}
@@ -181,7 +197,7 @@ int main()
 
 			if (x < width && x > 0 && y < 200 && y > 0)
 			{
-					sim->ReplaceElement(new Water(x, y));
+					sim->ReplaceElement(new Rock(x, y));
 			}
 		
 		}

@@ -28,6 +28,7 @@ public:
 	int GetPosY();
 	const ElementTag& GetTag();
 	ElementTag tag;
+	bool HasUpdated = false;
 };
 
 #endif // !ELEMENT_H

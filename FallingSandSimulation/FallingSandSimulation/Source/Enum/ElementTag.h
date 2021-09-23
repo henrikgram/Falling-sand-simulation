@@ -8,6 +8,8 @@ enum class ElementTag
 	EMPTY,
 	BOUNDS,
 	SAND,
-	WATER
+	WATER,
+	ROCK,
+	SMOKE
 };
 #endif // !ELEMENTTAG_H

@@ -145,6 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Concrete Elements\Smoke.cpp" />
+    <ClCompile Include="Source\Elements\Abstract elements\Gas.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Rock.cpp" />
+    <ClCompile Include="Source\Elements\Abstract elements\ImmovableSolid.cpp" />
     <ClCompile Include="Source\Elements\Abstract elements\Liquid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Empty.cpp" />
     <ClCompile Include="Source\Simulation.cpp" />
@@ -156,6 +160,10 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Concrete Elements\Smoke.h" />
+    <ClInclude Include="Source\Elements\Abstract elements\Gas.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Rock.h" />
+    <ClInclude Include="Source\Elements\Abstract elements\ImmovableSolid.h" />
     <ClInclude Include="Source\Elements\Abstract elements\Liquid.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Empty.h" />
     <ClInclude Include="Source\Enum\ElementTag.h" />
