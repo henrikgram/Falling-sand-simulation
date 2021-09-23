@@ -7,6 +7,7 @@ class Simulation;
 #include "SFML/Graphics.hpp"
 #include "../../Simulation.h"
 #include "../../Enum/ElementTag.h"
+#include <random>
 using namespace sf;
 
 class Element
@@ -15,6 +16,7 @@ protected:
 	int posX;
 	int posY;
 	Color color;
+	Color colorPallette[4];
 	
 
 public:
@@ -27,7 +29,9 @@ public:
 	int GetPosX();
 	int GetPosY();
 	const ElementTag& GetTag();
+	const Color& GetColor();
 	ElementTag tag;
+
 	bool HasUpdated = false;
 };
 
