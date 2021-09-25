@@ -1,13 +1,112 @@
-﻿  Simulation.cpp
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(122,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(123,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(131,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(136,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(155,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(160,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(172,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(177,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(105): warning C4715: 'Simulation::CreateElementFromTag': not all control paths return a value
+﻿  Button.cpp
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\UI\Button.cpp(9,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\UI\Button.cpp(9,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\UI\Button.cpp(13,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\UI\Button.cpp(13,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(32,45): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(32,33): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(57,10): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(58,10): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(72,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(72,77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(100,48): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(100,37): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(101,45): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(101,34): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(128,11): warning C4129: 'H': unrecognized character escape sequence
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(128,11): warning C4129: 'D': unrecognized character escape sequence
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(128,11): warning C4129: 'G': unrecognized character escape sequence
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(128,11): warning C4129: 'F': unrecognized character escape sequence
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(128,11): warning C4129: 'M': unrecognized character escape sequence
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(136,42): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(141,68): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(146,69): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(146,56): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(151,76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(151,55): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(156,73): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(156,52): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(160,36): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(164,55): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(164,44): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(190,49): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\main.cpp(195,48): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
   FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe

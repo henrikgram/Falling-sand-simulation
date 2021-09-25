@@ -4,6 +4,7 @@
 #include "Elements/Concrete Elements/Water.h"
 #include "Elements/Concrete Elements/Rock.h"
 #include "Elements/Concrete Elements/Smoke.h"
+#include "UI/Button.h"
 #include <Windows.h>
 #include <chrono>
 #include <thread>
@@ -160,7 +161,7 @@ int main()
 
 	}
 	
-
+	Button* b = new Button("Sand",Vector2f(80 * scale,80 * scale),100*scale,100 * scale,10,Color::White,Color::Black,font);
 	Simulation* sim = new Simulation(width, width);
 	//sim->ReplaceElement(new Sand(150, 100));
 	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND,150,100));
@@ -270,6 +271,7 @@ int main()
 		auto start2 = high_resolution_clock::now();
 
 		Draw(sim);
+		window.draw(b->button);
 
 		auto stop2 = high_resolution_clock::now();
 

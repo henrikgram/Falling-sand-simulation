@@ -109,7 +109,16 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 	//If its the same point, and the mouse haven't moved
 	if (x1 == x2 && y1 == y2)
 	{
-		SetElement(x1, y1, CreateElementFromTag(element, x1, y1));
+		for (int yy = 0; yy < brushSize; yy++)
+		{
+			for (int xx = 0; xx < brushSize; xx++)
+			{
+
+				ReplaceElement(CreateElementFromTag(element, x1 + xx - brushSize / 2, y1 + yy - brushSize / 2));
+
+			}
+
+		}
 		return;
 	}
 
@@ -183,8 +192,6 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 		{
 			for (int xx = 0; xx < brushSize; xx++)
 			{
-
-
 
 				ReplaceElement(CreateElementFromTag(element, newX + xx - brushSize / 2, newY + yy - brushSize / 2));
 
