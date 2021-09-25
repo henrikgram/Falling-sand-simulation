@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+
 #include "Simulation.h"
 #include "Elements/Concrete Elements/Sand.h"
 #include "Elements/Concrete Elements/Water.h"
@@ -15,6 +16,7 @@
 
 using namespace std;
 using namespace std::chrono;
+
 
 
 int scale = 4;
@@ -36,7 +38,13 @@ sf::Text BrushSizeText;
 sf::Text ElementCountText;
 sf::Text WaterText;
 
-VertexArray CursorSize(LineStrip,5);
+Button* sandButton;
+Button* waterButton;
+Button* smokeButton;
+Button* rockButton;
+
+VertexArray CursorSize(LineStrip, 5);
+
 
 string toString(int integer)
 {
@@ -49,39 +57,41 @@ void DrawUI()
 {
 	window.draw(ui);
 
-	window.draw(SandText);
-	window.draw(WaterText);
+	
 	window.draw(ElementCountText);
 
 
-	float x = Mouse::getPosition(window).x ;
-	float y = Mouse::getPosition(window).y ;
-	
+	float x = Mouse::getPosition(window).x;
+	float y = Mouse::getPosition(window).y;
+
 	//TODO: odd numbers dosen't work completely
-	CursorSize[0].position = Vector2f(x - brushSize * scale / 2, y + brushSize/2  * scale);
-	CursorSize[1].position = Vector2f(x + brushSize * scale / 2, y + brushSize/2  * scale);
-	CursorSize[2].position = Vector2f(x + brushSize * scale / 2, y - brushSize /2 * scale);
-	CursorSize[3].position = Vector2f(x - brushSize * scale / 2, y - brushSize /2 * scale);
-	CursorSize[4].position = Vector2f(x - brushSize *scale / 2, y + brushSize/2 * scale);
+	CursorSize[0].position = Vector2f(x - brushSize * scale / 2, y + brushSize / 2 * scale);
+	CursorSize[1].position = Vector2f(x + brushSize * scale / 2, y + brushSize / 2 * scale);
+	CursorSize[2].position = Vector2f(x + brushSize * scale / 2, y - brushSize / 2 * scale);
+	CursorSize[3].position = Vector2f(x - brushSize * scale / 2, y - brushSize / 2 * scale);
+	CursorSize[4].position = Vector2f(x - brushSize * scale / 2, y + brushSize / 2 * scale);
 
 
 
 	window.draw(CursorSize);
 
-	
-	MousePositionText.setString("X: " + toString(x/scale) + " Y: "+ toString(y / scale));
+
+	MousePositionText.setString("X: " + toString(x / scale) + " Y: " + toString(y / scale));
 	window.draw(MousePositionText);
 
 	BrushSizeText.setString("BrushSize: " + toString(brushSize));
 	window.draw(BrushSizeText);
-	
 
-	
+	sandButton->Draw(window);
+	waterButton->Draw(window);
+	rockButton->Draw(window);
+
+
 }
 
 void Draw(Simulation* sim)
 {
-	
+
 	//Simulation
 	for (int y = 0; y < height; y++)
 	{
@@ -89,7 +99,7 @@ void Draw(Simulation* sim)
 		{
 
 			ElementTag type = sim->GetElementTag(x, y);
-		
+
 			if (type == ElementTag::EMPTY)
 			{
 				continue;
@@ -99,7 +109,7 @@ void Draw(Simulation* sim)
 			{
 				RectangleShape shape(Vector2f(1 * scale, 1 * scale));
 				shape.setPosition(Vector2f(x * scale, y * scale));
-				shape.setFillColor((sim->GetElement(x,y)->GetColor()));
+				shape.setFillColor((sim->GetElement(x, y)->GetColor()));
 
 				window.draw(shape);
 			}
@@ -112,7 +122,7 @@ void Draw(Simulation* sim)
 	ElementCountText.setString(toString(sim->Elements));
 	DrawUI();
 
-	
+
 
 
 
@@ -130,15 +140,13 @@ int main()
 	}
 	if (true)
 	{
-		SandText.setFont(font);
-		SandText.setFillColor(Color::Yellow);
-		SandText.setString("Sand");
-		SandText.setPosition(Vector2f(0, width * scale));
+		sandButton = new Button("Sand", Vector2f(80, 35), 0, width * scale, 30, Color(50, 50, 50), Color::Yellow, font);
 
-		WaterText.setFont(font);
-		WaterText.setFillColor(Color::Blue);
-		WaterText.setString("Water");
-		WaterText.setPosition(Vector2f(0, width * scale + offset * scale + offset));
+
+		waterButton = new Button("Water", Vector2f(80, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font);
+
+
+		rockButton = new Button("Rock", Vector2f(80, 35), 0, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(100,100,100), font);
 
 		MousePositionText.setFont(font);
 		MousePositionText.setFillColor(Color::White);
@@ -153,15 +161,17 @@ int main()
 		BrushSizeText.setFont(font);
 		BrushSizeText.setFillColor(Color::White);
 		BrushSizeText.setString("Sand");
-		BrushSizeText.setPosition(Vector2f(width * scale - 200, width * scale + offset *2 * scale));
+		BrushSizeText.setPosition(Vector2f(width * scale - 200, width * scale + offset * 2 * scale));
 
 
 		ui.setFillColor(Color(50, 50, 50));
 		ui.setPosition(Vector2f(0, width * scale));
 
 	}
-	
-	Button* b = new Button("Sand",Vector2f(80 * scale,80 * scale),100*scale,100 * scale,10,Color::White,Color::Black,font);
+
+
+
+
 	Simulation* sim = new Simulation(width, width);
 	//sim->ReplaceElement(new Sand(150, 100));
 	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND,150,100));
@@ -175,12 +185,14 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-
-			if (event.type == sf::Event::MouseWheelScrolled)
+			switch (event.type)
 			{
-				
+			case(sf::Event::Closed):
+				window.close();
+				break;
+
+			case(sf::Event::MouseWheelScrolled):
+
 				if (event.mouseWheelScroll.wheel == Mouse::VerticalWheel)
 				{
 					if (brushSize <= 1)
@@ -194,42 +206,57 @@ int main()
 					{
 						brushSize += event.mouseWheelScroll.delta;
 					}
-					
+
 				}
-				
+				break;
+
+			case(sf::Event::MouseMoved):
+			{
+				int x = Mouse::getPosition(window).x;
+				int y = Mouse::getPosition(window).y;
+
+				if (y / scale > 195)
+				{
+					if (sandButton->isMouseOver(x, y))
+					{
+
+						if (Event::MouseButtonPressed)
+						{
+							//sandButton->Highlight();
+						}
+					}
+					else
+					{
+						sandButton->ReturnToOriginalColor();
+					}
+
+				}
+			}
+				break;
+
+			case(sf::Event::MouseButtonPressed):
+
+				sandButton->Select();
+				break;
 			
-				cout << brushSize << endl;
+
+
 			}
 		}
 
-		
-		
-	
+
+
+
 		if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
 			int x = Mouse::getPosition(window).x / scale;
 			int y = Mouse::getPosition(window).y / scale;
 
-			if (!sim->OutOfBounds(x,y))
+			if (!sim->OutOfBounds(x, y))
 			{
 				sim->AddElementsBetweenPoints(x, y, prevX, prevY, ElementTag::SAND, brushSize);
 			}
-			
-			//sim->ReplaceElement(
 
-			/*if (x < width && x > 0 && y < 200 && y > 0)
-			{
-				for (int yy = 0; yy < brushSize; yy++)
-				{
-					for (int xx = 0; xx < brushSize; xx++)
-					{
-				
-						sim->ReplaceElement(new Sand(x + xx - brushSize / 2, y + yy - brushSize / 2));
-
-					}
-
-				}
-			}*/
 		}
 
 		if (Mouse::isButtonPressed(Mouse::Button::Right))
@@ -250,9 +277,9 @@ int main()
 
 				}
 			}
-		
+
 		}
-	
+
 		window.clear();
 		auto start = high_resolution_clock::now();
 		//sim->DeleteElements();
@@ -266,12 +293,11 @@ int main()
 
 		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 
-		std::cout << "Time taken by Update(): "<< duration.count() << " microseconds" << std::endl;
+		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 
 		auto start2 = high_resolution_clock::now();
 
 		Draw(sim);
-		window.draw(b->button);
 
 		auto stop2 = high_resolution_clock::now();
 
@@ -281,8 +307,8 @@ int main()
 		//std::cout << "Time taken by Draw(): "
 		//	<< duration2.count() << " microseconds" << std::endl;
 
-		
-		
+
+
 	}
 
 	return 0;

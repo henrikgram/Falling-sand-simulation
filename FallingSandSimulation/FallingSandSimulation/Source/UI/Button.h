@@ -7,6 +7,10 @@ public:
 	~Button();
 	void Draw(sf::RenderWindow& window);
 	bool isMouseOver(int x, int y);
+	void Highlight();
+	void Select();
+	void DeSelect();
+	void ReturnToOriginalColor();
 	sf::RectangleShape button;
 	sf::Text text;
 };
