@@ -22,6 +22,8 @@ Context context;
 sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "SFML works!");
 sf::Font font;
 
+int prevX;
+int prevY;
 
 int width = 200;
 int height = 200;
@@ -116,13 +118,7 @@ void Draw(Simulation* sim)
 	window.display();
 }
 
-//void PlaceElement(Simulation* sim, int x, int y, Element* element)
-//{
-//	if (brushSize == 1)
-//	{
-//		sim->ReplaceElement(element);
-//	}
-//}
+
 
 int main()
 {
@@ -166,12 +162,11 @@ int main()
 	
 
 	Simulation* sim = new Simulation(width, width);
-	sim->ReplaceElement(new Sand(199, 100));
+	//sim->ReplaceElement(new Sand(150, 100));
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND,150,100));
 
-	//bot[0].color = Color::Red;
-	//bot[1].color = Color::Red;
-	//top[0].color = Color::Red;
-	//top[1].color = Color::Red;
+	//sim->AddElementsBetweenPoints(100, 199,100, 10, ElementTag::SAND);
+
 
 	while (window.isOpen())
 	{
@@ -214,19 +209,26 @@ int main()
 			int x = Mouse::getPosition(window).x / scale;
 			int y = Mouse::getPosition(window).y / scale;
 
-			if (x < width && x > 0 && y < 200 && y > 0)
+			if (!sim->OutOfBounds(x,y))
+			{
+				sim->AddElementsBetweenPoints(x, y, prevX, prevY, ElementTag::SAND, brushSize);
+			}
+			
+			//sim->ReplaceElement(
+
+			/*if (x < width && x > 0 && y < 200 && y > 0)
 			{
 				for (int yy = 0; yy < brushSize; yy++)
 				{
 					for (int xx = 0; xx < brushSize; xx++)
 					{
-
+				
 						sim->ReplaceElement(new Sand(x + xx - brushSize / 2, y + yy - brushSize / 2));
 
 					}
 
 				}
-			}
+			}*/
 		}
 
 		if (Mouse::isButtonPressed(Mouse::Button::Right))
@@ -253,14 +255,17 @@ int main()
 		window.clear();
 		auto start = high_resolution_clock::now();
 		//sim->DeleteElements();
+
+		prevX = Mouse::getPosition(window).x / scale;
+		prevY = Mouse::getPosition(window).y / scale;
+
 		sim->UpdateSimulation();
 
 		auto stop = high_resolution_clock::now();
 
 		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 
-		//cout << "\x1b[2J";
-		//std::cout << "Time taken by Update(): "<< duration.count() << " microseconds" << std::endl;
+		std::cout << "Time taken by Update(): "<< duration.count() << " microseconds" << std::endl;
 
 		auto start2 = high_resolution_clock::now();
 
@@ -270,9 +275,11 @@ int main()
 
 		auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
 
+		//
+		//std::cout << "Time taken by Draw(): "
+		//	<< duration2.count() << " microseconds" << std::endl;
+
 		
-		std::cout << "Time taken by Draw(): "
-			<< duration2.count() << " microseconds" << std::endl;
 		
 	}
 

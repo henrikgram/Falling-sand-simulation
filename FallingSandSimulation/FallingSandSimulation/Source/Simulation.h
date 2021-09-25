@@ -22,10 +22,12 @@ public:
 	void UpdateSimulation();
 	ElementTag GetElementTag(int x, int y);
 	Element* GetElement(int x, int y);
+	Element* CreateElementFromTag(ElementTag tag, int x, int y);
+	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2,ElementTag element, int brushSize);
 	void SetElement(int x, int y, Element* element);
 	void ReplaceElement(Element* element);
 	int Index(int x, int y);
-
+	bool OutOfBounds(int x, int y);
 	int Elements = 0;
 
 
