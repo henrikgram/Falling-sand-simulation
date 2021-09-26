@@ -1,15 +1,18 @@
 #include "Liquid.h"
 
-Liquid::Liquid(int posX, int posY) : Element(posX,posY)
+Liquid::Liquid(int posX, int posY, int dispersionRate) : Element(posX,posY)
 {
+	this->dispersionRate = dispersionRate;
 }
 
 Liquid::~Liquid()
 {
 }
 
+//TODO: add diagonal support.
 void Liquid::UpdateElement(Simulation* sim)
 {
+	//if under is empty go here first
 	if (sim->GetElementTag(posX, posY + 1) == ElementTag::EMPTY)
 	{
 		SwapPositions(sim, posX, posY + 1);
@@ -18,19 +21,61 @@ void Liquid::UpdateElement(Simulation* sim)
 	{
 		int direction = rand() % 2 + 1;
 
-		if (direction == 1)
+		//Check all the way in the choosen direction, until it finds a not empty element
+
+		//TODO maybe this is cursed
+		if (dispersionRate > 1)
 		{
-			if (sim->GetElementTag(posX - 1, posY) == ElementTag::EMPTY)
+			for (int i = 1; i <= dispersionRate; i++)
 			{
-				SwapPositions(sim, posX - 1, posY);
+				if (direction == 1)
+				{
+					//If it's at the end of the loop, and still hasn't found a filled element, then it just chooses this one.
+					if (sim->GetElementTag(posX - i, posY) == ElementTag::EMPTY && i < dispersionRate)
+					{
+						continue;
+					}
+					else
+					{
+						SwapPositions(sim, posX - (i - 1), posY);
+
+						break;
+					}
+				}
+				else
+				{
+					if (sim->GetElementTag(posX + i, posY) == ElementTag::EMPTY && i < dispersionRate)
+					{
+						continue;
+					}
+					else
+					{
+						SwapPositions(sim, posX + (i - 1), posY);
+
+						break;
+					}
+				}
 			}
 		}
 		else
 		{
-			if (sim->GetElementTag(posX + 1, posY) == ElementTag::EMPTY)
+			if (direction == 1)
 			{
-				SwapPositions(sim, posX + 1, posY);
+				if (sim->GetElementTag(posX - 1, posY) == ElementTag::EMPTY )
+				{
+					SwapPositions(sim, posX - 1, posY);
+				}
+			}
+			else
+			{
+				if (sim->GetElementTag(posX + 1, posY) == ElementTag::EMPTY )
+				{
+					SwapPositions(sim, posX + 1, posY);
+				}
 			}
 		}
+		
+
+		
 	}
 }
