@@ -46,3 +46,8 @@ const ElementTag& Element::GetTag()
 {
 	return tag;
 }
+
+const Color& Element::GetColor()
+{
+	return color;
+}
