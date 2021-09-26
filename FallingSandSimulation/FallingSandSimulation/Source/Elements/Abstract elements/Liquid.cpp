@@ -1,7 +1,8 @@
 #include "Liquid.h"
 
-Liquid::Liquid(int posX, int posY) : Element(posX,posY)
+Liquid::Liquid(int posX, int posY, int dispersionRate) : Element(posX,posY)
 {
+	this->dispersionRate = dispersionRate;
 }
 
 Liquid::~Liquid()
@@ -18,19 +19,24 @@ void Liquid::UpdateElement(Simulation* sim)
 	{
 		int direction = rand() % 2 + 1;
 
-		if (direction == 1)
+		for (int i = 1; i <= dispersionRate; i++)
 		{
-			if (sim->GetElementTag(posX - 1, posY) == ElementTag::EMPTY)
+			if (direction == 1)
 			{
-				SwapPositions(sim, posX - 1, posY);
+				if (sim->GetElementTag(posX - i, posY) == ElementTag::EMPTY)
+				{
+					SwapPositions(sim, posX - i, posY);
+				}
+			}
+			else
+			{
+				if (sim->GetElementTag(posX + i, posY) == ElementTag::EMPTY)
+				{
+					SwapPositions(sim, posX + i, posY);
+				}
 			}
 		}
-		else
-		{
-			if (sim->GetElementTag(posX + 1, posY) == ElementTag::EMPTY)
-			{
-				SwapPositions(sim, posX + 1, posY);
-			}
-		}
+
+		
 	}
 }

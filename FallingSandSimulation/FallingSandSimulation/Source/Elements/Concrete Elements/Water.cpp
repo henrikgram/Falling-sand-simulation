@@ -1,6 +1,6 @@
 #include "Water.h"
 
-Water::Water(int posX, int posY) : Liquid(posX, posY), Element(posX, posY)
+Water::Water(int posX, int posY, int dispersionRate) : Liquid(posX, posY, dispersionRate), Element(posX, posY)
 {
 	tag = ElementTag::WATER;
 
