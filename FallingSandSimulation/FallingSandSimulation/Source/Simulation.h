@@ -13,12 +13,11 @@ private:
 	int width;
 	int height;
 	std::vector<Element*>* SimWorld;
-	Element* SimWorld2;
-	std::stack<Element*>* ElementsToDelete;
-
 
 public:
 	Simulation(int width, int height);
+	~Simulation();
+
 	void UpdateSimulation();
 	ElementTag GetElementTag(int x, int y);
 	Element* GetElement(int x, int y);

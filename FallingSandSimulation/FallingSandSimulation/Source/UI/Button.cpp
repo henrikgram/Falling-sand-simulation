@@ -104,3 +104,8 @@ bool Button::GetIsLeft()
 	return isLeft;
 }
 
+std::string Button::GetText()
+{
+	return text.getString();
+}
+

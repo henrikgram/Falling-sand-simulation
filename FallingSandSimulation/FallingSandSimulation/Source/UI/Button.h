@@ -8,6 +8,8 @@ class Button
 private:
 	bool isSelected;
 	bool isLeft;
+	sf::RectangleShape button;
+	sf::Text text;
 public:
 
 	Button(std::string text, sf::Vector2f size, int x, int y, int characterSize, sf::Color buttonColor, sf::Color textColor,sf::Font& font);
@@ -18,11 +20,10 @@ public:
 	void Select(bool isLeft = true);
 	void DeSelect();
 	void ReturnToOriginalColor();
-
+	std::string GetText();
 	bool GetIsSelected();
 	bool GetIsLeft();
 
-	sf::RectangleShape button;
-	sf::Text text;
+
 };
 

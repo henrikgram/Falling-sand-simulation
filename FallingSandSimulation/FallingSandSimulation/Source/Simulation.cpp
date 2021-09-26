@@ -11,8 +11,6 @@ Simulation::Simulation(int width, int height)
 	this->height = height;
 
 	SimWorld = new std::vector<Element*>(width * height);
-	SimWorld2 = new Empty[width * height];
-	ElementsToDelete = new std::stack<Element*>;
 
 	for (int y = 0; y < height; y++)
 	{
@@ -21,6 +19,21 @@ Simulation::Simulation(int width, int height)
 			SimWorld->at(Index(x, y)) = new Empty(x, y);
 		}
 	}
+}
+
+Simulation::~Simulation()
+{
+	int size = SimWorld->size();
+
+	for (int i = size - 1; i >= 0; i--)
+	{
+		delete (*SimWorld)[i];
+		(*SimWorld)[i] = nullptr;
+
+	}
+
+	delete SimWorld;
+	SimWorld = nullptr;
 }
 
 void Simulation::UpdateSimulation()

@@ -42,7 +42,8 @@ sf::Text ElementCountText;
 sf::Text WaterText;
 
 
-vector<ElementButton*>* buttons = new vector<ElementButton*>();
+vector<Button*>* buttons = new vector<Button*>();
+
 
 VertexArray CursorSize(LineStrip, 5);
 
@@ -150,6 +151,7 @@ void Setup()
 	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
 	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
 	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
+	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -242,14 +244,35 @@ void HandleInput()
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						isLeft = true;
-						leftBrushMode = i->GetElement();
-						i->Select();
+						ElementButton* e = dynamic_cast<ElementButton*>(i);
+						if (e != nullptr)
+						{
+							leftBrushMode = e->GetElement();
+							i->Select();
+						}
+
+						if (i->GetText() == "Clear")
+						{
+							delete sim;
+							sim = nullptr;
+
+							sim = new Simulation(width, height);
+
+						}
+					
 					}
 					else
 					{
-						rightBrushMode = i->GetElement();
-						isLeft = false;
-						i->Select(false);
+						//TODO: look here for performance, it may be cursed
+						ElementButton* e = dynamic_cast<ElementButton*>(i);
+						if (e != nullptr)
+						{
+							leftBrushMode = e->GetElement();
+							isLeft = false;
+							i->Select(false);
+						}
+
+					
 					}
 
 
@@ -317,10 +340,16 @@ int main()
 
 	while (window.isOpen())
 	{
+		auto start3 = high_resolution_clock::now();
 
 		HandleInput();
 		window.clear();
-		auto start = high_resolution_clock::now();
+
+		auto stop3 = high_resolution_clock::now();
+		auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
+		std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
+
+		//auto start = high_resolution_clock::now();
 	
 		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 		prevX = Mouse::getPosition(window).x / scale;
@@ -328,16 +357,16 @@ int main()
 
 		sim->UpdateSimulation();
 
-		auto stop = high_resolution_clock::now();
+		/*auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 
-		auto start2 = high_resolution_clock::now();
+		auto start2 = high_resolution_clock::now();*/
 
 		Draw();
 
-		auto stop2 = high_resolution_clock::now();
-		auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
+		//auto stop2 = high_resolution_clock::now();
+		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
 
 
 	}
