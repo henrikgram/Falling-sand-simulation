@@ -16,3 +16,9 @@ bool ImmovableSolid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 {
 	return false;
 }
+
+
+bool ImmovableSolid::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}

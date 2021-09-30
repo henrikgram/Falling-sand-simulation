@@ -15,6 +15,11 @@ bool Empty::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 	return false;
 }
 
+bool Empty::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
 Empty::Empty()
 {
 	concreteTag = ElementTag::EMPTY;

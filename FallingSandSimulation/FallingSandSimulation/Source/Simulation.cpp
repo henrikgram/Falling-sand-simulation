@@ -5,6 +5,7 @@
 #include "Elements/Concrete Elements/Water.h";
 #include "Elements/Concrete Elements/Smoke.h"
 #include "Elements/Concrete Elements/Lava.h"
+#include "Elements/Concrete Elements/Vapor.h"
 
 Simulation::Simulation(int width, int height)
 {
@@ -131,6 +132,9 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 		break;
 	case ElementTag::LAVA:
 		return new Lava(x, y);
+		break;
+	case ElementTag::VAPOR:
+		return new Vapor(x, y);
 		break;
 	default:
 		break;

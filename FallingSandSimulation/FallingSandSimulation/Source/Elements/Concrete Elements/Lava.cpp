@@ -26,6 +26,10 @@ bool Lava::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 		CoolIntoRock(sim, otherX, otherY);
 		return true;
 	}
+	else if (element == ElementTag::ROCK)
+	{
+		MeltIntoLava(sim, otherX, otherY);
+	}
 	
 	return false;
 }
@@ -33,7 +37,13 @@ bool Lava::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 void Lava::CoolIntoRock(Simulation* sim, int otherX, int otherY)
 {
 	//replace water with smoke
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, this->posX, this->posY));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::VAPOR, this->posX, this->posY));
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, otherX, otherY));
 
+}
+
+void Lava::MeltIntoLava(Simulation* sim, int otherX, int otherY)
+{
+	//replace water with smoke
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::LAVA, otherX, otherY));
 }

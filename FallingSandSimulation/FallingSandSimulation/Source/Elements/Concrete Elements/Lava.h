@@ -7,9 +7,8 @@ public:
 	virtual ~Lava();
 
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
-	void CoolIntoRock(Simulation* sim, int otherX, int otherY);
-	
 private:
-
+	void CoolIntoRock(Simulation* sim, int otherX, int otherY);
+	void MeltIntoLava(Simulation* sim, int otherX, int otherY);
 };
 

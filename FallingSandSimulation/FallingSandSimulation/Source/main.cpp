@@ -150,9 +150,12 @@ void Setup()
 	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
 	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
 	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
-	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
+
 	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
 	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+
+	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
+	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -268,7 +271,7 @@ void HandleInput()
 						ElementButton* e = dynamic_cast<ElementButton*>(i);
 						if (e != nullptr)
 						{
-							leftBrushMode = e->GetElement();
+							rightBrushMode = e->GetElement();
 							isLeft = false;
 							i->Select(false);
 						}

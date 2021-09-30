@@ -10,6 +10,11 @@ Gas::~Gas()
 
 void Gas::UpdateElement(Simulation* sim)
 {
+	if (SpecialBehavior(sim))
+	{
+		return;
+	}
+
 	AbstractTag ElementUnder = sim->GetAbstractType(posX, posY - 1);
 	if (ElementUnder == AbstractTag::EMPTY || ElementUnder == AbstractTag::LIQUID)
 	{
@@ -44,4 +49,9 @@ bool Gas::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 {
 	SwapPositions(sim, otherX, otherY);
 		return false;
+}
+
+bool Gas::SpecialBehavior(Simulation* sim)
+{
+	return false;
 }

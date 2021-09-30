@@ -48,6 +48,11 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	}
 }
 
+bool MovableSolid::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
 bool MovableSolid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 {
 	SwapPositions(sim, otherX, otherY);

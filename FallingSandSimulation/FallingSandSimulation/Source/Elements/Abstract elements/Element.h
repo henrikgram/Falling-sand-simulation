@@ -26,8 +26,11 @@ public:
 	virtual ~Element();
 	void SwapPositions(Simulation* sim, int swapX, int swapY);
 	void UpdatePosition(int x, int y);
+
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) = 0;
 	virtual void UpdateElement(Simulation* sim) = 0;
+	virtual bool SpecialBehavior(Simulation* sim) = 0;
+
 	int GetPosX();
 	int GetPosY();
 	const ElementTag& GetConcreteType();

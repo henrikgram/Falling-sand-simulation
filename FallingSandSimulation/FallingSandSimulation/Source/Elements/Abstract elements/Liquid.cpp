@@ -11,6 +11,11 @@ bool Liquid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 	return false;
 }
 
+bool Liquid::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
 Liquid::~Liquid()
 {
 }
@@ -45,6 +50,7 @@ void Liquid::UpdateElement(Simulation* sim)
 			{
 				if (direction == 1)
 				{
+
 				
 					//If it's at the end of the loop, and still hasn't found a filled element, then it just chooses this one.
 					if (sim->GetAbstractType(posX - i, posY) == AbstractTag::EMPTY && i < dispersionRate)
