@@ -4,6 +4,7 @@
 #include "Elements/Concrete Elements/Rock.h";
 #include "Elements/Concrete Elements/Water.h";
 #include "Elements/Concrete Elements/Smoke.h"
+#include "Elements/Concrete Elements/Lava.h"
 
 Simulation::Simulation(int width, int height)
 {
@@ -44,8 +45,8 @@ void Simulation::UpdateSimulation()
 
 	for (int i = size - 1; i >= 0; i--)
 	{
-		ElementTag tag = (*SimWorld)[i]->GetTag();
-		if (tag == ElementTag::EMPTY || tag == ElementTag::ROCK)
+		ElementTag concreteTag = (*SimWorld)[i]->GetConcreteType();
+		if (concreteTag == ElementTag::EMPTY || concreteTag == ElementTag::ROCK)
 		{
 			continue;
 		}
@@ -62,7 +63,7 @@ void Simulation::UpdateSimulation()
 	//Reset "has updated"
 	for (int i = size - 1; i >= 0; i--)
 	{
-		if ((*SimWorld)[i]->GetTag() == ElementTag::EMPTY)
+		if ((*SimWorld)[i]->GetConcreteType() == ElementTag::EMPTY)
 		{
 			continue;
 		}
@@ -72,7 +73,7 @@ void Simulation::UpdateSimulation()
 	}
 }
 
-ElementTag Simulation::GetElementTag(int x, int y)
+ElementTag Simulation::GetElementType(int x, int y)
 {
 	//TODO: this works but doesn't seem right
 	if (OutOfBounds(x, y))
@@ -83,9 +84,25 @@ ElementTag Simulation::GetElementTag(int x, int y)
 
 	else
 	{
-		return SimWorld->at(Index(x, y))->GetTag();
+		return SimWorld->at(Index(x, y))->GetConcreteType();
 	}
 
+}
+
+
+AbstractTag Simulation::GetAbstractType(int x, int y)
+{
+	//TODO: this works but doesn't seem right
+	if (OutOfBounds(x, y))
+		//if(x > width && x > 0 && y < height && y >  0)
+	{
+		return AbstractTag::BOUNDS;
+	}
+
+	else
+	{
+		return SimWorld->at(Index(x, y))->GetType();
+	}
 }
 
 Element* Simulation::GetElement(int x, int y)
@@ -93,9 +110,9 @@ Element* Simulation::GetElement(int x, int y)
 	return SimWorld->at(Index(x, y));
 }
 
-Element* Simulation::CreateElementFromTag(ElementTag tag, int x, int y)
+Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 {
-	switch (tag)
+	switch (concreteTag)
 	{
 	case ElementTag::EMPTY:
 		return new Empty(x, y);
@@ -111,6 +128,9 @@ Element* Simulation::CreateElementFromTag(ElementTag tag, int x, int y)
 		break;
 	case ElementTag::SMOKE:
 		return new Smoke(x, y);
+		break;
+	case ElementTag::LAVA:
+		return new Lava(x, y);
 		break;
 	default:
 		break;

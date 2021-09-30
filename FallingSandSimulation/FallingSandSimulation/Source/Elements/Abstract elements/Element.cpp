@@ -42,9 +42,14 @@ int Element::GetPosY()
 	return posY;
 }
 
-const ElementTag& Element::GetTag()
+const ElementTag& Element::GetConcreteType()
 {
-	return tag;
+	return concreteTag;
+}
+
+const AbstractTag& Element::GetType()
+{
+	return abstractTag;
 }
 
 const Color& Element::GetColor()

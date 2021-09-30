@@ -9,7 +9,7 @@ Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Solid(posX, posY), El
 	
 	int colorPick = rand() % 4;
 
-	tag = ElementTag::SAND;
+	concreteTag = ElementTag::SAND;
 	color = colorPallette[colorPick];
 }
 

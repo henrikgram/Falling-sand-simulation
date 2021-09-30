@@ -2,7 +2,7 @@
 
 Water::Water(int posX, int posY, int dispersionRate) : Liquid(posX, posY, dispersionRate), Element(posX, posY)
 {
-	tag = ElementTag::WATER;
+	concreteTag = ElementTag::WATER;
 
 	colorPallette[0] = Color(0, 119, 255);
 	colorPallette[1] = Color(0, 120, 255);

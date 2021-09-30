@@ -10,9 +10,10 @@ Gas::~Gas()
 
 void Gas::UpdateElement(Simulation* sim)
 {
-	if (sim->GetElementTag(posX, posY - 1) == ElementTag::EMPTY)
+	AbstractTag ElementUnder = sim->GetAbstractType(posX, posY - 1);
+	if (ElementUnder == AbstractTag::EMPTY || ElementUnder == AbstractTag::LIQUID)
 	{
-		SwapPositions(sim, posX, posY - 1);
+		AffectOtherElement(sim, posX, posY - 1);
 	}
 	else
 	{
@@ -20,17 +21,27 @@ void Gas::UpdateElement(Simulation* sim)
 
 		if (direction == 1)
 		{
-			if (sim->GetElementTag(posX - 1, posY) == ElementTag::EMPTY)
+			AbstractTag ElementRight = sim->GetAbstractType(posX - 1, posY);
+
+			if (ElementRight == AbstractTag::EMPTY || ElementRight == AbstractTag::LIQUID)
 			{
-				SwapPositions(sim, posX - 1, posY);
+				AffectOtherElement(sim, posX - 1, posY);
 			}
 		}
 		else
 		{
-			if (sim->GetElementTag(posX + 1, posY) == ElementTag::EMPTY)
+			AbstractTag ElementLeft = sim->GetAbstractType(posX + 1, posY);
+
+			if (ElementLeft == AbstractTag::EMPTY || ElementLeft == AbstractTag::LIQUID)
 			{
-				SwapPositions(sim, posX + 1, posY);
+				AffectOtherElement(sim, posX + 1, posY);
 			}
 		}
 	}
+}
+
+bool Gas::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
+	SwapPositions(sim, otherX, otherY);
+		return false;
 }

@@ -110,7 +110,7 @@ void Draw()
 	{
 		for (int x = 0; x < width; x++)
 		{
-			ElementTag type = sim->GetElementTag(x, y);
+			ElementTag type = sim->GetElementType(x, y);
 
 			if (type == ElementTag::EMPTY)
 			{
@@ -150,6 +150,7 @@ void Setup()
 	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
 	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
 	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
+	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
 	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
 	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
 
@@ -340,16 +341,16 @@ int main()
 
 	while (window.isOpen())
 	{
-		auto start3 = high_resolution_clock::now();
+		//auto start3 = high_resolution_clock::now();
 
 		HandleInput();
 		window.clear();
 
-		auto stop3 = high_resolution_clock::now();
-		auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
-		std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
+		//auto stop3 = high_resolution_clock::now();
+		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
+		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
 
-		//auto start = high_resolution_clock::now();
+		auto start = high_resolution_clock::now();
 	
 		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 		prevX = Mouse::getPosition(window).x / scale;
@@ -357,11 +358,11 @@ int main()
 
 		sim->UpdateSimulation();
 
-		/*auto stop = high_resolution_clock::now();
+		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 
-		auto start2 = high_resolution_clock::now();*/
+		//auto start2 = high_resolution_clock::now();
 
 		Draw();
 

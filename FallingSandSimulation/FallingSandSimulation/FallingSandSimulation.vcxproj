@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Concrete Elements\Lava.cpp" />
     <ClCompile Include="Source\UI\ElementButton.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Smoke.cpp" />
@@ -162,6 +163,8 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Concrete Elements\Lava.h" />
+    <ClInclude Include="Source\Enum\AbstractTag.h" />
     <ClInclude Include="Source\UI\ElementButton.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Smoke.h" />

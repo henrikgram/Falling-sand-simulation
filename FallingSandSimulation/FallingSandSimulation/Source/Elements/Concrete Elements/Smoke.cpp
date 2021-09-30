@@ -2,7 +2,7 @@
 
 Smoke::Smoke(int posX, int posY) : Gas(posX, posY), Element(posX, posY)
 {
-	tag = ElementTag::SMOKE;
+	concreteTag = ElementTag::SMOKE;
 
 	colorPallette[0] = Color(180, 180, 180);
 	colorPallette[1] = Color(185, 185, 185);

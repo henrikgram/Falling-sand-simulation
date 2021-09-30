@@ -7,5 +7,6 @@ public:
 	virtual ~MovableSolid();
 
 	void UpdateElement(Simulation* sim) override;
+	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 };
 

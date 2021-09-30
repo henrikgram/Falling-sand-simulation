@@ -10,6 +10,7 @@ enum class ElementTag
 	SAND,
 	WATER,
 	ROCK,
-	SMOKE
+	SMOKE,
+	LAVA
 };
 #endif // !ELEMENTTAG_H
