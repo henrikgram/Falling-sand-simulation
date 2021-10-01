@@ -1,6 +1,6 @@
 #include "Gas.h"
 
-Gas::Gas(int posX, int posY) : Element(posX, posY)
+Gas::Gas(int posX, int posY,int health) : Element(posX, posY, health)
 {
 }
 

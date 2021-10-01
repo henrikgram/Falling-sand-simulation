@@ -18,10 +18,13 @@ protected:
 	int posY;
 	Color color;
 	Color colorPallette[4];
+
+	int temperature;
+	int health;
 	
 
 public:
-	Element(int posX, int posY);
+	Element(int posX, int posY, int health = 100);
 	Element();
 	virtual ~Element();
 	void SwapPositions(Simulation* sim, int swapX, int swapY);
@@ -30,6 +33,10 @@ public:
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) = 0;
 	virtual void UpdateElement(Simulation* sim) = 0;
 	virtual bool SpecialBehavior(Simulation* sim) = 0;
+
+	virtual void HeatUp(int amount);
+	virtual void CoolDown(int amount);
+	virtual void ReceiveDamage(int amount);
 
 	int GetPosX();
 	int GetPosY();

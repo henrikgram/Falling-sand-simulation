@@ -24,7 +24,7 @@
     <ClCompile Include="Source\Elements\Abstract elements\MovableSolid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Concrete Elements\Sand.cpp">
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Sand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Elements\Abstract elements\Solid.cpp">
@@ -36,7 +36,7 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Empty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Concrete Elements\Water.cpp">
+    <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Water.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Elements\Abstract elements\Liquid.cpp">
@@ -45,13 +45,13 @@
     <ClCompile Include="Source\Elements\Abstract elements\ImmovableSolid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Concrete Elements\Rock.cpp">
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Rock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Elements\Abstract elements\Gas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Concrete Elements\Smoke.cpp">
+    <ClCompile Include="Source\Elements\Concrete Elements\Gas\Smoke.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\UI\Button.cpp">
@@ -60,10 +60,13 @@
     <ClCompile Include="Source\UI\ElementButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Concrete Elements\Lava.cpp">
+    <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Lava.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Concrete Elements\Vapor.cpp">
+    <ClCompile Include="Source\Elements\Concrete Elements\Gas\Vapor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Acid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,7 +77,7 @@
     <ClInclude Include="Source\Elements\Abstract elements\MovableSolid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Elements\Concrete Elements\Sand.h">
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Sand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Elements\Abstract elements\Solid.h">
@@ -89,7 +92,7 @@
     <ClInclude Include="Source\Enum\ElementTag.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Elements\Concrete Elements\Water.h">
+    <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Water.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Elements\Abstract elements\Liquid.h">
@@ -98,13 +101,13 @@
     <ClInclude Include="Source\Elements\Abstract elements\ImmovableSolid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Elements\Concrete Elements\Rock.h">
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Rock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Elements\Abstract elements\Gas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Elements\Concrete Elements\Smoke.h">
+    <ClInclude Include="Source\Elements\Concrete Elements\Gas\Smoke.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\Button.h">
@@ -116,10 +119,13 @@
     <ClInclude Include="Source\Enum\AbstractTag.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Elements\Concrete Elements\Lava.h">
+    <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Lava.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Elements\Concrete Elements\Vapor.h">
+    <ClInclude Include="Source\Elements\Concrete Elements\Gas\Vapor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Acid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,6 +3,7 @@
 
 MovableSolid::MovableSolid(int posX, int posY) : Solid(posX, posY), Element(posX, posY)
 {
+	abstractTag == AbstractTag::MOVABLESOLID;
 }
 
 MovableSolid::~MovableSolid()

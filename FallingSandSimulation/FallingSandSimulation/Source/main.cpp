@@ -1,10 +1,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Simulation.h"
-#include "Elements/Concrete Elements/Sand.h"
-#include "Elements/Concrete Elements/Water.h"
-#include "Elements/Concrete Elements/Rock.h"
-#include "Elements/Concrete Elements/Smoke.h"
 #include "UI/ElementButton.h"
 #include <Windows.h>
 #include <chrono>
@@ -156,6 +152,7 @@ void Setup()
 
 	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
 	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
+	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale  * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
 
 	//Making sure the default
 	(*buttons)[0]->Select();

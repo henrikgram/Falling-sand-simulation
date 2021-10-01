@@ -1,11 +1,13 @@
 #include "Simulation.h"
+
 #include "Elements/Concrete Elements/Empty.h"
-#include "Elements/Concrete Elements/Sand.h"
-#include "Elements/Concrete Elements/Rock.h";
-#include "Elements/Concrete Elements/Water.h";
-#include "Elements/Concrete Elements/Smoke.h"
-#include "Elements/Concrete Elements/Lava.h"
-#include "Elements/Concrete Elements/Vapor.h"
+#include "Elements/Concrete Elements/Solids/Sand.h"
+#include "Elements/Concrete Elements/Solids/Rock.h";
+#include "Elements/Concrete Elements/Liquids/Water.h";
+#include "Elements/Concrete Elements/Gas/Smoke.h"
+#include "Elements/Concrete Elements/Liquids/Lava.h"
+#include "Elements/Concrete Elements/Gas/Vapor.h"
+#include "Elements/Concrete Elements/Liquids/Acid.h"
 
 Simulation::Simulation(int width, int height)
 {
@@ -47,7 +49,7 @@ void Simulation::UpdateSimulation()
 	for (int i = size - 1; i >= 0; i--)
 	{
 		ElementTag concreteTag = (*SimWorld)[i]->GetConcreteType();
-		if (concreteTag == ElementTag::EMPTY || concreteTag == ElementTag::ROCK)
+		if (concreteTag == ElementTag::EMPTY)
 		{
 			continue;
 		}
@@ -135,6 +137,9 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 		break;
 	case ElementTag::VAPOR:
 		return new Vapor(x, y);
+		break;
+	case ElementTag::ACID:
+		return new Acid(x, y);
 		break;
 	default:
 		break;

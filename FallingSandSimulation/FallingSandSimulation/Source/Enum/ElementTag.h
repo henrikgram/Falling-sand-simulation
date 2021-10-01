@@ -12,6 +12,7 @@ enum class ElementTag
 	ROCK,
 	SMOKE,
 	LAVA,
-	VAPOR
+	VAPOR,
+	ACID
 };
 #endif // !ELEMENTTAG_H

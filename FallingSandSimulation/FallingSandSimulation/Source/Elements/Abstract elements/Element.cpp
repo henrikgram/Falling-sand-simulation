@@ -1,9 +1,12 @@
 #include "Element.h"
 
-Element::Element(int posX, int posY)
+Element::Element(int posX, int posY, int health)
 {
 	this->posX = posX;
 	this->posY = posY;
+	this->health = health;
+	temperature = 20;
+	health = 100;
 }
 
 Element::Element()
@@ -30,6 +33,21 @@ void Element::UpdatePosition(int x, int y)
 {
 	posX = x;
 	posY = y;
+}
+
+void Element::HeatUp(int heatAmount)
+{
+	temperature += heatAmount;
+}
+
+void Element::CoolDown(int amount)
+{
+	temperature -= amount;
+}
+
+void Element::ReceiveDamage(int amount)
+{
+	health -= amount;
 }
 
 int Element::GetPosX()
