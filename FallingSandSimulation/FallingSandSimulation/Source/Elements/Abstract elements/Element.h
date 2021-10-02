@@ -21,6 +21,7 @@ protected:
 
 	int temperature;
 	int health;
+	int density;
 	
 
 public:
@@ -44,6 +45,7 @@ public:
 	const ElementTag& GetConcreteType();
 	const AbstractTag& GetType();
 	const Color& GetColor();
+	const int GetDensity();
 
 	//TODO: check if visitor pattern can help this
 	ElementTag concreteTag;

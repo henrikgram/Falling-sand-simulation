@@ -6,6 +6,7 @@ Element::Element(int posX, int posY, int health)
 	this->posY = posY;
 	this->health = health;
 	temperature = 20;
+	density = 1;
 	health = 100;
 }
 
@@ -96,4 +97,9 @@ const AbstractTag& Element::GetType()
 const Color& Element::GetColor()
 {
 	return color;
+}
+
+const int Element::GetDensity()
+{
+	return density;
 }

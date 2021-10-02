@@ -13,6 +13,8 @@ Vapor::Vapor(int posX, int posY, int coolTime) : Gas(posX, posY, health), Elemen
 
 	int colorPick = rand() % 4;
 	color = colorPallette[colorPick];
+
+	density = 5;
 }
 
 bool Vapor::SpecialBehavior(Simulation* sim)

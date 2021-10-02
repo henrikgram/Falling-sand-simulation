@@ -2,6 +2,7 @@
 
 Gas::Gas(int posX, int posY,int health) : Element(posX, posY, health)
 {
+	abstractTag = AbstractTag::GAS;
 }
 
 Gas::~Gas()
@@ -16,10 +17,19 @@ void Gas::UpdateElement(Simulation* sim)
 	}
 
 	AbstractTag ElementUnder = sim->GetAbstractType(posX, posY - 1);
+	if (ElementUnder == AbstractTag::GAS)
+	{
+		if (this->density > sim->GetElement(posX, posY - 1)->GetDensity())
+		{
+			SwapPositions(sim, posX, posY - 1);
+		}
+	}
 	if (ElementUnder == AbstractTag::EMPTY || ElementUnder == AbstractTag::LIQUID)
 	{
-		AffectOtherElement(sim, posX, posY - 1);
+		SwapPositions(sim, posX, posY - 1);
+		//AffectOtherElement(sim, posX, posY - 1);
 	}
+
 	else
 	{
 		int direction = rand() % 2 + 1;
@@ -28,18 +38,18 @@ void Gas::UpdateElement(Simulation* sim)
 		{
 			AbstractTag ElementRight = sim->GetAbstractType(posX - 1, posY);
 
-			if (ElementRight == AbstractTag::EMPTY || ElementRight == AbstractTag::LIQUID)
+			if (ElementRight == AbstractTag::EMPTY || ElementRight == AbstractTag::LIQUID || ElementRight == AbstractTag::GAS)
 			{
-				AffectOtherElement(sim, posX - 1, posY);
+				SwapPositions(sim, posX - 1, posY);
 			}
 		}
 		else
 		{
 			AbstractTag ElementLeft = sim->GetAbstractType(posX + 1, posY);
 
-			if (ElementLeft == AbstractTag::EMPTY || ElementLeft == AbstractTag::LIQUID)
+			if (ElementLeft == AbstractTag::EMPTY || ElementLeft == AbstractTag::LIQUID || ElementLeft == AbstractTag::GAS)
 			{
-				AffectOtherElement(sim, posX + 1, posY);
+				SwapPositions(sim, posX + 1, posY);
 			}
 		}
 	}
@@ -47,7 +57,6 @@ void Gas::UpdateElement(Simulation* sim)
 
 bool Gas::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 {
-	SwapPositions(sim, otherX, otherY);
 		return false;
 }
 

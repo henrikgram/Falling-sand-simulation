@@ -4,6 +4,7 @@ class Liquid : virtual public Element
 {
 protected:
 	int dispersionRate;
+	int density;
 public:
 	Liquid(int posX, int posY, int dispersionRate = 1);
 	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
