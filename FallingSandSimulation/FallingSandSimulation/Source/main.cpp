@@ -1,10 +1,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Simulation.h"
-#include "Elements/Concrete Elements/Sand.h"
-#include "Elements/Concrete Elements/Water.h"
-#include "Elements/Concrete Elements/Rock.h"
-#include "Elements/Concrete Elements/Smoke.h"
 #include "UI/ElementButton.h"
 #include <Windows.h>
 #include <chrono>
@@ -33,6 +29,7 @@ int prevY;
 int width = 200;
 int height = 200;
 int offset = 10;
+bool isPaused = false;
 
 RectangleShape uiArea(Vector2f(width* scale, 50 * scale));
 sf::Text SandText;
@@ -110,7 +107,7 @@ void Draw()
 	{
 		for (int x = 0; x < width; x++)
 		{
-			ElementTag type = sim->GetElementTag(x, y);
+			ElementTag type = sim->GetElementType(x, y);
 
 			if (type == ElementTag::EMPTY)
 			{
@@ -150,8 +147,14 @@ void Setup()
 	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
 	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
 	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
+
 	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
 	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new Button("Pause", Vector2f(100, 35), 120*2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+
+	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
+	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
+	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale  * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -259,6 +262,17 @@ void HandleInput()
 							sim = new Simulation(width, height);
 
 						}
+						else if (i->GetText() == "Pause")
+						{
+							isPaused = true;
+							i->SetText("Resume");
+
+						}
+						else if (i->GetText() == "Resume")
+						{
+							isPaused = false;
+							i->SetText("Pause");
+						}
 					
 					}
 					else
@@ -267,7 +281,7 @@ void HandleInput()
 						ElementButton* e = dynamic_cast<ElementButton*>(i);
 						if (e != nullptr)
 						{
-							leftBrushMode = e->GetElement();
+							rightBrushMode = e->GetElement();
 							isLeft = false;
 							i->Select(false);
 						}
@@ -337,31 +351,41 @@ int main()
 	Setup();
 
 	sim = new Simulation(width, width);
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 101));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 99, 100));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 101, 100));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 99));
 
 	while (window.isOpen())
 	{
-		auto start3 = high_resolution_clock::now();
+		//auto start3 = high_resolution_clock::now();
 
 		HandleInput();
 		window.clear();
 
-		auto stop3 = high_resolution_clock::now();
-		auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
-		std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
-
-		//auto start = high_resolution_clock::now();
-	
+		//auto stop3 = high_resolution_clock::now();
+		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
+		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
+		
 		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
+
 		prevX = Mouse::getPosition(window).x / scale;
 		prevY = Mouse::getPosition(window).y / scale;
 
-		sim->UpdateSimulation();
+		if (!isPaused)
+		{
+			auto start = high_resolution_clock::now();
 
-		/*auto stop = high_resolution_clock::now();
-		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+			sim->UpdateSimulation();
 
-		auto start2 = high_resolution_clock::now();*/
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+		}
+		
+
+		//auto start2 = high_resolution_clock::now();
 
 		Draw();
 

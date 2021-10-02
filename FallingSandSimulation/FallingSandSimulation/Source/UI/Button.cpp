@@ -109,3 +109,8 @@ std::string Button::GetText()
 	return text.getString();
 }
 
+void Button::SetText(std::string text)
+{
+	this->text.setString(text);
+}
+

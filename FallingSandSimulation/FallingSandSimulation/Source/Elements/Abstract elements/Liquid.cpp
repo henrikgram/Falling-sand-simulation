@@ -3,6 +3,17 @@
 Liquid::Liquid(int posX, int posY, int dispersionRate) : Element(posX,posY)
 {
 	this->dispersionRate = dispersionRate;
+	abstractTag = AbstractTag::LIQUID;
+}
+
+bool Liquid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
+	return false;
+}
+
+bool Liquid::SpecialBehavior(Simulation* sim)
+{
+	return false;
 }
 
 Liquid::~Liquid()
@@ -12,8 +23,24 @@ Liquid::~Liquid()
 //TODO: add diagonal support.
 void Liquid::UpdateElement(Simulation* sim)
 {
+	//TODO: this should work in the later checks
+	if (CheckSurroundingElementsForAffect(sim, posX, posY))
+	{
+		return;
+	}
+
+	//if (AffectOtherElement(sim, posX,posY +1))
+	//{
+	//	return;
+	//}
+
+	//if (AffectOtherElement(sim, posX, posY - 1))
+	//{
+	//	return;
+	//}
+
 	//if under is empty go here first
-	if (sim->GetElementTag(posX, posY + 1) == ElementTag::EMPTY)
+	if (sim->GetAbstractType(posX, posY + 1) == AbstractTag::EMPTY)
 	{
 		SwapPositions(sim, posX, posY + 1);
 	}
@@ -30,28 +57,43 @@ void Liquid::UpdateElement(Simulation* sim)
 			{
 				if (direction == 1)
 				{
+
+				
 					//If it's at the end of the loop, and still hasn't found a filled element, then it just chooses this one.
-					if (sim->GetElementTag(posX - i, posY) == ElementTag::EMPTY && i < dispersionRate)
+					if (sim->GetAbstractType(posX - i, posY) == AbstractTag::EMPTY && i < dispersionRate)
 					{
 						continue;
 					}
 					else
 					{
+					/*	if (AffectOtherElement(sim, posX - (i - 1), posY))
+						{
+							return;
+							break;
+						}*/
+
 						SwapPositions(sim, posX - (i - 1), posY);
+						//SwapPositions(sim, posX - (i - 1), posY);
 
 						break;
 					}
 				}
 				else
 				{
-					if (sim->GetElementTag(posX + i, posY) == ElementTag::EMPTY && i < dispersionRate)
+					if (sim->GetAbstractType(posX + i, posY) == AbstractTag::EMPTY && i < dispersionRate)
 					{
 						continue;
 					}
 					else
 					{
-						SwapPositions(sim, posX + (i - 1), posY);
+						/*if (AffectOtherElement(sim, posX + (i - 1), posY))
+						{
+							return;
+							break;
+						}*/
 
+						//SwapPositions(sim, posX + (i - 1), posY);
+						SwapPositions(sim, posX + (i - 1), posY);
 						break;
 					}
 				}
@@ -61,15 +103,26 @@ void Liquid::UpdateElement(Simulation* sim)
 		{
 			if (direction == 1)
 			{
-				if (sim->GetElementTag(posX - 1, posY) == ElementTag::EMPTY )
+				if (AffectOtherElement(sim, posX - 1, posY))
+				{
+					return;
+				}
+
+				if (sim->GetAbstractType(posX - 1, posY) == AbstractTag::EMPTY )
 				{
 					SwapPositions(sim, posX - 1, posY);
 				}
 			}
 			else
 			{
-				if (sim->GetElementTag(posX + 1, posY) == ElementTag::EMPTY )
+				if (AffectOtherElement(sim, posX + 1, posY))
 				{
+					return;
+				}
+
+				if (sim->GetAbstractType(posX + 1, posY) == AbstractTag::EMPTY )
+				{
+					
 					SwapPositions(sim, posX + 1, posY);
 				}
 			}
