@@ -155,8 +155,11 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 		{
 			for (int xx = 0; xx < brushSize; xx++)
 			{
-
-				ReplaceElement(CreateElementFromTag(element, x1 + xx - brushSize / 2, y1 + yy - brushSize / 2));
+				if (!OutOfBounds(x1 + xx - brushSize / 2, y1 + yy - brushSize / 2))
+				{
+					ReplaceElement(CreateElementFromTag(element, x1 + xx - brushSize / 2, y1 + yy - brushSize / 2));
+				}
+				
 
 			}
 
@@ -234,8 +237,11 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 		{
 			for (int xx = 0; xx < brushSize; xx++)
 			{
-
-				ReplaceElement(CreateElementFromTag(element, newX + xx - brushSize / 2, newY + yy - brushSize / 2));
+				if (!OutOfBounds(newX + xx - brushSize / 2, newY + yy - brushSize / 2))
+				{
+					ReplaceElement(CreateElementFromTag(element, newX + xx - brushSize / 2, newY + yy - brushSize / 2));
+				}
+				
 
 			}
 

@@ -29,7 +29,7 @@ void Liquid::UpdateElement(Simulation* sim)
 		return;
 	}
 
-	//if (AffectOtherElement(sim, posX,posY +1))
+	//if (AffectOtherElement(sim, posX,posY +1))1
 	//{
 	//	return;
 	//}
