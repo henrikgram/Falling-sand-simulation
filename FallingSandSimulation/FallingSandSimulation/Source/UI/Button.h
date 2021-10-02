@@ -21,6 +21,7 @@ public:
 	void DeSelect();
 	void ReturnToOriginalColor();
 	std::string GetText();
+	void SetText(std::string text);
 	bool GetIsSelected();
 	bool GetIsLeft();
 

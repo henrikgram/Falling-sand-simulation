@@ -23,15 +23,22 @@ Liquid::~Liquid()
 //TODO: add diagonal support.
 void Liquid::UpdateElement(Simulation* sim)
 {
-	if (AffectOtherElement(sim, posX, posY + 1))
+	//TODO: this should work in the later checks
+	if (CheckSurroundingElementsForAffect(sim, posX, posY))
 	{
 		return;
 	}
 
-	if (AffectOtherElement(sim, posX, posY - 1))
-	{
-	return;
-	}
+	//if (AffectOtherElement(sim, posX,posY +1))
+	//{
+	//	return;
+	//}
+
+	//if (AffectOtherElement(sim, posX, posY - 1))
+	//{
+	//	return;
+	//}
+
 	//if under is empty go here first
 	if (sim->GetAbstractType(posX, posY + 1) == AbstractTag::EMPTY)
 	{
@@ -59,10 +66,11 @@ void Liquid::UpdateElement(Simulation* sim)
 					}
 					else
 					{
-						if (AffectOtherElement(sim, posX - (i - 1), posY))
+					/*	if (AffectOtherElement(sim, posX - (i - 1), posY))
 						{
 							return;
-						}
+							break;
+						}*/
 
 						SwapPositions(sim, posX - (i - 1), posY);
 						//SwapPositions(sim, posX - (i - 1), posY);
@@ -78,10 +86,11 @@ void Liquid::UpdateElement(Simulation* sim)
 					}
 					else
 					{
-						if (AffectOtherElement(sim, posX + (i - 1), posY))
+						/*if (AffectOtherElement(sim, posX + (i - 1), posY))
 						{
 							return;
-						}
+							break;
+						}*/
 
 						//SwapPositions(sim, posX + (i - 1), posY);
 						SwapPositions(sim, posX + (i - 1), posY);
@@ -106,7 +115,7 @@ void Liquid::UpdateElement(Simulation* sim)
 			}
 			else
 			{
-				if (AffectOtherElement(sim, posX - 1, posY))
+				if (AffectOtherElement(sim, posX + 1, posY))
 				{
 					return;
 				}

@@ -35,6 +35,29 @@ void Element::UpdatePosition(int x, int y)
 	posY = y;
 }
 
+bool Element::CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY)
+{
+	if (AffectOtherElement(sim, posX,posY + 1))
+	{
+		return true;
+	}
+	if (AffectOtherElement(sim, posX, posY - 1))
+	{
+		return true;
+	}
+	if (AffectOtherElement(sim, posX-1, posY))
+	{
+		 return true;
+	}
+	if (AffectOtherElement(sim, posX + 1, posY))
+	{
+		return true;
+	}
+
+	return false;
+
+}
+
 void Element::HeatUp(int heatAmount)
 {
 	temperature += heatAmount;

@@ -2,7 +2,7 @@
 
 ImmovableSolid::ImmovableSolid(int posX, int posY) : Solid(posX, posY), Element(posX, posY)
 {
-	abstractTag == AbstractTag::IMMOVABLESOLID;
+	abstractTag = AbstractTag::IMMOVABLESOLID;
 }
 
 ImmovableSolid::~ImmovableSolid()
