@@ -16,12 +16,19 @@ class Element
 protected:
 	int posX;
 	int posY;
+
+	float velX;
+	float velY;
+
 	Color color;
 	Color colorPallette[4];
 
+	//Properties of the element
 	int temperature;
 	int health;
-	int density;
+	float density;
+	float mass;
+	float friction;
 	
 
 public:
@@ -31,6 +38,7 @@ public:
 	void SwapPositions(Simulation* sim, int swapX, int swapY);
 	void UpdatePosition(int x, int y);
 	bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
+
 
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) = 0;
 	virtual void UpdateElement(Simulation* sim) = 0;

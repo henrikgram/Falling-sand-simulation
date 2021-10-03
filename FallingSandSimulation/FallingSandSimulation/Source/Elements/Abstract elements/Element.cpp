@@ -7,7 +7,11 @@ Element::Element(int posX, int posY, int health)
 	this->health = health;
 	temperature = 20;
 	density = 1;
+	mass = 1;
+	velX = 0;
+	velY = 1;
 	health = 100;
+	friction = 0.1f;
 }
 
 Element::Element()

@@ -236,7 +236,7 @@ void HandleInput()
 		break;
 
 		case(sf::Event::MouseButtonPressed):
-
+		{
 			int x = Mouse::getPosition(window).x;
 			int y = Mouse::getPosition(window).y;
 			for (auto i : *buttons)
@@ -273,7 +273,7 @@ void HandleInput()
 							isPaused = false;
 							i->SetText("Pause");
 						}
-					
+
 					}
 					else
 					{
@@ -286,7 +286,7 @@ void HandleInput()
 							i->Select(false);
 						}
 
-					
+
 					}
 
 
@@ -310,7 +310,28 @@ void HandleInput()
 				}
 
 			}
+		}
 			break;
+
+			case(sf::Event::KeyPressed):
+		{
+
+			if (event.key.code == sf::Keyboard::Right)
+			{
+				if (isPaused)
+				{
+
+					auto start = high_resolution_clock::now();
+
+					sim->UpdateSimulation();
+
+					auto stop = high_resolution_clock::now();
+					auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+					std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+				}
+			}
+
+		}
 
 
 
@@ -351,11 +372,9 @@ int main()
 	Setup();
 
 	sim = new Simulation(width, width);
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 101));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 99, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 101, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 99));
+	
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
+
 
 	while (window.isOpen())
 	{
