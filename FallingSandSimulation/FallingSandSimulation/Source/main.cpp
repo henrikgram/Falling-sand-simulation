@@ -20,7 +20,10 @@ int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 Context context;
+sf::View view(sf::FloatRect(0,0,200,250));
 sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "SFML works!");
+
+
 sf::Font font;
 Simulation* sim;
 int prevX;
@@ -38,7 +41,8 @@ sf::Text BrushSizeText;
 sf::Text ElementCountText;
 sf::Text WaterText;
 
-
+vector<Vertex> image;
+vector<Vertex> imageRect;
 vector<Button*>* buttons = new vector<Button*>();
 
 
@@ -111,19 +115,27 @@ void Draw()
 
 			if (type == ElementTag::EMPTY)
 			{
-				continue;
+				image[y * width + x].color = Color(0, 0, 0);
 			}
 			else
 			{
-				RectangleShape shape(Vector2f(1 * scale, 1 * scale));
+		/*		RectangleShape shape(Vector2f(1 * scale, 1 * scale));
 				shape.setPosition(Vector2f(x * scale, y * scale));
 				shape.setFillColor((sim->GetElement(x, y)->GetColor()));
 
-				window.draw(shape);
+				window.draw(shape);*/
+
+				image[y * width + x].color = sim->GetElement(x, y)->GetColor();
+				//imageRect[y * width + x].setFillColor(sim->GetElement(x, y)->GetColor());
+
 			}
+		
 		}
 
 	}
+
+	//window.draw(image.data(), imageRect.size(), sf::Quads);
+	window.draw(image.data(), image.size(), sf::Points);
 
 	//UI
 	DrawUI();
@@ -178,7 +190,23 @@ void Setup()
 	uiArea.setFillColor(Color(50, 50, 50));
 	uiArea.setPosition(Vector2f(0, width * scale));
 
+	//reserves the space
+	image.reserve(width * height);
+//	imageQuads.reserve(width * height);
 
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+	
+			image.push_back(Vertex(Vector2f(x, y)));
+			//RectangleShape rec;
+			//rec.setSize(Vector2f(scale,scale));
+			//rec.setPosition(x, y);
+			//imageRect.push_back(rec);
+			
+		}
+	}
 }
 
 void HandleInput()
@@ -349,7 +377,8 @@ void HandleInput()
 int main()
 {
 	Setup();
-
+	/*window.setView(view);
+	view.zoom(4);*/
 	sim = new Simulation(width, width);
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 101));
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 99, 100));
@@ -357,12 +386,14 @@ int main()
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 101, 100));
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 99));
 
+	
 	while (window.isOpen())
 	{
 		//auto start3 = high_resolution_clock::now();
 
 		HandleInput();
 		window.clear();
+
 
 		//auto stop3 = high_resolution_clock::now();
 		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
@@ -375,23 +406,25 @@ int main()
 
 		if (!isPaused)
 		{
-			auto start = high_resolution_clock::now();
+			//auto start = high_resolution_clock::now();
 
 			sim->UpdateSimulation();
 
-			auto stop = high_resolution_clock::now();
+			/*auto stop = high_resolution_clock::now();
 			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;*/
 		}
 		
 
-		//auto start2 = high_resolution_clock::now();
+		auto start2 = high_resolution_clock::now();
 
 		Draw();
 
-		//auto stop2 = high_resolution_clock::now();
-		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
+		auto stop2 = high_resolution_clock::now();
+		auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
 
+
+		std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
 
 	}
 
