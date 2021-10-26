@@ -19,8 +19,8 @@ int scale = 4;
 int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
-Context context;
-sf::View view(sf::FloatRect(0,0,200,250));
+
+
 sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "SFML works!");
 
 
@@ -43,6 +43,8 @@ sf::Text WaterText;
 
 vector<Vertex> image;
 vector<Vertex> imageRect;
+vector<Vertex> imageQuads;
+vector<sf::Drawable> GUI;
 vector<Button*>* buttons = new vector<Button*>();
 
 
@@ -60,6 +62,36 @@ string toString(int integer)
 	return numstr;
 }
 
+void AddQuad(int x, int y)
+{
+	sf::Vertex topLeft;
+	sf::Vertex topRight;
+	sf::Vertex bottomLeft;
+	sf::Vertex bottomRight;
+
+	float onScreenX = x * scale;
+	float onScreenY = y * scale;
+
+	topLeft.position = { onScreenX, onScreenY };
+	topRight.position = { onScreenX + scale, onScreenY };
+	bottomLeft.position = { onScreenX + scale, onScreenY + scale };
+	bottomRight.position = { onScreenX, onScreenY + scale };
+
+	image.push_back(topLeft);
+	image.push_back(topRight);
+	image.push_back(bottomLeft);
+	image.push_back(bottomRight);
+}
+
+void SetColor(int x, int y, sf::Color color)
+{
+	int index = (y * width + x) * scale;
+
+	for (int i = 0; i < scale; i++)
+	{
+		image[index + i].color = color;
+	}
+}
 /// <summary>
 /// UI related draw calls
 /// </summary>
@@ -88,6 +120,7 @@ void DrawUI()
 	BrushSizeText.setString("BrushSize: " + toString(brushSize));
 	ElementCountText.setString(toString(sim->Elements));
 
+
 	window.draw(uiArea);
 	window.draw(ElementCountText);
 	window.draw(MousePositionText);
@@ -115,19 +148,11 @@ void Draw()
 
 			if (type == ElementTag::EMPTY)
 			{
-				image[y * width + x].color = Color(0, 0, 0);
+				SetColor(x, y, sf::Color(0, 0, 0));
 			}
 			else
 			{
-		/*		RectangleShape shape(Vector2f(1 * scale, 1 * scale));
-				shape.setPosition(Vector2f(x * scale, y * scale));
-				shape.setFillColor((sim->GetElement(x, y)->GetColor()));
-
-				window.draw(shape);*/
-
-				image[y * width + x].color = sim->GetElement(x, y)->GetColor();
-				//imageRect[y * width + x].setFillColor(sim->GetElement(x, y)->GetColor());
-
+				SetColor(x, y, sim->GetElement(x, y)->GetColor());
 			}
 		
 		}
@@ -135,10 +160,11 @@ void Draw()
 	}
 
 	//window.draw(image.data(), imageRect.size(), sf::Quads);
-	window.draw(image.data(), image.size(), sf::Points);
+	window.draw(image.data(), image.size(), sf::Quads);
 
 	//UI
 	DrawUI();
+
 	window.display();
 }
 
@@ -162,11 +188,11 @@ void Setup()
 
 	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
 	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
-	buttons->push_back(new Button("Pause", Vector2f(100, 35), 120*2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new Button("Pause", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
 
 	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
 	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
-	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale  * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
+	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -190,21 +216,15 @@ void Setup()
 	uiArea.setFillColor(Color(50, 50, 50));
 	uiArea.setPosition(Vector2f(0, width * scale));
 
+	
 	//reserves the space
-	image.reserve(width * height);
-//	imageQuads.reserve(width * height);
+	image.reserve((width * height) * 4);
 
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
-	
-			image.push_back(Vertex(Vector2f(x, y)));
-			//RectangleShape rec;
-			//rec.setSize(Vector2f(scale,scale));
-			//rec.setPosition(x, y);
-			//imageRect.push_back(rec);
-			
+			AddQuad(x, y);
 		}
 	}
 }
@@ -301,7 +321,7 @@ void HandleInput()
 							isPaused = false;
 							i->SetText("Pause");
 						}
-					
+
 					}
 					else
 					{
@@ -314,7 +334,7 @@ void HandleInput()
 							i->Select(false);
 						}
 
-					
+
 					}
 
 
@@ -380,13 +400,9 @@ int main()
 	/*window.setView(view);
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 101));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 99, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 101, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, 100, 99));
 
-	
+
+
 	while (window.isOpen())
 	{
 		//auto start3 = high_resolution_clock::now();
@@ -398,7 +414,7 @@ int main()
 		//auto stop3 = high_resolution_clock::now();
 		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
 		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
-		
+
 		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 
 		prevX = Mouse::getPosition(window).x / scale;
@@ -414,7 +430,7 @@ int main()
 			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;*/
 		}
-		
+
 
 		auto start2 = high_resolution_clock::now();
 
