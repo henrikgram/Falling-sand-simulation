@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\InFlow.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\OutFlow.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Acid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Lava.cpp" />
     <ClCompile Include="Source\UI\ElementButton.cpp" />
@@ -165,6 +167,8 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Vapor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\InFlow.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\OutFlow.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Acid.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Lava.h" />
     <ClInclude Include="Source\Enum\AbstractTag.h" />

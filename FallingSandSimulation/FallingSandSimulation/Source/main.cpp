@@ -193,6 +193,9 @@ void Setup()
 	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
 	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
 	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
+	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
+
+	buttons->push_back(new ElementButton("InFlow", Vector2f(100, 35), 120 *2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -400,7 +403,8 @@ int main()
 	/*window.setView(view);
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
-
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::INFLOW, 100, 100));
+	
 
 
 	while (window.isOpen())

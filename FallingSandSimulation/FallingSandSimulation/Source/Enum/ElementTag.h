@@ -13,6 +13,8 @@ enum class ElementTag
 	SMOKE,
 	LAVA,
 	VAPOR,
-	ACID
+	ACID,
+	INFLOW,
+	OUTFLOW
 };
 #endif // !ELEMENTTAG_H

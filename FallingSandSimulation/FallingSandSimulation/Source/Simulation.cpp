@@ -8,6 +8,8 @@
 #include "Elements/Concrete Elements/Liquids/Lava.h"
 #include "Elements/Concrete Elements/Gas/Vapor.h"
 #include "Elements/Concrete Elements/Liquids/Acid.h"
+#include "Elements/Concrete Elements/Solids/OutFlow.h"
+#include "Elements/Concrete Elements/Solids/InFlow.h"
 
 Simulation::Simulation(int width, int height)
 {
@@ -113,6 +115,13 @@ Element* Simulation::GetElement(int x, int y)
 	return SimWorld->at(Index(x, y));
 }
 
+/// <summary>
+/// THIS IS CURSED
+/// </summary>
+/// <param name="concreteTag"></param>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <returns></returns>
 Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 {
 	switch (concreteTag)
@@ -140,6 +149,12 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 		break;
 	case ElementTag::ACID:
 		return new Acid(x, y);
+		break;
+	case ElementTag::OUTFLOW:
+		return new OutFlow(x, y);
+		break;
+	case ElementTag::INFLOW:
+		return new InFlow(x, y);
 		break;
 	default:
 		break;
@@ -241,15 +256,9 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 				{
 					ReplaceElement(CreateElementFromTag(element, newX + xx - brushSize / 2, newY + yy - brushSize / 2));
 				}
-				
-
 			}
-
 		}
-
 	}
-
-
 }
 
 void Simulation::SetElement(int x, int y, Element* element)
