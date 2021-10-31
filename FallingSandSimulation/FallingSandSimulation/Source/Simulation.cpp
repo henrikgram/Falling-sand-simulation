@@ -1,4 +1,4 @@
-#include "Simulation.h"
+﻿#include "Simulation.h"
 
 #include "Elements/Concrete Elements/Empty.h"
 #include "Elements/Concrete Elements/Solids/Sand.h"
@@ -161,24 +161,71 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 	}
 }
 
+void Simulation::AddElementsInSquareArea(int x, int y, int brushSize, ElementTag element)
+{
+	//Loops through the brushsquare and adds elements
+	for (int brushY = 0; brushY < brushSize; brushY++)
+	{
+		for (int brushX = 0; brushX < brushSize; brushX++)
+		{
+			if (!OutOfBounds(x + brushX - brushSize / 2, y + brushY - brushSize / 2))
+			{
+				ReplaceElement(CreateElementFromTag(element, x + brushX - brushSize / 2, y + brushY - brushSize / 2));
+			}
+		}
+	}
+}
+
+/// <summary>
+/// For circles
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="brushSize"></param>
+/// <param name="element"></param>
+void Simulation::AddElementsInCircleArea(int x, int y, int brushSize, ElementTag element)
+{
+	
+	//Equation for circle
+	//(x−a)^2+(y−b)^2=r^2
+	float dstX;
+	float dstY;
+	float dstSquared;
+	float radius = brushSize / 2;
+
+	//Calculate the bounding box of the cicle
+	int top = floor(y - radius),
+		bottom = ceil(y+ radius),
+		left = floor(x - radius),
+		right = ceil(x+ radius);
+
+	for (int yy = top; yy <= bottom; yy++) {
+		for (int xx = left; xx <= right; xx++) {
+			
+			dstX = x - xx;
+			dstY = y - yy;
+			dstSquared = dstX * dstX + dstY * dstY;
+
+			//if the distance to the point from the circles center is the radius or less, then it's inside the circle
+			if (dstSquared <= radius * radius)
+			{
+				if (!OutOfBounds(xx, yy))
+				{
+					ReplaceElement(CreateElementFromTag(element, xx,yy));
+				}
+			}
+		}
+	}
+
+	
+}
 void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize)
 {
 	//If its the same point, and the mouse haven't moved
 	if (x1 == x2 && y1 == y2)
 	{
-		for (int yy = 0; yy < brushSize; yy++)
-		{
-			for (int xx = 0; xx < brushSize; xx++)
-			{
-				if (!OutOfBounds(x1 + xx - brushSize / 2, y1 + yy - brushSize / 2))
-				{
-					ReplaceElement(CreateElementFromTag(element, x1 + xx - brushSize / 2, y1 + yy - brushSize / 2));
-				}
-				
-
-			}
-
-		}
+		AddElementsInSquareArea(x1, y1, brushSize, element);
+		
 		return;
 	}
 
@@ -216,8 +263,6 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 
 		if (isVertical)
 		{
-		
-
 			if (positive)
 			{
 				newY = i + y1;
@@ -228,13 +273,9 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 				newY = i + y2;
 				newX = round(i * lineBetweenPoints) + x2;
 			}
-
-			
 		}
 		else
 		{
-		
-
 			if (positive)
 			{
 				newX = i + x1;
@@ -245,19 +286,82 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 				newX = i + x2;
 				newY = round(i * lineBetweenPoints) + y2;
 			}
-
 		}
 
-		for (int yy = 0; yy < brushSize; yy++)
+		AddElementsInSquareArea(newX, newY, brushSize, element);
+	}
+}
+
+void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize, void(*func)(int,int, ElementTag,int))
+{
+	//If its the same point, and the mouse haven't moved
+	if (x1 == x2 && y1 == y2)
+	{
+		//AddElementsInSquareArea(x1, y1, brushSize, element);
+		func(x1, y1, element, brushSize);
+		return;
+	}
+
+	// y = mx + b to find slope
+	float lineBetweenPoints;
+	int distance;
+	bool positive = false;
+
+	//check if its the x distance or y distance the line has to follow
+	float dstX = (x2 - x1);
+	float dstY = (y2 - y1);
+
+
+	bool isVertical = abs(dstX) < abs(dstY);
+
+
+	if (!isVertical)
+	{
+		distance = dstX;
+		lineBetweenPoints = dstY / dstX;
+	}
+	else
+	{
+		distance = dstY;
+		lineBetweenPoints = dstX / dstY;
+	}
+
+	positive = distance > 0;
+	distance = abs(distance);
+
+	for (int i = 0; i < distance; i++)
+	{
+		int newX;
+		int newY;
+
+		if (isVertical)
 		{
-			for (int xx = 0; xx < brushSize; xx++)
+			if (positive)
 			{
-				if (!OutOfBounds(newX + xx - brushSize / 2, newY + yy - brushSize / 2))
-				{
-					ReplaceElement(CreateElementFromTag(element, newX + xx - brushSize / 2, newY + yy - brushSize / 2));
-				}
+				newY = i + y1;
+				newX = round(i * lineBetweenPoints) + x1;
+			}
+			else
+			{
+				newY = i + y2;
+				newX = round(i * lineBetweenPoints) + x2;
 			}
 		}
+		else
+		{
+			if (positive)
+			{
+				newX = i + x1;
+				newY = round(i * lineBetweenPoints) + y1;
+			}
+			else
+			{
+				newX = i + x2;
+				newY = round(i * lineBetweenPoints) + y2;
+			}
+		}
+
+		//AddElementsInSquareArea(newX, newY, brushSize, element);
 	}
 }
 

@@ -25,7 +25,13 @@ public:
 	AbstractTag GetAbstractType(int x, int y);
 	Element* GetElement(int x, int y);
 	Element* CreateElementFromTag(ElementTag concreteTag, int x, int y);
+	void AddElementsInSquareArea(int x, int y, int brushSize, ElementTag element);
+	void AddElementsInCircleArea(int x, int y, int brushSize, ElementTag element);
+
+	
 	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2,ElementTag element, int brushSize);
+	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize, void(*func));
+	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize, void(*func)(int, int, ElementTag, int));
 	void SetElement(int x, int y, Element* element);
 	void ReplaceElement(Element* element);
 	int Index(int x, int y);
