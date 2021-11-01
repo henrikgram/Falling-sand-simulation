@@ -20,7 +20,6 @@ int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
-
 sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "SFML works!");
 
 
@@ -405,7 +404,8 @@ int main()
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::WATER, 100, 100));
-	
+	const char* str = "test.txt";
+	sim->SaveSimState(str);
 
 
 	while (window.isOpen())

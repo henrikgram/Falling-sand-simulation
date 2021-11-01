@@ -8,5 +8,6 @@ public:
 	void UpdateElement(Simulation* sim) override;
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 	virtual bool SpecialBehavior(Simulation* sim) override;
+	virtual bool IsValidMove(Simulation* sim, int dstX, int dstY) override;
 };
 

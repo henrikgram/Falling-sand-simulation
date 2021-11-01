@@ -8,6 +8,7 @@ class Element;
 #include <vector>
 #include <stack>
 
+
 class Simulation
 {
 private:
@@ -29,6 +30,7 @@ public:
 	void AddElementsInCircleArea(int x, int y, int brushSize, ElementTag element);
 
 	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2,ElementTag element, int brushSize);
+	void SaveSimState(const char* fileName);
 	
 	void SetElement(int x, int y, Element* element);
 	void ReplaceElement(Element* element);
@@ -39,8 +41,6 @@ public:
 
 
 
-	template<typename T, typename F>
-	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize, T&& t, F&& f);
 
 };
 

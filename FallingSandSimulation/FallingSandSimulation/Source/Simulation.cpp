@@ -1,4 +1,6 @@
 ﻿#include "Simulation.h"
+#include <iostream>
+#include <fstream>
 
 #include "Elements/Concrete Elements/Empty.h"
 #include "Elements/Concrete Elements/Solids/Sand.h"
@@ -10,6 +12,7 @@
 #include "Elements/Concrete Elements/Liquids/Acid.h"
 #include "Elements/Concrete Elements/Solids/OutFlow.h"
 #include "Elements/Concrete Elements/Solids/InFlow.h"
+
 
 Simulation::Simulation(int width, int height)
 {
@@ -289,6 +292,15 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 
 		AddElementsInSquareArea(newX, newY, brushSize, element);
 	}
+}
+
+void Simulation::SaveSimState(const char* fileName)
+{
+	std::ofstream saveFile(fileName);
+	
+	saveFile << "Files can be tricky, but it is fun enough!";
+
+	saveFile.close();
 }
 
 
