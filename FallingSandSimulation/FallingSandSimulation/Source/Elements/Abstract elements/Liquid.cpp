@@ -11,6 +11,21 @@ bool Liquid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 	return false;
 }
 
+bool Liquid::IsValidMove(Simulation* sim, int dstX, int dstY)
+{
+	AbstractTag element = sim->GetAbstractType(dstX, dstY);
+
+	if (element == AbstractTag::EMPTY)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+}
+
 bool Liquid::SpecialBehavior(Simulation* sim)
 {
 	return false;
@@ -29,106 +44,30 @@ void Liquid::UpdateElement(Simulation* sim)
 		return;
 	}
 
-	//if (AffectOtherElement(sim, posX,posY +1))1
-	//{
-	//	return;
-	//}
-
-	//if (AffectOtherElement(sim, posX, posY - 1))
-	//{
-	//	return;
-	//}
-
-	//if under is empty go here first
-	if (sim->GetAbstractType(posX, posY + 1) == AbstractTag::EMPTY)
+	if (SpecialBehavior(sim))
+	{
+		return;
+	}
+	
+	if (IsValidMove(sim, posX, posY + 1))
 	{
 		SwapPositions(sim, posX, posY + 1);
 	}
 	else
 	{
 		int direction = rand() % 2 + 1;
+		
 
 		//Check all the way in the choosen direction, until it finds a not empty element
 
-		//TODO maybe this is cursed
-		if (dispersionRate > 1)
+		if (direction == 1)
 		{
-			for (int i = 1; i <= dispersionRate; i++)
-			{
-				if (direction == 1)
-				{
-
-				
-					//If it's at the end of the loop, and still hasn't found a filled element, then it just chooses this one.
-					if (sim->GetAbstractType(posX - i, posY) == AbstractTag::EMPTY && i < dispersionRate)
-					{
-						continue;
-					}
-					else
-					{
-					/*	if (AffectOtherElement(sim, posX - (i - 1), posY))
-						{
-							return;
-							break;
-						}*/
-
-						SwapPositions(sim, posX - (i - 1), posY);
-						//SwapPositions(sim, posX - (i - 1), posY);
-
-						break;
-					}
-				}
-				else
-				{
-					if (sim->GetAbstractType(posX + i, posY) == AbstractTag::EMPTY && i < dispersionRate)
-					{
-						continue;
-					}
-					else
-					{
-						/*if (AffectOtherElement(sim, posX + (i - 1), posY))
-						{
-							return;
-							break;
-						}*/
-
-						//SwapPositions(sim, posX + (i - 1), posY);
-						SwapPositions(sim, posX + (i - 1), posY);
-						break;
-					}
-				}
-			}
+			MoveTo(sim, posX + dispersionRate, posY);
 		}
 		else
 		{
-			if (direction == 1)
-			{
-				if (AffectOtherElement(sim, posX - 1, posY))
-				{
-					return;
-				}
-
-				if (sim->GetAbstractType(posX - 1, posY) == AbstractTag::EMPTY )
-				{
-					SwapPositions(sim, posX - 1, posY);
-				}
-			}
-			else
-			{
-				if (AffectOtherElement(sim, posX + 1, posY))
-				{
-					return;
-				}
-
-				if (sim->GetAbstractType(posX + 1, posY) == AbstractTag::EMPTY )
-				{
-					
-					SwapPositions(sim, posX + 1, posY);
-				}
-			}
+			MoveTo(sim, posX - dispersionRate, posY);
 		}
-		
 
-		
 	}
 }

@@ -225,7 +225,6 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 	if (x1 == x2 && y1 == y2)
 	{
 		AddElementsInSquareArea(x1, y1, brushSize, element);
-		
 		return;
 	}
 
@@ -292,78 +291,7 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 	}
 }
 
-void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize, void(*func)(int,int, ElementTag,int))
-{
-	//If its the same point, and the mouse haven't moved
-	if (x1 == x2 && y1 == y2)
-	{
-		//AddElementsInSquareArea(x1, y1, brushSize, element);
-		func(x1, y1, element, brushSize);
-		return;
-	}
 
-	// y = mx + b to find slope
-	float lineBetweenPoints;
-	int distance;
-	bool positive = false;
-
-	//check if its the x distance or y distance the line has to follow
-	float dstX = (x2 - x1);
-	float dstY = (y2 - y1);
-
-
-	bool isVertical = abs(dstX) < abs(dstY);
-
-
-	if (!isVertical)
-	{
-		distance = dstX;
-		lineBetweenPoints = dstY / dstX;
-	}
-	else
-	{
-		distance = dstY;
-		lineBetweenPoints = dstX / dstY;
-	}
-
-	positive = distance > 0;
-	distance = abs(distance);
-
-	for (int i = 0; i < distance; i++)
-	{
-		int newX;
-		int newY;
-
-		if (isVertical)
-		{
-			if (positive)
-			{
-				newY = i + y1;
-				newX = round(i * lineBetweenPoints) + x1;
-			}
-			else
-			{
-				newY = i + y2;
-				newX = round(i * lineBetweenPoints) + x2;
-			}
-		}
-		else
-		{
-			if (positive)
-			{
-				newX = i + x1;
-				newY = round(i * lineBetweenPoints) + y1;
-			}
-			else
-			{
-				newX = i + x2;
-				newY = round(i * lineBetweenPoints) + y2;
-			}
-		}
-
-		//AddElementsInSquareArea(newX, newY, brushSize, element);
-	}
-}
 
 void Simulation::SetElement(int x, int y, Element* element)
 {

@@ -30,8 +30,10 @@ public:
 	virtual ~Element();
 	void SwapPositions(Simulation* sim, int swapX, int swapY);
 	void UpdatePosition(int x, int y);
+	bool MoveTo(Simulation* sim, int x, int y);
 	bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
 
+	virtual bool IsValidMove(Simulation*, int dstX, int dstY);
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) = 0;
 	virtual void UpdateElement(Simulation* sim) = 0;
 	virtual bool SpecialBehavior(Simulation* sim) = 0;

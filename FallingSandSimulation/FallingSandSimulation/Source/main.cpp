@@ -397,13 +397,14 @@ void HandleInput()
 
 }
 
+
 int main()
 {
 	Setup();
 	/*window.setView(view);
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::INFLOW, 100, 100));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::WATER, 100, 100));
 	
 
 
@@ -426,25 +427,25 @@ int main()
 
 		if (!isPaused)
 		{
-			//auto start = high_resolution_clock::now();
+			auto start = high_resolution_clock::now();
 
 			sim->UpdateSimulation();
 
-			/*auto stop = high_resolution_clock::now();
+			auto stop = high_resolution_clock::now();
 			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;*/
+			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 		}
 
 
-		auto start2 = high_resolution_clock::now();
+		//auto start2 = high_resolution_clock::now();
 
 		Draw();
 
-		auto stop2 = high_resolution_clock::now();
-		auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
+		//auto stop2 = high_resolution_clock::now();
+		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
 
 
-		std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
+		//std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
 
 	}
 
