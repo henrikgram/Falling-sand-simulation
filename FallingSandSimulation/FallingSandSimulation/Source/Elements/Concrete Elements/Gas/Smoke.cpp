@@ -16,3 +16,13 @@ Smoke::Smoke(int posX, int posY, int health) : Gas(posX, posY, health), Element(
 Smoke::~Smoke()
 {
 }
+
+bool Smoke::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
+bool Smoke::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
+	return false;
+}

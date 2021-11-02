@@ -125,6 +125,25 @@ bool Element::IsValidMove(Simulation*, int dstX, int dstY)
 	return false;
 }
 
+void Element::UpdateElement(Simulation* sim)
+{
+	if (SpecialBehavior(sim))
+	{
+		return;
+	}
+
+	if (isDead())
+	{
+		Die(sim);
+	}
+
+	if (CheckSurroundingElementsForAffect(sim, posX, posY))
+	{
+		return;
+	}
+	
+}
+
 //bool Element::Move(Simulation*, int dstX, int dstY)
 //{
 //	return false;
@@ -132,25 +151,52 @@ bool Element::IsValidMove(Simulation*, int dstX, int dstY)
 
 bool Element::CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY)
 {
-	if (AffectOtherElement(sim, posX,posY + 1))
+	if (!sim->OutOfBounds(posX, posY + 1))
 	{
-		return true;
+		if (AffectOtherElement(sim, posX, posY + 1))
+		{
+			return true;
+		}
 	}
-	if (AffectOtherElement(sim, posX, posY - 1))
+	if (!sim->OutOfBounds(posX, posY - 1))
 	{
-		return true;
+		if (AffectOtherElement(sim, posX, posY - 1))
+		{
+			return true;
+		}
 	}
-	if (AffectOtherElement(sim, posX-1, posY))
+	if (!sim->OutOfBounds(posX - 1, posY))
 	{
-		 return true;
+		if (AffectOtherElement(sim, posX - 1, posY))
+		{
+			return true;
+		}
 	}
-	if (AffectOtherElement(sim, posX + 1, posY))
+	if (!sim->OutOfBounds(posX + 1, posY))
 	{
-		return true;
+		if (AffectOtherElement(sim, posX + 1, posY))
+		{
+			return true;
+		}
 	}
+
 
 	return false;
 
+}
+
+bool Element::isDead()
+{
+	if (health <= 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+void Element::Die(Simulation* sim)
+{
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));
 }
 
 void Element::HeatUp(int heatAmount)

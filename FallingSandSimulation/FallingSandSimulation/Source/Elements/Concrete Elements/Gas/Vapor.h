@@ -4,7 +4,8 @@ class Vapor : public virtual Gas
 {
 public:
 	Vapor(int posX, int posY, int coolTime = 500);
-	bool SpecialBehavior(Simulation* sim) override;
+	virtual bool SpecialBehavior(Simulation* sim) override;
+	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 	virtual ~Vapor();
 
 private:

@@ -7,5 +7,7 @@ public:
 	~Acid();
 
 	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
+	virtual bool SpecialBehavior(Simulation* sim) override;
+
 };
 

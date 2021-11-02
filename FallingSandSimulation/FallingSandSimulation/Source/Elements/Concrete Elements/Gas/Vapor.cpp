@@ -30,6 +30,11 @@ bool Vapor::SpecialBehavior(Simulation* sim)
 	return false;
 }
 
+bool Vapor::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
+	return false;
+}
+
 Vapor::~Vapor()
 {
 }

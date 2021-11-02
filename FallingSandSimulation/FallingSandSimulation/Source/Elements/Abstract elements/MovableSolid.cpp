@@ -1,9 +1,9 @@
 #include "MovableSolid.h"
 //#include <random>
 
-MovableSolid::MovableSolid(int posX, int posY) : Solid(posX, posY), Element(posX, posY)
+MovableSolid::MovableSolid(int posX, int posY) : Element(posX, posY)
 {
-	abstractTag == AbstractTag::MOVABLESOLID;
+	abstractTag = AbstractTag::MOVABLESOLID;
 }
 
 MovableSolid::~MovableSolid()
@@ -17,7 +17,11 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	//ElementTag ElementUnder = sim->GetElementType(posX, posY + 1);
 	//AbstractTag ElementUnder2 = sim->GetAbstractType(posX, posY + 1);
 	
-	
+	if (health <= 0)
+	{
+		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));
+		return;
+	}
 	if (IsValidMove(sim, posX, posY + 1))
 	{
 		MoveTo(sim, posX, posY + 1);
@@ -51,10 +55,6 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	}
 }
 
-bool MovableSolid::SpecialBehavior(Simulation* sim)
-{
-	return false;
-}
 
 bool MovableSolid::IsValidMove(Simulation* sim, int dstX, int dstY)
 {
@@ -68,8 +68,4 @@ bool MovableSolid::IsValidMove(Simulation* sim, int dstX, int dstY)
 	return false;
 }
 
-bool MovableSolid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
-{
-	SwapPositions(sim, otherX, otherY);
-	return false;
-}
+

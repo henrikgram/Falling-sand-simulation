@@ -27,9 +27,6 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Sand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Elements\Abstract elements\Solid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Simulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Sand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Elements\Abstract elements\Solid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Simulation.h">

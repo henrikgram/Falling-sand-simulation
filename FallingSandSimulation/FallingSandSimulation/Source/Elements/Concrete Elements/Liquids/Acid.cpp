@@ -27,11 +27,16 @@ bool Acid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 		sim->GetElement(otherX, otherY)->ReceiveDamage(10);
 		return true;
 	}
-	if (element == ElementTag::WATER || element == ElementTag::LAVA)
+	else if (element == ElementTag::WATER || element == ElementTag::LAVA)
 	{
 		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, this->posX, this->posY));
 		return true;
 	}
+	
+	return false;
+}
 
+bool Acid::SpecialBehavior(Simulation* sim)
+{
 	return false;
 }

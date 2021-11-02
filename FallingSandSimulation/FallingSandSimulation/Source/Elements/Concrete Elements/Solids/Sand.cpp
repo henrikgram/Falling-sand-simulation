@@ -1,6 +1,6 @@
 #include "Sand.h"
 
-Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Solid(posX, posY), Element(posX, posY)
+Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Element(posX, posY)
 {
 	colorPallette[0] = Color(240,216,0);
 	colorPallette[1] = Color(250, 217, 0);
@@ -15,4 +15,14 @@ Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Solid(posX, posY), El
 
 Sand::~Sand()
 {
+}
+
+bool Sand::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
+bool Sand::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
+	return false;
 }

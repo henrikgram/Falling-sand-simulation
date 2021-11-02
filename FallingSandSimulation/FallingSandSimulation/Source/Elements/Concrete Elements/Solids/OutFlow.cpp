@@ -1,9 +1,10 @@
 #include "OutFlow.h"
 
-OutFlow::OutFlow(int posX, int posY) : ImmovableSolid(posX, posY), Solid(posX, posY), Element(posX, posY)
+OutFlow::OutFlow(int posX, int posY) : ImmovableSolid(posX, posY),  Element(posX, posY)
 {
 	color = Color::Magenta;
 	concreteTag = ElementTag::OUTFLOW;
+	abstractTag = AbstractTag::INDESTRUCTABLE;
 }
 
 bool OutFlow::SpecialBehavior(Simulation* sim)

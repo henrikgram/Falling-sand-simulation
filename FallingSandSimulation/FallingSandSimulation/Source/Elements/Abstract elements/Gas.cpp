@@ -21,6 +21,8 @@ void Gas::UpdateElement(Simulation* sim)
 	{
 		return;
 	}
+	
+	//Element::UpdateElement(sim);
 
 	if (IsValidMove(sim, posX, posY - 1))
 	{
@@ -45,15 +47,7 @@ void Gas::UpdateElement(Simulation* sim)
 	}
 }
 
-bool Gas::AffectOtherElement(Simulation* sim, int otherX, int otherY)
-{
-		return false;
-}
 
-bool Gas::SpecialBehavior(Simulation* sim)
-{
-	return false;
-}
 
 bool Gas::IsValidMove(Simulation* sim, int dstX, int dstY)
 {

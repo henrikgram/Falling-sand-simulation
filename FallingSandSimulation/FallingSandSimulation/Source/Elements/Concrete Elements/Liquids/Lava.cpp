@@ -36,6 +36,11 @@ bool Lava::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 	return false;
 }
 
+bool Lava::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
 void Lava::CoolIntoRock(Simulation* sim, int otherX, int otherY)
 {
 	//replace water with smoke

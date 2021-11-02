@@ -6,7 +6,8 @@ public:
 	Rock(int posX, int posY, int meltingPoint = 1200);
 	virtual ~Rock();
 
-	bool SpecialBehavior(Simulation* sim) override;
+	virtual bool SpecialBehavior(Simulation* sim) override;
+	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 
 private:
 	int meltingPoint;

@@ -1,9 +1,10 @@
 #include "InFlow.h"
 
-InFlow::InFlow(int posX, int posY) : ImmovableSolid(posX, posY), Solid(posX, posY), Element(posX, posY)
+InFlow::InFlow(int posX, int posY) : ImmovableSolid(posX, posY), Element(posX, posY)
 {
 	concreteTag = ElementTag::INFLOW;
 	emitterType = ElementTag::EMPTY;
+	abstractTag = AbstractTag::INDESTRUCTABLE;
 	color = Color::Cyan;
 }
 

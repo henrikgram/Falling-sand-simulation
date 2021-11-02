@@ -6,10 +6,6 @@ Liquid::Liquid(int posX, int posY, int dispersionRate) : Element(posX,posY)
 	abstractTag = AbstractTag::LIQUID;
 }
 
-bool Liquid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
-{
-	return false;
-}
 
 bool Liquid::IsValidMove(Simulation* sim, int dstX, int dstY)
 {
@@ -26,10 +22,6 @@ bool Liquid::IsValidMove(Simulation* sim, int dstX, int dstY)
 	
 }
 
-bool Liquid::SpecialBehavior(Simulation* sim)
-{
-	return false;
-}
 
 Liquid::~Liquid()
 {
