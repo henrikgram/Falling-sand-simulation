@@ -20,7 +20,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	
 	if (IsValidMove(sim, posX, posY + 1))
 	{
-		SwapPositions(sim, posX, posY + 1);
+		MoveTo(sim, posX, posY + 1);
 	}
 	else
 	{
@@ -30,7 +30,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 		{
 			if (IsValidMove(sim, posX - 1, posY + 1))
 			{
-				SwapPositions(sim, posX - 1, posY + 1);
+				MoveTo(sim, posX - 1, posY + 1);
 			}
 
 		}
@@ -38,7 +38,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 		{
 			if (IsValidMove(sim, posX + 1, posY + 1))
 			{
-				SwapPositions(sim, posX + 1, posY + 1);
+				MoveTo(sim, posX + 1, posY + 1);
 			}
 
 			////ElementTag ElementLeft = sim->GetElementType(posX + 1, posY + 1);

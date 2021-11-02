@@ -51,7 +51,7 @@ void Liquid::UpdateElement(Simulation* sim)
 	
 	if (IsValidMove(sim, posX, posY + 1))
 	{
-		SwapPositions(sim, posX, posY + 1);
+		MoveTo(sim, posX, posY + 1);
 	}
 	else
 	{

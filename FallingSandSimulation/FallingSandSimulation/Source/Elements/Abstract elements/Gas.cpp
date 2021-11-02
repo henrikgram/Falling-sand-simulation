@@ -11,6 +11,12 @@ Gas::~Gas()
 
 void Gas::UpdateElement(Simulation* sim)
 {
+	//TODO: this should work in the later checks
+	if (CheckSurroundingElementsForAffect(sim, posX, posY))
+	{
+		return;
+	}
+
 	if (SpecialBehavior(sim))
 	{
 		return;
@@ -18,22 +24,24 @@ void Gas::UpdateElement(Simulation* sim)
 
 	if (IsValidMove(sim, posX, posY - 1))
 	{
-		SwapPositions(sim, posX, posY - 1);
+		MoveTo(sim, posX, posY - 1);
 	}
-
-
 	else
 	{
 		int direction = rand() % 2 + 1;
 
+
+		//Check all the way in the choosen direction, until it finds a not empty element
+
 		if (direction == 1)
-		{
-			MoveTo(sim, posX - 1, posY);
-		}
-		else
 		{
 			MoveTo(sim, posX + 1, posY);
 		}
+		else
+		{
+			MoveTo(sim, posX - 1, posY);
+		}
+
 	}
 }
 

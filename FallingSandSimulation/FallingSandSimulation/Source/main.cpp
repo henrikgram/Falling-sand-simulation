@@ -403,7 +403,7 @@ int main()
 	/*window.setView(view);
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::WATER, 100, 100));
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::VAPOR, 100, 100));
 	const char* str = "test.txt";
 	sim->SaveSimState(str);
 

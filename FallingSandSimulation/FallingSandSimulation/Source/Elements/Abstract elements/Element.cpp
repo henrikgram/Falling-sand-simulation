@@ -55,7 +55,7 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 	float dstY = (posY - y);
 
 
-	bool isVertical = abs(dstX) < abs(dstY);
+	bool isVertical = abs(dstX) < abs(dstY) || dstY < 0;
 
 
 	if (!isVertical)
@@ -84,13 +84,13 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 		{
 			if (positive)
 			{
-				newY = i + originalY;
+				newY = originalY - i;
 				newX = round(i * lineBetweenPoints) + originalX;
 			}
 			else
 			{
-				newY = i + y;
-				newX = round(i * lineBetweenPoints) + x;
+				newY = i + originalY;
+				newX = round(i * lineBetweenPoints) + originalX;
 			}
 		}
 		else
@@ -103,7 +103,7 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 			else
 			{
 				newX = originalX - i;
-				newY = round(i * lineBetweenPoints) + y;
+				newY = round(i * lineBetweenPoints) + originalY;
 			}
 		}
 

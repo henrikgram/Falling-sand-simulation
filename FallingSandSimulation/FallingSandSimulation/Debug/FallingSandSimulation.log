@@ -1,5 +1,2 @@
 ﻿  Gas.cpp
-  MovableSolid.cpp
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(6,14): warning C4553: '==': result of expression not used; did you intend '='?
-  Generating Code...
   FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe
