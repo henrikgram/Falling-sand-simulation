@@ -19,6 +19,8 @@ Simulation::Simulation(int width, int height)
 	this->width = width;
 	this->height = height;
 
+	gravity = 0.1f;
+
 	SimWorld = new std::vector<Element*>(width * height);
 
 	for (int y = 0; y < height; y++)
@@ -116,6 +118,11 @@ AbstractTag Simulation::GetAbstractType(int x, int y)
 Element* Simulation::GetElement(int x, int y)
 {
 	return SimWorld->at(Index(x, y));
+}
+
+float  Simulation::GetGravity()
+{
+	return gravity;
 }
 
 /// <summary>

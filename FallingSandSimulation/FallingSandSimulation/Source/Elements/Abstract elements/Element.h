@@ -22,6 +22,12 @@ protected:
 	int temperature;
 	int health;
 	int density;
+	float terminalVelocity;
+	float friction;
+
+	float velocityX;
+	float velocityY;
+
 	
 
 public:
@@ -40,6 +46,7 @@ public:
 	virtual void UpdateElement(Simulation* sim);
 	virtual bool SpecialBehavior(Simulation* sim) = 0;
 
+	void AccelerateY(float gravity);
 	virtual void HeatUp(int amount);
 	virtual void CoolDown(int amount);
 	virtual void ReceiveDamage(int amount);
@@ -50,6 +57,7 @@ public:
 	const AbstractTag& GetType();
 	const Color& GetColor();
 	const int GetDensity();
+	const float GetFriction();
 
 	//TODO: check if visitor pattern can help this
 	ElementTag concreteTag;

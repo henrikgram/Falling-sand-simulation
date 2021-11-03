@@ -14,27 +14,31 @@ void MovableSolid::UpdateElement(Simulation* sim)
 {
 	//TODO: have to find a solution to this 2 tag system
 	//this adds 1k more microseconds from 7-8k woth brushsize 100;
-	//ElementTag ElementUnder = sim->GetElementType(posX, posY + 1);
-	//AbstractTag ElementUnder2 = sim->GetAbstractType(posX, posY + 1);
+
 	
 	if (health <= 0)
 	{
 		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));
 		return;
 	}
+
+
 	if (IsValidMove(sim, posX, posY + 1))
 	{
 		MoveTo(sim, posX, posY + 1);
+		AccelerateY(sim->GetGravity());
 	}
 	else
 	{
-		int direction = rand() % 2 + 1;
+		
+		int direction =  rand() % 2 + 1;
 
 		if (direction == 1)
 		{
 			if (IsValidMove(sim, posX - 1, posY + 1))
 			{
 				MoveTo(sim, posX - 1, posY + 1);
+				return;
 			}
 
 		}
@@ -43,15 +47,49 @@ void MovableSolid::UpdateElement(Simulation* sim)
 			if (IsValidMove(sim, posX + 1, posY + 1))
 			{
 				MoveTo(sim, posX + 1, posY + 1);
+				return;
 			}
 
-			////ElementTag ElementLeft = sim->GetElementType(posX + 1, posY + 1);
-			//AbstractTag ElementLeft2 = sim->GetAbstractType(posX + 1, posY + 1);
-			//if (ElementLeft2 == AbstractTag::EMPTY || ElementLeft2 == AbstractTag::LIQUID)
-			//{
-			//	SwapPositions(sim, posX + 1, posY + 1);
-			//}
 		}
+
+		if (velocityY >= 1)
+		{
+
+			if (direction == 1)
+			{
+				velocityX = velocityY;
+			}
+			else
+			{
+				velocityX = -velocityY;
+			}
+	
+			velocityY = 0;
+		}
+
+		if (abs(floor(velocityX)) > 0)
+		{
+			if (velocityX > 0)
+			{
+				velocityX -= (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+			}
+			else if (velocityX < 0)
+			{
+				velocityX += (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+			}
+			else
+			{
+				velocityX = 0;
+			}
+
+			if (IsValidMove(sim, posX + floor(velocityX), posY))
+			{
+				MoveTo(sim, posX + floor(velocityX), posY);
+			}
+			
+		}
+
+		
 	}
 }
 

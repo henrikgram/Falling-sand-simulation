@@ -9,5 +9,7 @@ public:
 	void UpdateElement(Simulation* sim) override;
 	bool IsValidMove(Simulation* sim, int dstX, int dstY) override;
 
+
+
 };
 

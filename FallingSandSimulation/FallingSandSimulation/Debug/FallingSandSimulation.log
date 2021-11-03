@@ -1,29 +1,4 @@
-﻿  Acid.cpp
-  Lava.cpp
-  Smoke.cpp
-  Rock.cpp
-  Simulation.cpp
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(197,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(200,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(201,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(202,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(203,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(208,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(209,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(240,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(241,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(249,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(254,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(271,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(276,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(284,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(289,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Sand.cpp
-  MovableSolid.cpp
-  Water.cpp
-  Vapor.cpp
-  Generating Code...
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(165): warning C4715: 'Simulation::CreateElementFromTag': not all control paths return a value
+﻿  MovableSolid.cpp
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(85,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(87,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe

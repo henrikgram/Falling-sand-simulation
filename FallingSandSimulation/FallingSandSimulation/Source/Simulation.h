@@ -15,16 +15,13 @@ private:
 	int width;
 	int height;
 	std::vector<Element*>* SimWorld;
-	std::stack<Element*>* elementsTobeDeleted;
 
 public:
 	Simulation(int width, int height);
 	~Simulation();
 
 	void UpdateSimulation();
-	ElementTag GetElementType(int x, int y);
-	AbstractTag GetAbstractType(int x, int y);
-	Element* GetElement(int x, int y);
+
 	Element* CreateElementFromTag(ElementTag concreteTag, int x, int y);
 	void AddElementsInSquareArea(int x, int y, int brushSize, ElementTag element);
 	void AddElementsInCircleArea(int x, int y, int brushSize, ElementTag element);
@@ -37,6 +34,17 @@ public:
 	int Index(int x, int y);
 	bool OutOfBounds(int x, int y);
 	int Elements = 0;
+
+	//GET
+	ElementTag GetElementType(int x, int y);
+	AbstractTag GetAbstractType(int x, int y);
+	Element* GetElement(int x, int y);
+	float GetGravity();
+	//Config
+private:
+	float gravity;
+
+
 
 
 

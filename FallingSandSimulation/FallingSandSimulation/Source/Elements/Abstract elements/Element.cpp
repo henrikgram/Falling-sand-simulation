@@ -8,6 +8,15 @@ Element::Element(int posX, int posY, int health)
 	temperature = 20;
 	density = 1;
 	health = 100;
+	friction = 1;
+
+
+	velocityX = 0;
+	float randomVelX = rand() % 100;
+	velocityY = randomVelX / 100;
+
+	//TODO: this is not the best way
+	terminalVelocity = density * 10;
 }
 
 Element::Element()
@@ -199,6 +208,17 @@ void Element::Die(Simulation* sim)
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));
 }
 
+
+
+void Element::AccelerateY(float gravity)
+{
+	if (velocityY < terminalVelocity)
+	{
+		velocityY += density * gravity;
+	}
+
+}
+
 void Element::HeatUp(int heatAmount)
 {
 	temperature += heatAmount;
@@ -242,4 +262,9 @@ const Color& Element::GetColor()
 const int Element::GetDensity()
 {
 	return density;
+}
+
+const float Element::GetFriction()
+{
+	return friction;
 }
