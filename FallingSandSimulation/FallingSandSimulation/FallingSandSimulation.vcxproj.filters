@@ -72,6 +72,12 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\InFlow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\main2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Dirt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Elements\Abstract elements\Element.h">
@@ -132,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\InFlow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Dirt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

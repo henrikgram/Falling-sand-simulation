@@ -14,6 +14,7 @@ enum class ElementTag
 	LAVA,
 	VAPOR,
 	ACID,
+	DIRT,
 	INFLOW,
 	OUTFLOW
 };

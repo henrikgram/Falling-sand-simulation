@@ -12,6 +12,7 @@
 #include "Elements/Concrete Elements/Liquids/Acid.h"
 #include "Elements/Concrete Elements/Solids/OutFlow.h"
 #include "Elements/Concrete Elements/Solids/InFlow.h"
+#include "Elements/Concrete Elements/Solids/Dirt.h"
 
 
 Simulation::Simulation(int width, int height)
@@ -53,23 +54,82 @@ void Simulation::UpdateSimulation()
 
 	int size = SimWorld->size();
 
-	for (int i = size - 1; i >= 0; i--)
+	//int test = 0;
+	////TODO: make sure to change updateDirection
+	//for (int i = size - 1; i >= 0; i--)
+	//{
+	//	if (i % width == 0)
+	//	{
+	//		test++;
+	//	}
+
+	//	
+	//	ElementTag concreteTag = (*SimWorld)[i]->GetConcreteType();
+	//	if (concreteTag == ElementTag::EMPTY)
+	//	{
+	//		continue;
+	//	}
+
+	//	if (!(*SimWorld)[i]->HasUpdated)
+	//	{
+	//		(*SimWorld)[i]->HasUpdated = true;
+	//		(*SimWorld)[i]->UpdateElement(this);
+	//		Elements++;
+	//	}
+	//}
+
+	int x;
+	
+	//UpdateFromLeft = !UpdateFromLeft;
+
+	//UpdateFromLeft = !UpdateFromLeft;
+
+	for (int y = width-1; y >= 0; y--)
 	{
-		ElementTag concreteTag = (*SimWorld)[i]->GetConcreteType();
-		if (concreteTag == ElementTag::EMPTY)
+		if (UpdateFromLeft)
 		{
-			continue;
+			for (int x = 0; x < width; x++)
+			{
+				ElementTag concreteTag = (*SimWorld)[Index(x,y)]->GetConcreteType();
+				if (concreteTag == ElementTag::EMPTY)
+				{
+					continue;
+				}
+
+				if (!(*SimWorld)[Index(x, y)]->HasUpdated)
+				{
+					(*SimWorld)[Index(x, y)]->HasUpdated = true;
+					(*SimWorld)[Index(x, y)]->UpdateElement(this);
+					Elements++;
+				}
+			}
+		}
+		else
+		{
+			for (int x = width-1; x >= 0; x--)
+			{
+				ElementTag concreteTag = (*SimWorld)[Index(x, y)]->GetConcreteType();
+				if (concreteTag == ElementTag::EMPTY)
+				{
+					continue;
+				}
+
+				if (!(*SimWorld)[Index(x, y)]->HasUpdated)
+				{
+					(*SimWorld)[Index(x, y)]->HasUpdated = true;
+					(*SimWorld)[Index(x, y)]->UpdateElement(this);
+					Elements++;
+				}
+			}
 		}
 
-		if (!(*SimWorld)[i]->HasUpdated)
-		{
-			(*SimWorld)[i]->HasUpdated = true;
-			(*SimWorld)[i]->UpdateElement(this);
-			Elements++;
-		}
+		UpdateFromLeft = !UpdateFromLeft;
+		
 	}
 
+	
 
+	//TODO: elements moving up doesnt work properly
 	//Reset "has updated"
 	for (int i = size - 1; i >= 0; i--)
 	{
@@ -126,7 +186,7 @@ float  Simulation::GetGravity()
 }
 
 /// <summary>
-/// THIS IS CURSED
+/// //TODO: THIS IS CURSED
 /// </summary>
 /// <param name="concreteTag"></param>
 /// <param name="x"></param>
@@ -141,6 +201,9 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 		break;
 	case ElementTag::SAND:
 		return new Sand(x, y);
+		break;
+	case ElementTag::DIRT:
+		return new Dirt(x, y);
 		break;
 	case ElementTag::WATER:
 		return new Water(x, y);
@@ -195,7 +258,7 @@ void Simulation::AddElementsInSquareArea(int x, int y, int brushSize, ElementTag
 /// <param name="element"></param>
 void Simulation::AddElementsInCircleArea(int x, int y, int brushSize, ElementTag element)
 {
-	
+
 	//Equation for circle
 	//(x−a)^2+(y−b)^2=r^2
 	float dstX;
@@ -205,13 +268,13 @@ void Simulation::AddElementsInCircleArea(int x, int y, int brushSize, ElementTag
 
 	//Calculate the bounding box of the cicle
 	int top = floor(y - radius),
-		bottom = ceil(y+ radius),
+		bottom = ceil(y + radius),
 		left = floor(x - radius),
-		right = ceil(x+ radius);
+		right = ceil(x + radius);
 
 	for (int yy = top; yy <= bottom; yy++) {
 		for (int xx = left; xx <= right; xx++) {
-			
+
 			dstX = x - xx;
 			dstY = y - yy;
 			dstSquared = dstX * dstX + dstY * dstY;
@@ -221,13 +284,13 @@ void Simulation::AddElementsInCircleArea(int x, int y, int brushSize, ElementTag
 			{
 				if (!OutOfBounds(xx, yy))
 				{
-					ReplaceElement(CreateElementFromTag(element, xx,yy));
+					ReplaceElement(CreateElementFromTag(element, xx, yy));
 				}
 			}
 		}
 	}
 
-	
+
 }
 void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, ElementTag element, int brushSize)
 {
@@ -304,7 +367,7 @@ void Simulation::AddElementsBetweenPoints(int x1, int y1, int x2, int y2, Elemen
 void Simulation::SaveSimState(const char* fileName)
 {
 	std::ofstream saveFile(fileName);
-	
+
 	saveFile << "Files can be tricky, but it is fun enough!";
 
 	saveFile.close();

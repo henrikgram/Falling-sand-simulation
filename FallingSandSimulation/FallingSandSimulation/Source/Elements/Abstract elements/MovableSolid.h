@@ -8,8 +8,18 @@ public:
 
 	void UpdateElement(Simulation* sim) override;
 	bool IsValidMove(Simulation* sim, int dstX, int dstY) override;
+	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
+	void SetFreeFall();
+
+	void SetNeighbourToFreeFalling(Simulation* sim);
 
 
+protected:
+	float freeFallResistance;
+	int smoothness;
 
+private:
+	bool IsFreeFalling;
+	int stepCounter;
 };
 

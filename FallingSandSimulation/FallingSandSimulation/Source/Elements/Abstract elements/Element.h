@@ -16,6 +16,10 @@ class Element
 protected:
 	int posX;
 	int posY;
+
+	int prevX;
+	int prevY;
+
 	Color color;
 	Color colorPallette[4];
 
@@ -28,7 +32,7 @@ protected:
 	float velocityX;
 	float velocityY;
 
-	
+
 
 public:
 	Element(int posX, int posY, int health = 100);
@@ -39,6 +43,8 @@ public:
 	bool MoveTo(Simulation* sim, int x, int y);
 	bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
 	bool isDead();
+
+	bool hasChangedSinceLastFrame();
 	virtual void Die(Simulation* sim);
 
 	virtual bool IsValidMove(Simulation*, int dstX, int dstY);
@@ -50,6 +56,8 @@ public:
 	virtual void HeatUp(int amount);
 	virtual void CoolDown(int amount);
 	virtual void ReceiveDamage(int amount);
+	
+
 
 	int GetPosX();
 	int GetPosY();

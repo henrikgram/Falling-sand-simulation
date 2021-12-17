@@ -15,7 +15,8 @@ private:
 	int width;
 	int height;
 	std::vector<Element*>* SimWorld;
-
+	bool UpdateFromLeft = false;
+	
 public:
 	Simulation(int width, int height);
 	~Simulation();

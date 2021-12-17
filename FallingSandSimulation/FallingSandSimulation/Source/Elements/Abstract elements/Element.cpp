@@ -203,6 +203,19 @@ bool Element::isDead()
 	return false;
 }
 
+bool Element::hasChangedSinceLastFrame()
+{
+	if (prevX == posX && prevY == prevY)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+}
+
 void Element::Die(Simulation* sim)
 {
 	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));

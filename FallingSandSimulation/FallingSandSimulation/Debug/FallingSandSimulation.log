@@ -1,4 +1,2 @@
-﻿  MovableSolid.cpp
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(85,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(87,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+﻿  Dirt.cpp
   FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe

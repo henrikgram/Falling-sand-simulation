@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 
+#include "Elements/Concrete Elements/Solids/Sand.h"
+#include "Elements/Abstract elements/MovableSolid.h"
+
 #include "Simulation.h"
 #include "UI/ElementButton.h"
 #include <Windows.h>
@@ -180,21 +183,22 @@ void Setup()
 	}
 
 	//Buttons
-	buttons->push_back(new ElementButton("Sand", Vector2f(100, 35), 0, width * scale + offset, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
-	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
-	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
-	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
+	buttons->push_back(new ElementButton("Sand",	Vector2f(100, 35), 0, width * scale + offset, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
+	buttons->push_back(new ElementButton("Water",	Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
+	buttons->push_back(new ElementButton("Rock",	Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
+	buttons->push_back(new ElementButton("Smoke",   Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
 
-	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
-	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
-	buttons->push_back(new Button("Pause", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new ElementButton("Erase",	Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
+	buttons->push_back(new Button("Clear",			Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new Button("Pause",			Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
 
-	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
-	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
-	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
+	buttons->push_back(new ElementButton("Lava",    Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
+	buttons->push_back(new ElementButton("Vapor",   Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
+	buttons->push_back(new ElementButton("Acid",    Vector2f(100, 35), 120, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
 	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
 
-	buttons->push_back(new ElementButton("InFlow", Vector2f(100, 35), 120 *2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
+	buttons->push_back(new ElementButton("Dirt",    Vector2f(100, 35), 120 * 2, width * scale + offset, 30, Color(50, 50, 50), Color(82,42,16), font, ElementTag::DIRT));
+	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -423,9 +427,28 @@ int main()
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
 	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
-	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 100));
-	const char* str = "test.txt";
-	sim->SaveSimState(str);
+
+
+
+
+	//Sand* s0 = new Sand(100, 196);
+	//dynamic_cast<MovableSolid*>(s0)->IsFreeFalling = false;
+	//Sand* s1 = new Sand(100, 197);
+	//dynamic_cast<MovableSolid*>(s1)->IsFreeFalling = false;
+	//Sand* s2 = new Sand(100, 198);
+	//dynamic_cast<MovableSolid*>(s2)->IsFreeFalling = false;
+	//Sand* s3 = new Sand(100, 199);
+	//dynamic_cast<MovableSolid*>(s3)->IsFreeFalling = false;
+	//
+	//sim->ReplaceElement(s1);
+	//sim->ReplaceElement(s2);
+	//sim->ReplaceElement(s3);
+	//sim->ReplaceElement(s0);
+
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 0));
+	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
+	//const char* str = "test.txt";
+	//sim->SaveSimState(str);
 
 
 	while (window.isOpen())
