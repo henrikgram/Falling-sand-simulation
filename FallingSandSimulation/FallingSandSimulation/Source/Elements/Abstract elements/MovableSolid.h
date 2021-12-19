@@ -11,6 +11,8 @@ public:
 	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 	void SetFreeFall();
 
+	void UpdateVelocityX();
+
 	void SetNeighbourToFreeFalling(Simulation* sim);
 
 

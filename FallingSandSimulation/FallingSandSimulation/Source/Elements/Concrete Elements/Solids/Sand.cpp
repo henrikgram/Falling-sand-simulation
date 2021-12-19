@@ -13,7 +13,7 @@ Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Element(posX, posY)
 	color = colorPallette[colorPick];
 
 	freeFallResistance = 10;
-	friction = 1;
+	friction = .001;
 	smoothness = 50;
 }
 

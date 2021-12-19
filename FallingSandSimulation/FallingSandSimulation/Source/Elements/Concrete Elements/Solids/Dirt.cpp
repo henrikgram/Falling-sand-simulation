@@ -13,8 +13,8 @@ Dirt::Dirt(int posX, int posY) : MovableSolid(posX, posY), Element(posX, posY)
 	concreteTag = ElementTag::DIRT;
 	color = colorPallette[colorPick];
 
-	freeFallResistance = 70;
-	smoothness = 4;
+	freeFallResistance = 80;
+	smoothness = 2;
 	friction = 3;
 }
 

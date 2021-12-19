@@ -25,23 +25,23 @@ void MovableSolid::UpdateElement(Simulation* sim)
 		return;
 	}
 
-	if (!hasChangedSinceLastFrame())
-	{
-		if (stepCounter >= smoothness)
-		{
-			IsFreeFalling = false;
-		}
-		else
-		{
-			stepCounter++;
-		}
+	//if (!hasChangedSinceLastFrame())
+	//{
+	//	if (stepCounter >= smoothness)
+	//	{
+	//		IsFreeFalling = false;
+	//	}
+	//	else
+	//	{
+	//		stepCounter++;
+	//	}
 
-	}
-	else
-	{
+	//}
+	//else
+	//{
 
-		stepCounter = 0;
-	}
+	//	stepCounter = 0;
+	//}
 
 	prevX = posX;
 	prevY = posY;
@@ -50,47 +50,12 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	{
 		MoveTo(sim, posX, posY + 1);
 		AccelerateY(sim->GetGravity());
-		IsFreeFalling = true;
-		SetNeighbourToFreeFalling(sim);
+	/*	IsFreeFalling = true;
+		SetNeighbourToFreeFalling(sim);*/
 	}
-	else if (IsFreeFalling)
+	else /*if (IsFreeFalling)*/
 	{
 		int direction = rand() % 2;
-
-		if (direction == 1)
-		{
-			if (IsValidMove(sim, posX - 1, posY + 1))
-			{
-				MoveTo(sim, posX - 1, posY + 1);
-				SetNeighbourToFreeFalling(sim);
-				return;
-			}
-			else if (IsValidMove(sim, posX + 1, posY + 1))
-			{
-				MoveTo(sim, posX + 1, posY + 1);
-				SetNeighbourToFreeFalling(sim);
-				direction = 0;
-				return;
-			}
-
-		}
-		else
-		{
-			if (IsValidMove(sim, posX + 1, posY + 1))
-			{
-				MoveTo(sim, posX + 1, posY + 1);
-				SetNeighbourToFreeFalling(sim);
-				return;
-			}
-			else if (IsValidMove(sim, posX - 1, posY + 1))
-			{
-				direction = 1;
-				SetNeighbourToFreeFalling(sim);
-				MoveTo(sim, posX - 1, posY + 1);
-				return;
-			}
-
-		}
 
 		if (velocityY >= 1)
 		{
@@ -107,26 +72,82 @@ void MovableSolid::UpdateElement(Simulation* sim)
 			velocityY = 0;
 		}
 
-		if (abs(floor(velocityX)) > 0)
+
+
+		if (velocityX > 0)
 		{
-			if (velocityX > 0)
+			if (direction == 1)
 			{
-				velocityX -= (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
-			}
-			else if (velocityX < 0)
-			{
-				velocityX += (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+				if (IsValidMove(sim, posX - 1, posY + 1))
+				{
+					MoveTo(sim, posX - 1, posY + 1);
+					SetNeighbourToFreeFalling(sim);
+					return;
+				}
+				else if (IsValidMove(sim, posX + 1, posY + 1))
+				{
+					MoveTo(sim, posX + 1, posY + 1);
+					SetNeighbourToFreeFalling(sim);
+					direction = 0;
+					return;
+				}
+
 			}
 			else
 			{
-				velocityX = 0;
+				if (IsValidMove(sim, posX + 1, posY + 1))
+				{
+					MoveTo(sim, posX + 1, posY + 1);
+					SetNeighbourToFreeFalling(sim);
+					return;
+				}
+				else if (IsValidMove(sim, posX - 1, posY + 1))
+				{
+					direction = 1;
+					SetNeighbourToFreeFalling(sim);
+					MoveTo(sim, posX - 1, posY + 1);
+					return;
+				}
+
 			}
 
-			if (IsValidMove(sim, posX + floor(velocityX), posY))
+		}
+		
+		//if (velocityY >= 1)
+		//{
+
+		//	if (direction == 1)
+		//	{
+		//		velocityX = velocityY - (freeFallResistance/100);
+		//	}
+		//	else
+		//	{
+		//		velocityX = -velocityY  +  (freeFallResistance / 100);
+		//	}
+
+		//	velocityY = 0;
+		//}
+
+		//if (abs(floor(velocityX)) > 0)
+		//{
+		//	if (velocityX > 0)
+		//	{
+		//		velocityX -= (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+		//	}
+		//	else if (velocityX < 0)
+		//	{
+		//		velocityX += (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+		//	}
+		//	else
+		//	{
+		//		velocityX = 0;
+		//	}
+
+			/*if (IsValidMove(sim, posX + floor(velocityX), posY))
 			{
 				SetNeighbourToFreeFalling(sim);
 				MoveTo(sim, posX + floor(velocityX), posY);
-			}
+			}*/
 
 		}
 
@@ -134,7 +155,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	}
 
 
-}
+
 
 
 bool MovableSolid::IsValidMove(Simulation* sim, int dstX, int dstY)
@@ -174,6 +195,21 @@ void MovableSolid::SetFreeFall()
 		IsFreeFalling = true;
 		stepCounter = 0;
 	}
+
+}
+
+void MovableSolid::UpdateVelocityX()
+{
+
+	if ((velocityX) > 0)
+	{
+		velocityX -= (friction *0.001 /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+	}
+	else
+	{
+		velocityX = 0;
+	}
+
 
 }
 
