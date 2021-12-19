@@ -1,6 +1,6 @@
 #include "Rock.h"
 
-Rock::Rock(int posX, int posY, int meltingPoint) : ImmovableSolid(posX, posY), Solid(posX, posY), Element(posX, posY)
+Rock::Rock(int posX, int posY, int meltingPoint) : ImmovableSolid(posX, posY),  Element(posX, posY)
 {
 	concreteTag = ElementTag::ROCK;
 	colorPallette[0] = Color(50, 50, 50);
@@ -26,10 +26,13 @@ bool Rock::SpecialBehavior(Simulation* sim)
 		return true;
 	}
 	
-
-
 	//coolsdown because of air
 	CoolDown(1);
 
+	return false;
+}
+
+bool Rock::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
 	return false;
 }

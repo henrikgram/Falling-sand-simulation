@@ -145,10 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Coal.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Dirt.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\InFlow.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\OutFlow.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Acid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Lava.cpp" />
+    <ClCompile Include="Source\main2.cpp" />
     <ClCompile Include="Source\UI\ElementButton.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Smoke.cpp" />
@@ -158,7 +161,6 @@
     <ClCompile Include="Source\Elements\Abstract elements\Liquid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Empty.cpp" />
     <ClCompile Include="Source\Simulation.cpp" />
-    <ClCompile Include="Source\Elements\Abstract elements\Solid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Sand.cpp" />
     <ClCompile Include="Source\Elements\Abstract elements\MovableSolid.cpp" />
     <ClCompile Include="Source\Elements\Abstract elements\Element.cpp" />
@@ -167,6 +169,8 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Vapor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Coal.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Dirt.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\InFlow.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\OutFlow.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Acid.h" />
@@ -182,7 +186,6 @@
     <ClInclude Include="Source\Elements\Concrete Elements\Empty.h" />
     <ClInclude Include="Source\Enum\ElementTag.h" />
     <ClInclude Include="Source\Simulation.h" />
-    <ClInclude Include="Source\Elements\Abstract elements\Solid.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Sand.h" />
     <ClInclude Include="Source\Elements\Abstract elements\MovableSolid.h" />
     <ClInclude Include="Source\Elements\Abstract elements\Element.h" />

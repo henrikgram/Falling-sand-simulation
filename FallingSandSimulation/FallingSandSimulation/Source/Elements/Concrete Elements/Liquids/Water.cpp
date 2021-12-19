@@ -16,3 +16,13 @@ Water::Water(int posX, int posY, int dispersionRate) : Liquid(posX, posY, disper
 Water::~Water()
 {
 }
+
+bool Water::SpecialBehavior(Simulation* sim)
+{
+	return false;
+}
+
+bool Water::AffectOtherElement(Simulation* sim, int otherX, int otherY)
+{
+	return false;
+}

@@ -11,56 +11,58 @@ Gas::~Gas()
 
 void Gas::UpdateElement(Simulation* sim)
 {
-	if (SpecialBehavior(sim))
+	//TODO: this should work in the later checks
+	if (CheckSurroundingElementsForAffect(sim, posX, posY))
 	{
 		return;
 	}
 
-	AbstractTag ElementUnder = sim->GetAbstractType(posX, posY - 1);
-	if (ElementUnder == AbstractTag::GAS)
+	if (SpecialBehavior(sim))
 	{
-		if (this->density > sim->GetElement(posX, posY - 1)->GetDensity())
-		{
-			SwapPositions(sim, posX, posY - 1);
-		}
+		return;
 	}
-	if (ElementUnder == AbstractTag::EMPTY || ElementUnder == AbstractTag::LIQUID)
-	{
-		SwapPositions(sim, posX, posY - 1);
-		//AffectOtherElement(sim, posX, posY - 1);
-	}
+	
+	//Element::UpdateElement(sim);
 
+	if (IsValidMove(sim, posX, posY - 1))
+	{
+		MoveTo(sim, posX, posY - 1);
+	}
 	else
 	{
 		int direction = rand() % 2 + 1;
 
+
+		//Check all the way in the choosen direction, until it finds a not empty element
+
 		if (direction == 1)
 		{
-			AbstractTag ElementRight = sim->GetAbstractType(posX - 1, posY);
-
-			if (ElementRight == AbstractTag::EMPTY || ElementRight == AbstractTag::LIQUID || ElementRight == AbstractTag::GAS)
-			{
-				SwapPositions(sim, posX - 1, posY);
-			}
+			MoveTo(sim, posX + 1, posY);
 		}
 		else
 		{
-			AbstractTag ElementLeft = sim->GetAbstractType(posX + 1, posY);
-
-			if (ElementLeft == AbstractTag::EMPTY || ElementLeft == AbstractTag::LIQUID || ElementLeft == AbstractTag::GAS)
-			{
-				SwapPositions(sim, posX + 1, posY);
-			}
+			MoveTo(sim, posX - 1, posY);
 		}
+
 	}
 }
 
-bool Gas::AffectOtherElement(Simulation* sim, int otherX, int otherY)
-{
-		return false;
-}
 
-bool Gas::SpecialBehavior(Simulation* sim)
+
+bool Gas::IsValidMove(Simulation* sim, int dstX, int dstY)
 {
+	AbstractTag element = sim->GetAbstractType(dstX, dstY);
+
+	if (element == AbstractTag::EMPTY || element == AbstractTag::LIQUID)
+	{
+		return true;
+	}
+	else if (element == AbstractTag::GAS)
+	{
+		if (this->density > sim->GetElement(dstX, dstY)->GetDensity())
+		{
+			return true;
+		}
+	}
 	return false;
 }

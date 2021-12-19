@@ -8,29 +8,45 @@ class Element;
 #include <vector>
 #include <stack>
 
+
 class Simulation
 {
 private:
 	int width;
 	int height;
 	std::vector<Element*>* SimWorld;
-	std::stack<Element*>* elementsTobeDeleted;
-
+	bool UpdateFromLeft = false;
+	
 public:
 	Simulation(int width, int height);
 	~Simulation();
 
 	void UpdateSimulation();
-	ElementTag GetElementType(int x, int y);
-	AbstractTag GetAbstractType(int x, int y);
-	Element* GetElement(int x, int y);
+
 	Element* CreateElementFromTag(ElementTag concreteTag, int x, int y);
+	void AddElementsInSquareArea(int x, int y, int brushSize, ElementTag element);
+	void AddElementsInCircleArea(int x, int y, int brushSize, ElementTag element);
+
 	void AddElementsBetweenPoints(int x1, int y1, int x2, int y2,ElementTag element, int brushSize);
+	void SaveSimState(const char* fileName);
+	
 	void SetElement(int x, int y, Element* element);
 	void ReplaceElement(Element* element);
 	int Index(int x, int y);
 	bool OutOfBounds(int x, int y);
 	int Elements = 0;
+
+	//GET
+	ElementTag GetElementType(int x, int y);
+	AbstractTag GetAbstractType(int x, int y);
+	Element* GetElement(int x, int y);
+	float GetGravity();
+	//Config
+private:
+	float gravity;
+
+
+
 
 
 
