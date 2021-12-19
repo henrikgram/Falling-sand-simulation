@@ -198,6 +198,7 @@ void Setup()
 	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
 
 	buttons->push_back(new ElementButton("Dirt",    Vector2f(100, 35), 120 * 2, width * scale + offset, 30, Color(50, 50, 50), Color(82,42,16), font, ElementTag::DIRT));
+	buttons->push_back(new ElementButton("Coal",	Vector2f(100, 35), 120 * 2, width * scale + offset * scale +offset, 30, Color(50, 50, 50), Color(0,0,0,200), font, ElementTag::COAL));
 	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
 	//Making sure the default

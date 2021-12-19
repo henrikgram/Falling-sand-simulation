@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Coal.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Dirt.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\InFlow.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\OutFlow.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Vapor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Coal.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Dirt.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\InFlow.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\OutFlow.h" />
