@@ -25,6 +25,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 		return;
 	}
 
+	//TODO: implement true velocity
 	if (!hasChangedSinceLastFrame())
 	{
 		if (stepCounter >= smoothness)
