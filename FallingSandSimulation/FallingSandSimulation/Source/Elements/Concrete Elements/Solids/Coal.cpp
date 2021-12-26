@@ -14,7 +14,7 @@ Coal::Coal(int posX, int posY) : MovableSolid(posX,posY), Element(posX,posY)
 	color = colorPallette[colorPick];
 
 	freeFallResistance = 80;
-	smoothness = 1;
+	smoothness = 3;
 	friction = 5;
 }
 

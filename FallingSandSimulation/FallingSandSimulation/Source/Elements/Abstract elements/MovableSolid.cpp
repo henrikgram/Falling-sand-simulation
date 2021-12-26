@@ -17,7 +17,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	//TODO: have to find a solution to this 2 tag system
 	//this adds 1k more microseconds from 7-8k woth brushsize 100;
 
-	
+
 
 	if (health <= 0)
 	{
@@ -65,13 +65,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 				SetNeighbourToFreeFalling(sim);
 				return;
 			}
-			else if (IsValidMove(sim, posX + 1, posY + 1))
-			{
-				MoveTo(sim, posX + 1, posY + 1);
-				SetNeighbourToFreeFalling(sim);
-				direction = 0;
-				return;
-			}
+	
 
 		}
 		else
@@ -82,26 +76,21 @@ void MovableSolid::UpdateElement(Simulation* sim)
 				SetNeighbourToFreeFalling(sim);
 				return;
 			}
-			else if (IsValidMove(sim, posX - 1, posY + 1))
-			{
-				direction = 1;
-				SetNeighbourToFreeFalling(sim);
-				MoveTo(sim, posX - 1, posY + 1);
-				return;
-			}
+
 
 		}
+
 
 		if (velocityY >= 1)
 		{
 
 			if (direction == 1)
 			{
-				velocityX = velocityY - (freeFallResistance/100);
+				velocityX = velocityY - (freeFallResistance / 100);
 			}
 			else
 			{
-				velocityX = -velocityY  +  (freeFallResistance / 100);
+				velocityX = -velocityY + (freeFallResistance / 100);
 			}
 
 			velocityY = 0;
@@ -127,13 +116,9 @@ void MovableSolid::UpdateElement(Simulation* sim)
 				SetNeighbourToFreeFalling(sim);
 				MoveTo(sim, posX + floor(velocityX), posY);
 			}
-
 		}
 
-
 	}
-
-
 }
 
 
@@ -161,7 +146,7 @@ bool MovableSolid::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 			m->SetFreeFall();
 			return true;
 		}
-	
+
 	}
 	return false;
 }
@@ -179,24 +164,24 @@ void MovableSolid::SetFreeFall()
 
 void MovableSolid::SetNeighbourToFreeFalling(Simulation* sim)
 {
-	
+
 	MovableSolid* m;
 
 	if (!sim->OutOfBounds(posX, posY + 1))
 	{
-	
-		MovableSolid* m = dynamic_cast<MovableSolid*>(sim->GetElement(posX, posY+1));
 
-		if (m!= nullptr)
+		MovableSolid* m = dynamic_cast<MovableSolid*>(sim->GetElement(posX, posY + 1));
+
+		if (m != nullptr)
 		{
 			m->SetFreeFall();
 		}
-	
+
 	}
-	
+
 	if (!sim->OutOfBounds(posX - 1, posY))
 	{
-		MovableSolid* m = dynamic_cast<MovableSolid*>(sim->GetElement(posX-1, posY));
+		MovableSolid* m = dynamic_cast<MovableSolid*>(sim->GetElement(posX - 1, posY));
 
 		if (m != nullptr)
 		{
@@ -205,7 +190,7 @@ void MovableSolid::SetNeighbourToFreeFalling(Simulation* sim)
 	}
 	if (!sim->OutOfBounds(posX + 1, posY))
 	{
-		MovableSolid* m = dynamic_cast<MovableSolid*>(sim->GetElement(posX+1, posY));
+		MovableSolid* m = dynamic_cast<MovableSolid*>(sim->GetElement(posX + 1, posY));
 
 		if (m != nullptr)
 		{
@@ -213,7 +198,7 @@ void MovableSolid::SetNeighbourToFreeFalling(Simulation* sim)
 		}
 	}
 
-	
+
 }
 
 

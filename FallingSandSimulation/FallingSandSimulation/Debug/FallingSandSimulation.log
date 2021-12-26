@@ -1,4 +1,6 @@
-﻿  Coal.cpp
-  Dirt.cpp
-  Generating Code...
-  FallingSandSimulation.vcxproj -> C:\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe
+﻿  MovableSolid.cpp
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(126,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(129,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(172,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(184,16): warning C4101: 'm': unreferenced local variable
+  FallingSandSimulation.vcxproj -> C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe

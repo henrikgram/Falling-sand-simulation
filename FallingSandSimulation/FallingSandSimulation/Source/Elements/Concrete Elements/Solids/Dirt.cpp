@@ -14,7 +14,7 @@ Dirt::Dirt(int posX, int posY) : MovableSolid(posX, posY), Element(posX, posY)
 	color = colorPallette[colorPick];
 
 	freeFallResistance = 70;
-	smoothness = 2;
+	smoothness = 5;
 	friction = 3;
 }
 

@@ -176,9 +176,10 @@ void Draw()
 void Setup()
 {
 	//LoadFont
-	if (!font.loadFromFile("C:\\Users\\Henrik\\Documents\\GitHub\\Falling-sand-simulation\\FallingSandSimulation\\Minecraft.ttf"))
+	//TODO: relative path
+	if (!font.loadFromFile("C:\\Users\\hhenn\\Documents\\GitHub\\Falling-sand-simulation\\FallingSandSimulation\\Minecraft.ttf"))
 	{
-		cout << "C:\\Users\Henrik\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Minecraft.ttf";
+		cout << "C:\\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Minecraft.ttf";
 		system("pause");
 	}
 
