@@ -4,6 +4,7 @@ Liquid::Liquid(int posX, int posY, int dispersionRate) : Element(posX,posY)
 {
 	this->dispersionRate = dispersionRate;
 	abstractTag = AbstractTag::LIQUID;
+	velocityY = 1;
 }
 
 
@@ -28,25 +29,21 @@ Liquid::~Liquid()
 }
 
 //TODO: add diagonal support.
-void Liquid::UpdateElement(Simulation* sim)
+bool Liquid::UpdateElement(Simulation* sim)
 {
-	//TODO: this should work in the later checks
-	if (CheckSurroundingElementsForAffect(sim, posX, posY))
+	if (Element::UpdateElement(sim))
 	{
-		return;
+		return true;
 	}
 
-	if (SpecialBehavior(sim))
+
+	if (MoveTo(sim, posX, posY + velocityY))
 	{
-		return;
-	}
-	
-	if (IsValidMove(sim, posX, posY + 1))
-	{
-		MoveTo(sim, posX, posY + 1);
+		AccelerateY(sim->GetGravity());
 	}
 	else
 	{
+		velocityY = 1;
 		int direction = rand() % 2 + 1;
 		
 
@@ -54,12 +51,14 @@ void Liquid::UpdateElement(Simulation* sim)
 
 		if (direction == 1)
 		{
-			MoveTo(sim, posX + dispersionRate, posY);
+			MoveTo(sim, posX + dispersionRate + velocityY, posY);
 		}
 		else
 		{
-			MoveTo(sim, posX - dispersionRate, posY);
+			MoveTo(sim, posX - dispersionRate - velocityY, posY);
 		}
 
 	}
+
+	return false;
 }

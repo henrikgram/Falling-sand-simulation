@@ -1,6 +1,10 @@
-﻿  MovableSolid.cpp
-C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(115,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(118,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(157,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\MovableSolid.cpp(169,16): warning C4101: 'm': unreferenced local variable
+﻿  Element.cpp
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(22,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(26,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(73,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(74,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(85,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(89,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(127,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Elements\Abstract elements\Element.cpp(144,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   FallingSandSimulation.vcxproj -> C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe

@@ -9,7 +9,14 @@ Element::Element(int posX, int posY, int health)
 	density = 1;
 	health = 100;
 	friction = 1;
+	ignitionResistance = 100;
+	isIgnited = false;
+	maxTemperature = 50;
 
+	fireColors[0] = Color(242, 204, 12);
+	fireColors[1] = Color(252, 186, 13);
+	fireColors[2] = Color(230, 141, 0);
+	fireColors[3] = Color(252, 127, 13);
 
 	velocityX = 0;
 	float randomVelX = rand() % 100;
@@ -54,31 +61,44 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 		return true;
 	}
 
-	// y = mx + b to find slope
-	float lineBetweenPoints;
+	// y = ax + b to find slope
+	float a;
+	float b;
+
 	int distance;
 	bool positive = false;
+	bool isStraightLine = false;
 
 	//check if its the x distance or y distance the line has to follow
-	float dstX = (posX - x);
-	float dstY = (posY - y);
+	float dstX = (x - posX);
+	float dstY = (y - posY);
 
+	if (dstX == 0 || dstY == 0)
+	{
+		isStraightLine = true;
+	}
 
-	bool isVertical = abs(dstX) < abs(dstY) || dstY < 0;
-
+	bool isVertical = abs(dstX) < abs(dstY);// || dstY < 0;
 
 	if (!isVertical)
 	{
 		distance = dstX;
-		lineBetweenPoints = dstY / dstX;
 	}
 	else
 	{
 		distance = dstY;
-		lineBetweenPoints = dstX / dstY;
 	}
 
-	positive = distance > 0;
+	if (!isStraightLine)
+	{
+		a = dstY / dstX;
+		b = posY - a * posX;
+	}
+
+
+	//Problem here
+
+	positive = distance < 0;
 	distance = abs(distance);
 
 	int originalX = posX;
@@ -86,37 +106,46 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 
 	for (int i = 1; i <= distance; i++)
 	{
-		int newX;
-		int newY;
+		int newX = posX;
+		int newY = posY;
 
 		if (isVertical)
 		{
+
 			if (positive)
 			{
 				newY = originalY - i;
-				newX = round(i * lineBetweenPoints) + originalX;
 			}
 			else
 			{
 				newY = i + originalY;
-				newX = round(i * lineBetweenPoints) + originalX;
+			}
+
+			if (!isStraightLine)
+			{
+				//rearrange for x
+				newX = floor((newY - b) / a);
 			}
 		}
 		else
 		{
 			if (positive)
 			{
-				newX = i + originalX;
-				newY = round(i * lineBetweenPoints) + originalY;
+				newX = originalX - i;
+
 			}
 			else
 			{
-				newX = originalX - i;
-				newY = round(i * lineBetweenPoints) + originalY;
+				newX = i + originalX;
+			}
+
+			if (!isStraightLine)
+			{
+				newY = floor(newX * a + b);
 			}
 		}
 
-		if (IsValidMove(sim,newX,newY))
+		if (IsValidMove(sim, newX, newY))
 		{
 			SwapPositions(sim, newX, newY);
 		}
@@ -126,31 +155,89 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 		}
 		//AddElementsInSquareArea(newX, newY, brushSize, element);
 	}
-	return false;
+	return true;
 }
 
-bool Element::IsValidMove(Simulation*, int dstX, int dstY)
+bool Element::IsValidMove(Simulation* sim, int dstX, int dstY)
 {
+	AbstractTag element = sim->GetAbstractType(dstX, dstY);
+
+	if (element == AbstractTag::EMPTY || element == AbstractTag::PARTICLE)
+	{
+		return true;
+	}
+
 	return false;
 }
 
-void Element::UpdateElement(Simulation* sim)
+
+bool Element::UpdateElement(Simulation* sim)
 {
 	if (SpecialBehavior(sim))
 	{
-		return;
+		return true;
 	}
 
 	if (isDead())
 	{
 		Die(sim);
+		return true;
 	}
 
 	if (CheckSurroundingElementsForAffect(sim, posX, posY))
 	{
-		return;
+		return true;
 	}
-	
+
+	if (isIgnited)
+	{
+		int colorPick = rand() % 4;
+		color = fireColors[colorPick];
+		FireSpread(sim);
+
+		//AbstractTag up = sim->GetAbstractType(posX, posY-1);
+		//AbstractTag down = sim->GetAbstractType(posX, posY + 1);
+		//AbstractTag left = sim->GetAbstractType(posX-1, posY);
+		//AbstractTag right = sim->GetAbstractType(posX+1,posY);
+
+
+		//ElementTag up2 = sim->GetElementType(posX, posY - 1);
+		//ElementTag down2 = sim->GetElementType(posX, posY + 1);
+		//ElementTag left2 = sim->GetElementType(posX - 1, posY);
+		//ElementTag right2 = sim->GetElementType(posX + 1, posY);
+
+		//if ( up == AbstractTag::LIQUID ||
+		//	down == AbstractTag::LIQUID ||
+		//	left == AbstractTag::LIQUID ||
+		//	right == AbstractTag::LIQUID)
+		//{
+		//	isIgnited = false;
+		//	temperature = 20;
+		//	return false;
+		//}
+
+		if (rand() % 100 > 95)
+		{
+			if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
+			{
+				sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX, posY - 1));
+			}
+			else if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
+			{
+				sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX + 1, posY - 1));
+			}
+			else if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
+			{
+				sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX - 1, posY - 1));
+			}
+		}
+
+		ReceiveDamage(rand() % 10);
+
+	}
+
+	return false;
+
 }
 
 //bool Element::Move(Simulation*, int dstX, int dstY)
@@ -213,7 +300,7 @@ bool Element::hasChangedSinceLastFrame()
 	{
 		return true;
 	}
-	
+
 }
 
 void Element::Die(Simulation* sim)
@@ -232,9 +319,19 @@ void Element::AccelerateY(float gravity)
 
 }
 
-void Element::HeatUp(int heatAmount)
+void Element::HeatUp(Simulation* sim, int heatAmount)
 {
 	temperature += heatAmount;
+	if (temperature > maxTemperature)
+	{
+
+		if (rand() % 100 > ignitionResistance)
+		{
+			Ignite(sim);
+		}
+	}
+
+
 }
 
 void Element::CoolDown(int amount)
@@ -245,6 +342,52 @@ void Element::CoolDown(int amount)
 void Element::ReceiveDamage(int amount)
 {
 	health -= amount;
+}
+
+void Element::Ignite(Simulation* sim)
+{
+	isIgnited = true;
+}
+
+void Element::FireSpread(Simulation* sim)
+{
+	int heat = 100;
+
+	switch (rand() % 4)
+	{
+	case(0):
+		if (!sim->OutOfBounds(posX, posY + 1))
+		{
+			sim->GetElement(posX, posY + 1)->HeatUp(sim, rand() % heat);
+		}
+		break;
+	case(1):
+		if (!sim->OutOfBounds(posX, posY - 1))
+		{
+			sim->GetElement(posX, posY - 1)->HeatUp(sim, rand() % heat);
+
+		}
+		break;
+	case(2):
+		if (!sim->OutOfBounds(posX - 1, posY))
+		{
+			sim->GetElement(posX - 1, posY)->HeatUp(sim, rand() % heat);
+
+		}
+		break;
+	case(3):
+		if (!sim->OutOfBounds(posX + 1, posY))
+		{
+			sim->GetElement(posX + 1, posY)->HeatUp(sim, rand() % heat);
+
+		}
+		break;
+	}
+
+
+
+
+
 }
 
 int Element::GetPosX()

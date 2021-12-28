@@ -2,6 +2,7 @@
 
 #include "Elements/Concrete Elements/Solids/Sand.h"
 #include "Elements/Abstract elements/MovableSolid.h"
+#include "Elements/Abstract elements/Particle.h"
 
 #include "Simulation.h"
 #include "UI/ElementButton.h"
@@ -23,7 +24,7 @@ int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
-sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "SFML works!");
+sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "Falling sand simulation");
 
 
 sf::Font font;
@@ -199,7 +200,8 @@ void Setup()
 	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
 
 	buttons->push_back(new ElementButton("Dirt",    Vector2f(100, 35), 120 * 2, width * scale + offset, 30, Color(50, 50, 50), Color(82,42,16), font, ElementTag::DIRT));
-	buttons->push_back(new ElementButton("Coal",	Vector2f(100, 35), 120 * 2, width * scale + offset * scale +offset, 30, Color(50, 50, 50), Color(0,0,0,200), font, ElementTag::COAL));
+	buttons->push_back(new ElementButton("Coal",	Vector2f(100, 35), 120 * 2, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color(0,0,0,200), font, ElementTag::COAL));
+	buttons->push_back(new ElementButton("TNT",		Vector2f(100, 35), 120 * 2, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
 	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
 	//Making sure the default
@@ -430,7 +432,8 @@ int main()
 	sim = new Simulation(width, width);
 	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
 
-
+	//Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
+	//isPaused = true;
 
 
 	//Sand* s0 = new Sand(100, 196);
@@ -447,7 +450,14 @@ int main()
 	//sim->ReplaceElement(s3);
 	//sim->ReplaceElement(s0);
 
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 0));
+	//sim->ReplaceElement(p);
+
+
+	/*sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::TNT, 101, 199));*/
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 100));
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 101));
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 101));
+	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 100));
 	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
 	//const char* str = "test.txt";
 	//sim->SaveSimState(str);

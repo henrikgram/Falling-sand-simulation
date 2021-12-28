@@ -22,10 +22,15 @@ protected:
 
 	Color color;
 	Color colorPallette[4];
+	Color fireColors[4];
 
 	int temperature;
 	int health;
 	int density;
+	int ignitionResistance;
+	int maxTemperature;
+	bool isIgnited;
+
 	float terminalVelocity;
 	float friction;
 
@@ -41,7 +46,7 @@ public:
 	void SwapPositions(Simulation* sim, int swapX, int swapY);
 	void UpdatePosition(int x, int y);
 	bool MoveTo(Simulation* sim, int x, int y);
-	bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
+	virtual bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
 	bool isDead();
 
 	bool hasChangedSinceLastFrame();
@@ -49,13 +54,16 @@ public:
 
 	virtual bool IsValidMove(Simulation*, int dstX, int dstY);
 	virtual bool AffectOtherElement(Simulation* sim, int otherX, int otherY) = 0;
-	virtual void UpdateElement(Simulation* sim);
+	virtual bool UpdateElement(Simulation* sim);
 	virtual bool SpecialBehavior(Simulation* sim) = 0;
 
 	void AccelerateY(float gravity);
-	virtual void HeatUp(int amount);
+
+	virtual void HeatUp(Simulation* sim, int amount);
 	virtual void CoolDown(int amount);
 	virtual void ReceiveDamage(int amount);
+	virtual void Ignite(Simulation* sim);
+	void FireSpread(Simulation* sim);
 	
 
 

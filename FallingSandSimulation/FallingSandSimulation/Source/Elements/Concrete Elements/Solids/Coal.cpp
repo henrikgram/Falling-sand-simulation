@@ -16,6 +16,10 @@ Coal::Coal(int posX, int posY) : MovableSolid(posX,posY), Element(posX,posY)
 	freeFallResistance = 80;
 	smoothness = 3;
 	friction = 5;
+
+	ignitionResistance = 30;
+	maxTemperature = 400;
+	health = 3000;
 }
 
 Coal::~Coal()

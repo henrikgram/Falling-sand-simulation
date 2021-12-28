@@ -81,6 +81,12 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Coal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Elements\Abstract elements\Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\TNT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Elements\Abstract elements\Element.h">
@@ -147,6 +153,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Coal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Elements\Abstract elements\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\TNT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

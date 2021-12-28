@@ -6,7 +6,7 @@ public:
 	MovableSolid(int posX, int posY);
 	virtual ~MovableSolid();
 
-	void UpdateElement(Simulation* sim) override;
+	bool UpdateElement(Simulation* sim) override;
 	bool IsValidMove(Simulation* sim, int dstX, int dstY) override;
 	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 	void SetFreeFall();
