@@ -19,23 +19,18 @@ bool Particle::SpecialBehavior(Simulation* sim)
 void Particle::UpdateElement(Simulation* sim)
 {
 	AccelerateY(sim->GetGravity());
-	std::cout << "posX " << posX << "\n";
-	std::cout << "posY " << posY << "\n \n";
 
-	MoveTo(sim, posX + 1, posY);
-	//if (IsValidMove(sim, posX + velocityX, posY + floor(velocityY)))
-	//{
-	//	//SwapPositions(sim, posX + velocityX, posY + floor(velocityY));
-
-	//	MoveTo(sim, posX + velocityX, posY + floor(velocityY));
-	//}
-	//else
-	//{
-	//	if (sim->GetAbstractType(posX + velocityX, posY + floor(velocityY)) != AbstractTag::PARTICLE && sim->GetElementType(posX + velocityX, posY + floor(velocityY)) != ElementTag::TNT)
-	//	{
-	//		ReturnToElement(sim);
-	//	}
-	//}
+	if (IsValidMove(sim, posX + velocityX, posY + floor(velocityY)))
+	{
+		MoveTo(sim, posX + velocityX, posY + floor(velocityY));
+	}
+	else
+	{
+		if (sim->GetAbstractType(posX + velocityX, posY + floor(velocityY)) != AbstractTag::PARTICLE && sim->GetElementType(posX + velocityX, posY + floor(velocityY)) != ElementTag::TNT)
+		{
+			ReturnToElement(sim);
+		}
+	}
 
 }
 

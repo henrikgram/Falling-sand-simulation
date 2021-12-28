@@ -12,9 +12,9 @@ Sand::Sand(int posX, int posY) : MovableSolid(posX, posY), Element(posX, posY)
 	concreteTag = ElementTag::SAND;
 	color = colorPallette[colorPick];
 
-	freeFallResistance = 10;
+	freeFallResistance = 5;
 	friction = 1;
-	smoothness = 50;
+	smoothness = 100;
 }
 
 Sand::~Sand()

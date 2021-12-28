@@ -433,7 +433,7 @@ int main()
 	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
 
 	Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
-
+	isPaused = true;
 
 
 	//Sand* s0 = new Sand(100, 196);

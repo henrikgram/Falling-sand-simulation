@@ -57,7 +57,7 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	prevX = posX;
 	prevY = posY;
 
-	if (IsValidMove(sim, posX, posY + 1))
+	if (IsValidMove(sim, posX, posY +1))
 	{
 		MoveTo(sim, posX, posY + 1);
 		AccelerateY(sim->GetGravity());
@@ -112,15 +112,22 @@ void MovableSolid::UpdateElement(Simulation* sim)
 			if (velocityX > 0)
 			{
 				velocityX -= (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+
+				if (velocityX < 0)
+				{
+					velocityX = 0;
+				}
 			}
 			else if (velocityX < 0)
 			{
 				velocityX += (friction /*+ sim->GetElement(posX, posY + 1)->GetFriction()*/);
+
+				if (velocityX > 0)
+				{
+					velocityX = 0;
+				}
 			}
-			else
-			{
-				velocityX = 0;
-			}
+			
 
 			if (IsValidMove(sim, posX + floor(velocityX), posY))
 			{

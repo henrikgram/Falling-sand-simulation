@@ -54,31 +54,44 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 		return true;
 	}
 
-	// y = mx + b to find slope
-	float lineBetweenPoints;
+	// y = ax + b to find slope
+	float a;
+	float b;
+
 	int distance;
 	bool positive = false;
+	bool isStraightLine = false;
 
 	//check if its the x distance or y distance the line has to follow
-	float dstX = (posX - x);
-	float dstY = (posY - y);
+	float dstX =     (x - posX);
+	float dstY =     (y - posY);
 
+	if (dstX == 0 || dstY == 0)
+	{
+		isStraightLine = true;
+	}
 
-	bool isVertical = abs(dstX) < abs(dstY) || dstY < 0;
-
+	bool isVertical = abs(dstX) < abs(dstY);// || dstY < 0;
 
 	if (!isVertical)
 	{
 		distance = dstX;
-		lineBetweenPoints = dstY / dstX;
 	}
 	else
 	{
 		distance = dstY;
-		lineBetweenPoints = dstX / dstY;
 	}
 
-	positive = distance > 0;
+	if (!isStraightLine)
+	{
+		a = dstY / dstX;
+		b = posY - a * posX;
+	}
+	
+	
+	//Problem here
+
+	positive = distance < 0;
 	distance = abs(distance);
 
 	int originalX = posX;
@@ -86,33 +99,42 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 
 	for (int i = 1; i <= distance; i++)
 	{
-		int newX;
-		int newY;
+		int newX = posX;
+		int newY = posY;
 
 		if (isVertical)
 		{
+
 			if (positive)
 			{
 				newY = originalY - i;
-				newX = round(i * lineBetweenPoints) + originalX;
 			}
 			else
 			{
 				newY = i + originalY;
-				newX = round(i * lineBetweenPoints) + originalX;
+			}
+
+			if (!isStraightLine)
+			{
+				//rearrange for x
+				newX = floor((newY - b) / a);
 			}
 		}
 		else
 		{
 			if (positive)
 			{
-				newX = i + originalX;
-				newY = round(i * lineBetweenPoints) + originalY;
+				newX = originalX - i;
+
 			}
 			else
 			{
-				newX = originalX - i;
-				newY = round(i * lineBetweenPoints) + originalY;
+				newX = i + originalX;
+			}
+
+			if (!isStraightLine)
+			{
+				newY = floor(newX * a + b);
 			}
 		}
 
@@ -126,7 +148,7 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 		}
 		//AddElementsInSquareArea(newX, newY, brushSize, element);
 	}
-	return false;
+	return true;
 }
 
 bool Element::IsValidMove(Simulation* sim, int dstX, int dstY)
