@@ -14,6 +14,7 @@
 #include "Elements/Concrete Elements/Solids/InFlow.h"
 #include "Elements/Concrete Elements/Solids/Dirt.h"
 #include "Elements/Concrete Elements/Solids/Coal.h"
+#include "Elements/Concrete Elements/Solids/TNT.h"
 
 
 Simulation::Simulation(int width, int height)
@@ -208,6 +209,9 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 		break;
 	case ElementTag::COAL:
 		return new Coal(x, y);
+		break;
+	case ElementTag::TNT:
+		return new TNT(x, y);
 		break;
 	case ElementTag::WATER:
 		return new Water(x, y);

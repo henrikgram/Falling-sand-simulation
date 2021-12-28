@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Abstract elements\Particle.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Coal.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Dirt.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\InFlow.cpp" />
@@ -167,8 +168,10 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Water.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Vapor.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\TNT.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Abstract elements\Particle.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Coal.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Dirt.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\InFlow.h" />
@@ -191,6 +194,7 @@
     <ClInclude Include="Source\Elements\Abstract elements\Element.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Water.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Gas\Vapor.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\TNT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

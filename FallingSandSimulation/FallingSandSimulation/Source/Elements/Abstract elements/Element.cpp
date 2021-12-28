@@ -129,8 +129,16 @@ bool Element::MoveTo(Simulation* sim, int x, int y)
 	return false;
 }
 
-bool Element::IsValidMove(Simulation*, int dstX, int dstY)
+bool Element::IsValidMove(Simulation* sim, int dstX, int dstY)
 {
+
+	AbstractTag element = sim->GetAbstractType(dstX, dstY);
+
+
+	if (element == AbstractTag::EMPTY)
+	{
+		return true;
+	}
 	return false;
 }
 

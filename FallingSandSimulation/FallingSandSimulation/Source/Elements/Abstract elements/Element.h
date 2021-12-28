@@ -41,7 +41,7 @@ public:
 	void SwapPositions(Simulation* sim, int swapX, int swapY);
 	void UpdatePosition(int x, int y);
 	bool MoveTo(Simulation* sim, int x, int y);
-	bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
+	virtual bool CheckSurroundingElementsForAffect(Simulation* sim, int posX, int posY);
 	bool isDead();
 
 	bool hasChangedSinceLastFrame();
@@ -53,6 +53,7 @@ public:
 	virtual bool SpecialBehavior(Simulation* sim) = 0;
 
 	void AccelerateY(float gravity);
+
 	virtual void HeatUp(int amount);
 	virtual void CoolDown(int amount);
 	virtual void ReceiveDamage(int amount);

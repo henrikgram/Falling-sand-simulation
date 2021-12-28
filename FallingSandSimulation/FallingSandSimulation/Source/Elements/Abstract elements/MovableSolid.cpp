@@ -4,7 +4,7 @@
 MovableSolid::MovableSolid(int posX, int posY) : Element(posX, posY)
 {
 	abstractTag = AbstractTag::MOVABLESOLID;
-
+	IsFreeFalling = true;
 	stepCounter = 0;
 }
 
@@ -22,6 +22,16 @@ void MovableSolid::UpdateElement(Simulation* sim)
 	if (health <= 0)
 	{
 		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));
+		return;
+	}
+
+	if (CheckSurroundingElementsForAffect(sim,posX,posY))
+	{
+		return;
+	}
+
+	if (SpecialBehavior(sim))
+	{
 		return;
 	}
 
