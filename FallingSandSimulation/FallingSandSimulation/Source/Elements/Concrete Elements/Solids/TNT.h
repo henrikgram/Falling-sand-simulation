@@ -6,6 +6,7 @@ public:
 
 	TNT(int posX, int posY);
 	bool shouldExplode;
+	float strength;
 	virtual ~TNT();
 
 	virtual bool SpecialBehavior(Simulation* sim) override;

@@ -1,6 +1,6 @@
 #include "ImmovableSolid.h"
 
-ImmovableSolid::ImmovableSolid(int posX, int posY) :  Element(posX, posY)
+ImmovableSolid::ImmovableSolid(int posX, int posY) : Element(posX, posY)
 {
 	abstractTag = AbstractTag::IMMOVABLESOLID;
 }
@@ -9,18 +9,18 @@ ImmovableSolid::~ImmovableSolid()
 {
 }
 
-void ImmovableSolid::UpdateElement(Simulation* sim)
+bool ImmovableSolid::UpdateElement(Simulation* sim)
 {
-	if (health <= 0)
+
+	if (Element::UpdateElement(sim))
 	{
-		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::EMPTY, this->posX, this->posY));
-		return;
+		return true;
 	}
 
-	if (SpecialBehavior(sim))
-	{
-		return;
-	}
+
+	return true;
 }
+
+
 
 

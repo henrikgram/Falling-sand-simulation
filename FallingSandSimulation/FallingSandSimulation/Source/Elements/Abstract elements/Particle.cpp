@@ -16,7 +16,7 @@ bool Particle::SpecialBehavior(Simulation* sim)
 	return false;
 }
 
-void Particle::UpdateElement(Simulation* sim)
+bool Particle::UpdateElement(Simulation* sim)
 {
 	AccelerateY(sim->GetGravity());
 
@@ -31,6 +31,7 @@ void Particle::UpdateElement(Simulation* sim)
 			ReturnToElement(sim);
 		}
 	}
+	return false;
 
 }
 

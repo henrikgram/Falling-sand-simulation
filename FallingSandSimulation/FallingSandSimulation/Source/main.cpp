@@ -432,8 +432,8 @@ int main()
 	sim = new Simulation(width, width);
 	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
 
-	Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
-	isPaused = true;
+	//Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
+	//isPaused = true;
 
 
 	//Sand* s0 = new Sand(100, 196);
@@ -450,7 +450,7 @@ int main()
 	//sim->ReplaceElement(s3);
 	//sim->ReplaceElement(s0);
 
-	sim->ReplaceElement(p);
+	//sim->ReplaceElement(p);
 
 
 	/*sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::TNT, 101, 199));*/
@@ -488,7 +488,7 @@ int main()
 
 			auto stop = high_resolution_clock::now();
 			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-			//std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 		}
 
 

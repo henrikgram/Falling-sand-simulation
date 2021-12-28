@@ -8,7 +8,8 @@ protected:
 public:
 	Liquid(int posX, int posY, int dispersionRate = 1);
 	bool IsValidMove(Simulation* sim, int dstX, int dstY) override;
+	
 	virtual ~Liquid();
-	void UpdateElement(Simulation* sim) override;
+	bool UpdateElement(Simulation* sim) override;
 };
 

@@ -18,6 +18,7 @@ TNT::TNT(int posX, int posY) : MovableSolid(posX, posY), Element(posX, posY)
 	friction = 1;
 	smoothness = 50;
 	shouldExplode = false;
+	strength = 3;
 }
 
 TNT::~TNT()
@@ -28,7 +29,7 @@ bool TNT::SpecialBehavior(Simulation* sim)
 {
 	if (shouldExplode)
 	{
-		Explode(sim, 3);
+		Explode(sim, strength);
 		return true;
 	}
 	return false;
@@ -48,7 +49,7 @@ bool TNT::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 			sim->ReplaceElement(particle);
 			Die(sim);*/
 
-			Explode(sim, 3);
+			Explode(sim, ceil(strength));
 			return true;
 		}
 		
@@ -125,23 +126,38 @@ void TNT::Explode(Simulation* sim, int radius)
 				{
 					Element* e = sim->GetElement(xx, yy);
 
-					if (e->abstractTag != AbstractTag::EMPTY && e->abstractTag != AbstractTag::PARTICLE && e->GetConcreteType() != concreteTag)
+		
+
+					if (e->abstractTag != AbstractTag::EMPTY && e->abstractTag != AbstractTag::PARTICLE)
 					{
-						//if (e->GetConcreteType() != ElementTag::SAND)
-						//{
-						//	this->velocityX = 5;
-						//}
-						//else if (e->GetConcreteType() == concreteTag)
-						//{
-						//	//TNT* t = dynamic_cast<TNT*>(e);
-						//	//t->shouldExplode = true;
-						//	//t->Explode(sim, 3);
-						//	continue;
-						//}
-						Particle* particle = new Particle(xx, yy, e->GetConcreteType(), e->GetColor(), 1, -2);
-						Empty* empty = new Empty(xx, yy);
+					
+						if (e->GetConcreteType() == concreteTag)
+						{
+							TNT* t = dynamic_cast<TNT*>(e);
+							t->shouldExplode = true;
+							t->strength+= 0.2f;
+
+							//t->Explode(sim, 3);
+							continue;
+						}
+
+						if (e->abstractTag == AbstractTag::IMMOVABLESOLID)
+						{
+							e->Die(sim);
+						}
+						else
+						{
+							float angle = atan2(posY - e->GetPosY(), posX - e->GetPosX());
+							float velX = ceil(cos(angle) * 2);
+							///float velY = sin(angle);
+
+							Particle* particle = new Particle(xx, yy, e->GetConcreteType(), e->GetColor(), velX, -strength / 3);
+							Empty* empty = new Empty(xx, yy);
+
+							sim->ReplaceElement(particle);
+						}
+
 						
-						sim->ReplaceElement(particle);
 					}
 					
 

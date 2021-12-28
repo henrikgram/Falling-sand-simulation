@@ -9,6 +9,7 @@ Lava::Lava(int posX, int posY, int dispersionRate) : Liquid(posX, posY, dispersi
 	colorPallette[2] = Color(255, 49, 13);
 	colorPallette[3] = Color(255, 33, 13);
 
+	temperature = 2000;
 	int colorPick = rand() % 4;
 	color = colorPallette[colorPick];
 }
@@ -21,23 +22,31 @@ bool Lava::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 {
 	ElementTag element = sim->GetElementType(otherX,otherY);
 
-	if (element == ElementTag::WATER)
+	if (element == ElementTag::WATER )
 	{
 		CoolIntoRock(sim, otherX, otherY);
 		return true;
 	}
-	else if (element == ElementTag::ROCK)
+
+	else /*if (element == ElementTag::ROCK || element == ElementTag::LAVA)*/
 	{
 		//MeltIntoLava(sim, otherX, otherY);
 		//Todo Check this
-		sim->GetElement(otherX, otherY)->HeatUp(50);
+		sim->GetElement(otherX, otherY)->HeatUp(sim,25);
 	}
 	
+
 	return false;
 }
 
 bool Lava::SpecialBehavior(Simulation* sim)
 {
+	CoolDown(10);
+	if (temperature < 1200)
+	{
+		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ROCK, posX, posY));
+		return true;
+	}
 	return false;
 }
 

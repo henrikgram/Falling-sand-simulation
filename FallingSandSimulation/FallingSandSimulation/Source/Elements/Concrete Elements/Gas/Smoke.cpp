@@ -19,6 +19,7 @@ Smoke::~Smoke()
 
 bool Smoke::SpecialBehavior(Simulation* sim)
 {
+	ReceiveDamage(rand() % 3);
 	return false;
 }
 

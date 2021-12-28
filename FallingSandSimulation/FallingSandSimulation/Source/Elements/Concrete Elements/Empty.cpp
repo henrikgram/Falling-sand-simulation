@@ -6,8 +6,9 @@ Empty::Empty(int posX, int posY) : Element(posX, posY)
 	abstractTag = AbstractTag::EMPTY;
 }
 
-void Empty::UpdateElement(Simulation* sim)
+bool Empty::UpdateElement(Simulation* sim)
 {
+	return false;
 }
 
 bool Empty::AffectOtherElement(Simulation* sim, int otherX, int otherY)

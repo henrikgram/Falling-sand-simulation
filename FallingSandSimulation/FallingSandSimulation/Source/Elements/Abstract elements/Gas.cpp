@@ -9,19 +9,13 @@ Gas::~Gas()
 {
 }
 
-void Gas::UpdateElement(Simulation* sim)
+bool Gas::UpdateElement(Simulation* sim)
 {
-	//TODO: this should work in the later checks
-	if (CheckSurroundingElementsForAffect(sim, posX, posY))
+	if (Element::UpdateElement(sim))
 	{
-		return;
+		return true;
 	}
 
-	if (SpecialBehavior(sim))
-	{
-		return;
-	}
-	
 	//Element::UpdateElement(sim);
 
 	if (IsValidMove(sim, posX, posY - 1))
@@ -45,6 +39,8 @@ void Gas::UpdateElement(Simulation* sim)
 		}
 
 	}
+
+	return false;
 }
 
 
