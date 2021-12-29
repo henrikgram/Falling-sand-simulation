@@ -191,49 +191,11 @@ bool Element::UpdateElement(Simulation* sim)
 
 	if (isIgnited)
 	{
-		int colorPick = rand() % 4;
-		color = fireColors[colorPick];
-		FireSpread(sim);
 
-		//AbstractTag up = sim->GetAbstractType(posX, posY-1);
-		//AbstractTag down = sim->GetAbstractType(posX, posY + 1);
-		//AbstractTag left = sim->GetAbstractType(posX-1, posY);
-		//AbstractTag right = sim->GetAbstractType(posX+1,posY);
-
-
-		//ElementTag up2 = sim->GetElementType(posX, posY - 1);
-		//ElementTag down2 = sim->GetElementType(posX, posY + 1);
-		//ElementTag left2 = sim->GetElementType(posX - 1, posY);
-		//ElementTag right2 = sim->GetElementType(posX + 1, posY);
-
-		//if ( up == AbstractTag::LIQUID ||
-		//	down == AbstractTag::LIQUID ||
-		//	left == AbstractTag::LIQUID ||
-		//	right == AbstractTag::LIQUID)
-		//{
-		//	isIgnited = false;
-		//	temperature = 20;
-		//	return false;
-		//}
-
-		if (rand() % 100 > 95)
+		if (Ignited(sim))
 		{
-			if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
-			{
-				sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX, posY - 1));
-			}
-			else if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
-			{
-				sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX + 1, posY - 1));
-			}
-			else if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
-			{
-				sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX - 1, posY - 1));
-			}
+			return true;
 		}
-
-		ReceiveDamage(rand() % 10);
-
 	}
 
 	return false;
@@ -322,9 +284,9 @@ void Element::AccelerateY(float gravity)
 void Element::HeatUp(Simulation* sim, int heatAmount)
 {
 	temperature += heatAmount;
+
 	if (temperature > maxTemperature)
 	{
-
 		if (rand() % 100 > ignitionResistance)
 		{
 			Ignite(sim);
@@ -347,6 +309,55 @@ void Element::ReceiveDamage(int amount)
 void Element::Ignite(Simulation* sim)
 {
 	isIgnited = true;
+}
+
+bool Element::Ignited(Simulation* sim)
+{
+	int colorPick = rand() % 4;
+	color = fireColors[colorPick];
+	FireSpread(sim);
+
+	//TODO: make it possible to put out fire
+	//AbstractTag up = sim->GetAbstractType(posX, posY-1);
+	//AbstractTag down = sim->GetAbstractType(posX, posY + 1);
+	//AbstractTag left = sim->GetAbstractType(posX-1, posY);
+	//AbstractTag right = sim->GetAbstractType(posX+1,posY);
+
+
+	//ElementTag up2 = sim->GetElementType(posX, posY - 1);
+	//ElementTag down2 = sim->GetElementType(posX, posY + 1);
+	//ElementTag left2 = sim->GetElementType(posX - 1, posY);
+	//ElementTag right2 = sim->GetElementType(posX + 1, posY);
+
+	//if ( up == AbstractTag::LIQUID ||
+	//	down == AbstractTag::LIQUID ||
+	//	left == AbstractTag::LIQUID ||
+	//	right == AbstractTag::LIQUID)
+	//{
+	//	isIgnited = false;
+	//	temperature = 20;
+	//	return false;
+	//}
+
+	if (rand() % 100 > 95)
+	{
+		if (sim->GetAbstractType(posX, posY - 1) == AbstractTag::EMPTY)
+		{
+			sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX, posY - 1));
+		}
+		else if (sim->GetAbstractType(posX + 1, posY - 1) == AbstractTag::EMPTY)
+		{
+			sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX + 1, posY - 1));
+		}
+		else if (sim->GetAbstractType(posX - 1, posY - 1) == AbstractTag::EMPTY)
+		{
+			sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SMOKE, posX - 1, posY - 1));
+		}
+	}
+
+	ReceiveDamage(rand() % 10);
+
+	return false;
 }
 
 void Element::FireSpread(Simulation* sim)

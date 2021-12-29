@@ -15,6 +15,9 @@
 #include "Elements/Concrete Elements/Solids/Dirt.h"
 #include "Elements/Concrete Elements/Solids/Coal.h"
 #include "Elements/Concrete Elements/Solids/TNT.h"
+#include "Elements/Concrete Elements/Solids/Wood.h"
+#include "Elements/Concrete Elements/Solids/Snow.h"
+#include "Elements/Concrete Elements/Solids/Grass.h"
 
 
 Simulation::Simulation(int width, int height)
@@ -224,6 +227,15 @@ Element* Simulation::CreateElementFromTag(ElementTag concreteTag, int x, int y)
 		break;
 	case ElementTag::LAVA:
 		return new Lava(x, y);
+		break;
+	case ElementTag::WOOD:
+		return new Wood(x, y);
+		break;
+	case ElementTag::GRASS:
+		return new Grass(x, y);
+		break;
+	case ElementTag::SNOW:
+		return new Snow(x, y);
 		break;
 	case ElementTag::VAPOR:
 		return new Vapor(x, y);

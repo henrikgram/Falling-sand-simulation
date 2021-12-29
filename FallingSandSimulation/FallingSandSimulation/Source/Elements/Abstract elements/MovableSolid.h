@@ -17,9 +17,10 @@ public:
 protected:
 	float freeFallResistance;
 	int smoothness;
-
-private:
 	bool IsFreeFalling;
 	int stepCounter;
+
+private:
+
 };
 

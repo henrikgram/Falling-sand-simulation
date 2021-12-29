@@ -7,7 +7,7 @@ public:
 	virtual ~Rock();
 
 	virtual bool SpecialBehavior(Simulation* sim) override;
-	virtual void Ignite(Simulation* sim) override;
+	virtual bool Ignited(Simulation* sim) override;
 	bool AffectOtherElement(Simulation* sim, int otherX, int otherY) override;
 
 private:

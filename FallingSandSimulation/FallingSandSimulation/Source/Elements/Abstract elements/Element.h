@@ -63,6 +63,7 @@ public:
 	virtual void CoolDown(int amount);
 	virtual void ReceiveDamage(int amount);
 	virtual void Ignite(Simulation* sim);
+	virtual bool Ignited(Simulation* sim);
 	void FireSpread(Simulation* sim);
 	
 

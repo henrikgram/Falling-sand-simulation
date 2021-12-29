@@ -9,7 +9,7 @@ Rock::Rock(int posX, int posY) : ImmovableSolid(posX, posY),  Element(posX, posY
 	colorPallette[3] = Color(40, 40, 40);
 
 	
-	ignitionResistance = 30;
+	ignitionResistance = 50;
 	maxTemperature = 1200;
 
 	int colorPick = rand() % 4;
@@ -24,20 +24,25 @@ Rock::~Rock()
 bool Rock::SpecialBehavior(Simulation* sim)
 {
 
-	
 	//coolsdown because of air
 	CoolDown(1);
 
 	return false;
 }
 
-void Rock::Ignite(Simulation* sim)
+bool Rock::Ignited(Simulation* sim)
 {
-	if (temperature >= meltingPoint)
-	{
-		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::LAVA, posX, posY));
-	}
+	sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::LAVA, posX, posY));
+	return true;
 }
+
+//void Rock::Ignite(Simulation* sim)
+//{
+//	if (temperature >= meltingPoint)
+//	{
+//		sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::LAVA, posX, posY));
+//	}
+//}
 
 bool Rock::AffectOtherElement(Simulation* sim, int otherX, int otherY)
 {

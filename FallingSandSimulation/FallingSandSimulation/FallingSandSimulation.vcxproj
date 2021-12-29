@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Grass.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Snow.cpp" />
     <ClCompile Include="Source\Elements\Abstract elements\Particle.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Coal.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Dirt.cpp" />
@@ -169,8 +171,11 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Water.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Vapor.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\TNT.cpp" />
+    <ClCompile Include="Source\Elements\Concrete Elements\Solids\Wood.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Grass.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Snow.h" />
     <ClInclude Include="Source\Elements\Abstract elements\Particle.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Coal.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\Dirt.h" />
@@ -195,6 +200,7 @@
     <ClInclude Include="Source\Elements\Concrete Elements\Liquids\Water.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Gas\Vapor.h" />
     <ClInclude Include="Source\Elements\Concrete Elements\Solids\TNT.h" />
+    <ClInclude Include="Source\Elements\Concrete Elements\Solids\Wood.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

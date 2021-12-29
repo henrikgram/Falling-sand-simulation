@@ -16,7 +16,10 @@ enum class ElementTag
 	ACID,
 	DIRT,
 	COAL,
+	SNOW,
+	GRASS,
 	TNT,
+	WOOD,
 	INFLOW,
 	OUTFLOW
 };

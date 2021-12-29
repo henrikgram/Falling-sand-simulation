@@ -204,6 +204,10 @@ void Setup()
 	buttons->push_back(new ElementButton("TNT",		Vector2f(100, 35), 120 * 2, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
 	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
+	buttons->push_back(new ElementButton("Wood",	Vector2f(100, 35), 120 * 3, width * scale + offset, 30, Color(50, 50, 50), Color(82*2, 42*2, 16*2), font, ElementTag::WOOD));
+	buttons->push_back(new ElementButton("Snow",	Vector2f(100, 35), 120 * 3, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
+	buttons->push_back(new ElementButton("Grass", Vector2f(100, 35),   120 * 3, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
+
 	//Making sure the default
 	(*buttons)[0]->Select();
 	(*buttons)[4]->Select(false);

@@ -17,7 +17,6 @@ bool ImmovableSolid::UpdateElement(Simulation* sim)
 		return true;
 	}
 
-
 	return true;
 }
 
