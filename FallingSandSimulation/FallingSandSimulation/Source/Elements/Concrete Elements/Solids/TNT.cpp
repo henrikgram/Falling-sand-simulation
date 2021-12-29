@@ -134,9 +134,13 @@ void TNT::Explode(Simulation* sim, int radius)
 						if (e->GetConcreteType() == concreteTag)
 						{
 							TNT* t = dynamic_cast<TNT*>(e);
-							t->shouldExplode = true;
-							t->strength+= 0.2f;
+							if (t != nullptr)
+							{
+								t->shouldExplode = true;
+								t->strength += 0.2f;
 
+							}
+						
 							//t->Explode(sim, 3);
 							continue;
 						}

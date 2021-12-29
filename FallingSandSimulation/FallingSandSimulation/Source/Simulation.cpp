@@ -1,6 +1,7 @@
 ﻿#include "Simulation.h"
 #include <iostream>
 #include <fstream>
+#include <mutex>
 
 #include "Elements/Concrete Elements/Empty.h"
 #include "Elements/Concrete Elements/Solids/Sand.h"
@@ -19,6 +20,7 @@
 #include "Elements/Concrete Elements/Solids/Snow.h"
 #include "Elements/Concrete Elements/Solids/Grass.h"
 
+std::mutex mtx;
 
 Simulation::Simulation(int width, int height)
 {
@@ -53,65 +55,34 @@ Simulation::~Simulation()
 	SimWorld = nullptr;
 }
 
-void Simulation::UpdateSimulation()
+void Simulation::UpdateSimulation(int updateStart, int updateEnd)
 {
-	Elements = 0;
+
 
 	int size = SimWorld->size();
 
-	//int test = 0;
-	////TODO: make sure to change updateDirection
-	//for (int i = size - 1; i >= 0; i--)
-	//{
-	//	if (i % width == 0)
-	//	{
-	//		test++;
-	//	}
-
-	//	
-	//	ElementTag concreteTag = (*SimWorld)[i]->GetConcreteType();
-	//	if (concreteTag == ElementTag::EMPTY)
-	//	{
-	//		continue;
-	//	}
-
-	//	if (!(*SimWorld)[i]->HasUpdated)
-	//	{
-	//		(*SimWorld)[i]->HasUpdated = true;
-	//		(*SimWorld)[i]->UpdateElement(this);
-	//		Elements++;
-	//	}
-	//}
 
 	int x;
-	
+
+	if (updateStart < 0)
+	{
+		updateStart = 0;
+	}
+
+	if (updateEnd > width-1)
+	{
+		updateEnd = width;
+	}
 	//UpdateFromLeft = !UpdateFromLeft;
 
 	//UpdateFromLeft = !UpdateFromLeft;
 
-	for (int y = width-1; y >= 0; y--)
+
+	for (int y = height - 1; y >= 0; y--)
 	{
 		if (UpdateFromLeft)
 		{
-			for (int x = 0; x < width; x++)
-			{
-				ElementTag concreteTag = (*SimWorld)[Index(x,y)]->GetConcreteType();
-				if (concreteTag == ElementTag::EMPTY)
-				{
-					continue;
-				}
-
-				if (!(*SimWorld)[Index(x, y)]->HasUpdated)
-				{
-					(*SimWorld)[Index(x, y)]->HasUpdated = true;
-					(*SimWorld)[Index(x, y)]->UpdateElement(this);
-					Elements++;
-				}
-			}
-		}
-		else
-		{
-			for (int x = width-1; x >= 0; x--)
+			for (int x = updateStart; x < updateEnd; x++)
 			{
 				ElementTag concreteTag = (*SimWorld)[Index(x, y)]->GetConcreteType();
 				if (concreteTag == ElementTag::EMPTY)
@@ -123,17 +94,77 @@ void Simulation::UpdateSimulation()
 				{
 					(*SimWorld)[Index(x, y)]->HasUpdated = true;
 					(*SimWorld)[Index(x, y)]->UpdateElement(this);
-					Elements++;
+
+				}
+			}
+		}
+		else
+		{
+			for (int x = updateEnd - 1; x >= updateStart; x--)
+			{
+				ElementTag concreteTag = (*SimWorld)[Index(x, y)]->GetConcreteType();
+				if (concreteTag == ElementTag::EMPTY)
+				{
+					continue;
+				}
+
+				if (!(*SimWorld)[Index(x, y)]->HasUpdated)
+				{
+					(*SimWorld)[Index(x, y)]->HasUpdated = true;
+					(*SimWorld)[Index(x, y)]->UpdateElement(this);
+
 				}
 			}
 		}
 
 		UpdateFromLeft = !UpdateFromLeft;
-		
+
 	}
 
-	
 
+
+}
+
+void Simulation::Update()
+{
+
+	//TODO: thread pool;
+	//TODO: this is not particulary nice
+
+	int offset = rand() % 20 + (-10);
+
+	std::thread t0(&Simulation::UpdateSimulation, this, 0, 20+offset);
+	std::thread t2(&Simulation::UpdateSimulation, this, 40 + offset, 60 + offset);
+	std::thread t4(&Simulation::UpdateSimulation, this, 80 + offset, 100 + offset);
+	std::thread t6(&Simulation::UpdateSimulation, this, 120 + offset, 140 + offset);
+	std::thread t8(&Simulation::UpdateSimulation, this, 160 + offset, 180 + offset);
+
+
+
+	t0.join();
+	t2.join();
+	t4.join();
+	t6.join();
+	t8.join();
+
+	std::thread t1(&Simulation::UpdateSimulation, this, 20 + offset, 40 + offset);
+	std::thread t3(&Simulation::UpdateSimulation, this, 60 + offset, 80 + offset);
+	std::thread t5(&Simulation::UpdateSimulation, this, 100 + offset, 120 + offset);
+	std::thread t7(&Simulation::UpdateSimulation, this, 140 + offset, 160 + offset);
+	std::thread t9(&Simulation::UpdateSimulation, this, 180 + offset, 200 + offset);
+
+	t1.join();
+	t3.join();
+	t5.join();
+	t7.join();
+	t9.join();
+
+}
+
+void Simulation::ResetSimulation()
+{
+	int size = SimWorld->size();
+	Elements = 0;
 	//TODO: elements moving up doesnt work properly
 	//Reset "has updated"
 	for (int i = size - 1; i >= 0; i--)
@@ -142,7 +173,7 @@ void Simulation::UpdateSimulation()
 		{
 			continue;
 		}
-
+		Elements++;
 		(*SimWorld)[i]->HasUpdated = false;
 
 	}
@@ -404,7 +435,7 @@ void Simulation::SetElement(int x, int y, Element* element)
 
 void Simulation::ReplaceElement(Element* element)
 {
-
+	mtx.lock();
 	int x = element->GetPosX();
 	int y = element->GetPosY();
 
@@ -412,6 +443,8 @@ void Simulation::ReplaceElement(Element* element)
 	(SimWorld->at(Index(x, y))) = nullptr;
 
 	SimWorld->at(Index(x, y)) = element;
+
+	mtx.unlock();
 }
 
 int Simulation::Index(int x, int y)

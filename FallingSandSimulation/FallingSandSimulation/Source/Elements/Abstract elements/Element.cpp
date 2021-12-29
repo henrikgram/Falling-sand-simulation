@@ -1,5 +1,6 @@
 #include "Element.h"
 
+
 Element::Element(int posX, int posY, int health)
 {
 	this->posX = posX;
@@ -173,6 +174,7 @@ bool Element::IsValidMove(Simulation* sim, int dstX, int dstY)
 
 bool Element::UpdateElement(Simulation* sim)
 {
+	
 	if (SpecialBehavior(sim))
 	{
 		return true;
