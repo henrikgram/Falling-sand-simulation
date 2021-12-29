@@ -7,7 +7,7 @@ class Element;
 #include "Enum/AbstractTag.h"
 #include <vector>
 #include <stack>
-
+#include <thread>
 
 class Simulation
 {
@@ -16,12 +16,15 @@ private:
 	int height;
 	std::vector<Element*>* SimWorld;
 	bool UpdateFromLeft = false;
+	std::vector<std::thread> workers;
 	
 public:
 	Simulation(int width, int height);
 	~Simulation();
 
-	void UpdateSimulation();
+	void UpdateSimulation(int updateStart, int updateEnd);
+	void Update();
+	void ResetSimulation();
 
 	Element* CreateElementFromTag(ElementTag concreteTag, int x, int y);
 	void AddElementsInSquareArea(int x, int y, int brushSize, ElementTag element);

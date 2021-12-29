@@ -172,7 +172,7 @@ void MovableSolid::SetFreeFall()
 
 void MovableSolid::SetNeighbourToFreeFalling(Simulation* sim)
 {
-
+	
 	MovableSolid* m;
 
 	if (!sim->OutOfBounds(posX, posY + 1))

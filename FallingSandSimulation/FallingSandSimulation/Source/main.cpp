@@ -12,6 +12,7 @@
 #include <iostream>
 #include <algorithm>
 #include<string>
+#include <thread>
 
 
 using namespace std;
@@ -385,7 +386,7 @@ void HandleInput()
 
 					auto start = high_resolution_clock::now();
 
-					sim->UpdateSimulation();
+					sim->UpdateSimulation(50,150);
 
 					auto stop = high_resolution_clock::now();
 					auto duration = duration_cast<std::chrono::microseconds>(stop - start);
@@ -488,7 +489,8 @@ int main()
 		{
 			auto start = high_resolution_clock::now();
 
-			sim->UpdateSimulation();
+			sim->Update();
+			sim->ResetSimulation();
 
 			auto stop = high_resolution_clock::now();
 			auto duration = duration_cast<std::chrono::microseconds>(stop - start);

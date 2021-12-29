@@ -1,2 +1,21 @@
-﻿  Dirt.cpp
+﻿  Simulation.cpp
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(9,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(65,6): warning C4101: 'x': unreferenced local variable
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(318,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(321,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(322,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(323,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(324,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(329,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(330,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(361,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(362,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(370,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(375,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(392,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(397,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(405,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(410,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\FallingSandSimulation\Source\Simulation.cpp(286): warning C4715: 'Simulation::CreateElementFromTag': not all control paths return a value
   FallingSandSimulation.vcxproj -> C:\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Debug\FallingSandSimulation.exe
