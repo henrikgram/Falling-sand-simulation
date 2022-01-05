@@ -179,9 +179,9 @@ void Setup()
 {
 	//LoadFont
 	//TODO: relative path
-	if (!font.loadFromFile("C:\\Users\\hhenn\\Documents\\GitHub\\Falling-sand-simulation\\FallingSandSimulation\\Minecraft.ttf"))
+	if (!font.loadFromFile("Minecraft.ttf"))
 	{
-		cout << "C:\\Users\hhenn\Documents\GitHub\Falling-sand-simulation\FallingSandSimulation\Minecraft.ttf";
+		cout << "Minecraft.ttf";
 		system("pause");
 	}
 
