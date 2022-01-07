@@ -1,34 +1,22 @@
 #include <SFML/Graphics.hpp>
-
-#include "Elements/Concrete Elements/Solids/Sand.h"
-#include "Elements/Abstract elements/MovableSolid.h"
-#include "Elements/Abstract elements/Particle.h"
-
 #include "Simulation.h"
 #include "UI/ElementButton.h"
+
 #include <Windows.h>
 #include <chrono>
-#include <thread>
 #include <iostream>
 #include <algorithm>
 #include<string>
-#include <thread>
 
-
-using namespace std;
-using namespace std::chrono;
-
-
-
-int scale = 1;
+int scale = 4;
 int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
-int width = 200 * 4;
-int height = 200 * 4;
+int width = 200;
+int height = 200;
 
-sf::RenderWindow window(sf::VideoMode(width * scale, height + (height /4) * scale), "Falling sand simulation");
+sf::RenderWindow window(sf::VideoMode(width * scale, (height + (height /4)) * scale), "Falling sand simulation");
 
 
 sf::Font font;
@@ -37,7 +25,7 @@ int prevX;
 int prevY;
 
 
-int offset = 10*4;
+int offset = 10;
 bool isPaused = false;
 
 RectangleShape uiArea(Vector2f(width* scale, height/4 * scale));
@@ -47,11 +35,10 @@ sf::Text BrushSizeText;
 sf::Text ElementCountText;
 sf::Text WaterText;
 
-vector<Vertex> image;
-vector<Vertex> imageRect;
-vector<Vertex> imageQuads;
-vector<sf::Drawable> GUI;
-vector<Button*>* buttons = new vector<Button*>();
+std::vector<Vertex> image;
+std::vector<Vertex> imageRect;
+std::vector<sf::Drawable> GUI;
+std::vector<Button*>* buttons = new std::vector<Button*>();
 
 
 VertexArray CursorSize(LineStrip, 5);
@@ -61,7 +48,7 @@ VertexArray CursorSize(LineStrip, 5);
 /// </summary>
 /// <param name="integer"></param>
 /// <returns></returns>
-string toString(int integer)
+std::string toString(int integer)
 {
 	char numstr[10]; // enough to hold all numbers up to 32-bits
 	sprintf_s(numstr, "%i", integer);
@@ -79,9 +66,9 @@ void AddQuad(int x, int y)
 	float onScreenY = y * scale;
 
 	topLeft.position = { onScreenX, onScreenY };
-	topRight.position = { onScreenX /*+ scale*/, onScreenY };
-	bottomLeft.position = { onScreenX /*+ scale*/, onScreenY /*+ scale*/ };
-	bottomRight.position = { onScreenX, onScreenY /*+ scale */};
+	topRight.position = { onScreenX + scale, onScreenY };
+	bottomLeft.position = { onScreenX + scale, onScreenY + scale };
+	bottomRight.position = { onScreenX, onScreenY + scale };
 
 	image.push_back(topLeft);
 	image.push_back(topRight);
@@ -119,7 +106,6 @@ void DrawUI()
 	{
 		window.draw(CursorSize);
 	}
-
 
 	MousePositionText.setString("X: " + toString(x / scale) + " Y: " + toString(y / scale));
 	BrushSizeText.setString("BrushSize: " + toString(brushSize));
@@ -165,7 +151,7 @@ void Draw()
 	}
 
 	//window.draw(image.data(), imageRect.size(), sf::Quads);
-	window.draw(image.data(), image.size(), sf::Points);
+	window.draw(image.data(), image.size(), sf::Quads);
 
 	//UI
 	DrawUI();
@@ -182,7 +168,7 @@ void Setup()
 	//TODO: relative path
 	if (!font.loadFromFile("Minecraft.ttf"))
 	{
-		cout << "Minecraft.ttf";
+		std::cout << "Minecraft.ttf";
 		system("pause");
 	}
 	
@@ -235,7 +221,7 @@ void Setup()
 
 	
 	//reserves the space
-	image.reserve((width * height) * 4);
+	image.reserve((width * height) * scale);
 
 	for (int y = 0; y < height; y++)
 	{
@@ -243,7 +229,7 @@ void Setup()
 		{
 			if (scale!= 1)
 			{
-				//AddQuad(x, y);
+				AddQuad(x, y);
 			}
 			else
 			{
@@ -397,12 +383,12 @@ void HandleInput()
 				if (isPaused)
 				{
 
-					auto start = high_resolution_clock::now();
+					auto start = std::chrono::high_resolution_clock::now();
 
 					sim->UpdateSimulation(50,150);
 
-					auto stop = high_resolution_clock::now();
-					auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+					auto stop = std::chrono::high_resolution_clock::now();
+					auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 					std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 				}
 			}
@@ -445,83 +431,32 @@ void HandleInput()
 int main()
 {
 	Setup();
-	/*window.setView(view);
-	view.zoom(4);*/
+	
+	window.setFramerateLimit(60);
 	sim = new Simulation(width, height);
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
-
-	//Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
-	//isPaused = true;
-
-
-	//Sand* s0 = new Sand(100, 196);
-	//dynamic_cast<MovableSolid*>(s0)->IsFreeFalling = false;
-	//Sand* s1 = new Sand(100, 197);
-	//dynamic_cast<MovableSolid*>(s1)->IsFreeFalling = false;
-	//Sand* s2 = new Sand(100, 198);
-	//dynamic_cast<MovableSolid*>(s2)->IsFreeFalling = false;
-	//Sand* s3 = new Sand(100, 199);
-	//dynamic_cast<MovableSolid*>(s3)->IsFreeFalling = false;
-	//
-	//sim->ReplaceElement(s1);
-	//sim->ReplaceElement(s2);
-	//sim->ReplaceElement(s3);
-	//sim->ReplaceElement(s0);
-
-	//sim->ReplaceElement(p);
-
-
-	/*sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::TNT, 101, 199));*/
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 100));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 100));
-	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
-	//const char* str = "test.txt";
-	//sim->SaveSimState(str);
-
-
+	
 	while (window.isOpen())
 	{
-		//auto start3 = high_resolution_clock::now();
-
 		HandleInput();
+
 		window.clear();
-
-
-		//auto stop3 = high_resolution_clock::now();
-		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
-		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
-
-		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 
 		prevX = Mouse::getPosition(window).x / scale;
 		prevY = Mouse::getPosition(window).y / scale;
-		auto start = high_resolution_clock::now();
+
+		auto start = std::chrono::high_resolution_clock::now();
+
 		if (!isPaused)
 		{
-			
-
 			sim->Update();
 			sim->ResetSimulation();
-
-	
 		}
 
-
-		//auto start2 = high_resolution_clock::now();
-
 		Draw();
-		auto stop = high_resolution_clock::now();
-		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+
+		auto stop = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
-
-		//auto stop2 = high_resolution_clock::now();
-		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
-
-
-		//std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
-
 	}
 
 	return 0;
