@@ -8,22 +8,15 @@
 #include <algorithm>
 #include<string>
 
-int scale = 1;
+int scale = 4;
 int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
-<<<<<<< HEAD
 int width = 200;
 int height = 200;
 
 sf::RenderWindow window(sf::VideoMode(width* scale, (height + (height / 4))* scale), "Falling sand simulation");
-=======
-int width = 200 * 4;
-int height = 200 * 4;
-
-sf::RenderWindow window(sf::VideoMode(width * scale, height + (height /4) * scale), "Falling sand simulation");
->>>>>>> Scale-work
 
 
 sf::Font font;
@@ -32,17 +25,10 @@ int prevX;
 int prevY;
 
 
-<<<<<<< HEAD
 int offset = 10;
 bool isPaused = false;
 
 RectangleShape uiArea(Vector2f(width* scale, height / 4 * scale));
-=======
-int offset = 10*4;
-bool isPaused = false;
-
-RectangleShape uiArea(Vector2f(width* scale, height/4 * scale));
->>>>>>> Scale-work
 sf::Text SandText;
 sf::Text MousePositionText;
 sf::Text BrushSizeText;
@@ -80,9 +66,9 @@ void AddQuad(int x, int y)
 	float onScreenY = y * scale;
 
 	topLeft.position = { onScreenX, onScreenY };
-	topRight.position = { onScreenX /*+ scale*/, onScreenY };
-	bottomLeft.position = { onScreenX /*+ scale*/, onScreenY /*+ scale*/ };
-	bottomRight.position = { onScreenX, onScreenY /*+ scale */};
+	topRight.position = { onScreenX + scale, onScreenY };
+	bottomLeft.position = { onScreenX + scale, onScreenY + scale };
+	bottomRight.position = { onScreenX, onScreenY + scale };
 
 	image.push_back(topLeft);
 	image.push_back(topRight);
@@ -165,7 +151,7 @@ void Draw()
 	}
 
 	//window.draw(image.data(), imageRect.size(), sf::Quads);
-	window.draw(image.data(), image.size(), sf::Points);
+	window.draw(image.data(), image.size(), sf::Quads);
 
 	//UI
 	DrawUI();
@@ -185,11 +171,9 @@ void Setup()
 		std::cout << "Minecraft.ttf";
 		system("pause");
 	}
-	
 
 
 	//Buttons
-<<<<<<< HEAD
 	buttons->push_back(new ElementButton("Sand", Vector2f(100, 35), 0, width * scale, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
 	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
 	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
@@ -212,30 +196,6 @@ void Setup()
 	buttons->push_back(new ElementButton("Wood", Vector2f(100, 35), 120 * 3, width * scale, 30, Color(50, 50, 50), Color(82 * 2, 42 * 2, 16 * 2), font, ElementTag::WOOD));
 	buttons->push_back(new ElementButton("Snow", Vector2f(100, 35), 120 * 3, width * scale + offset * scale, 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
 	buttons->push_back(new ElementButton("Grass", Vector2f(100, 35), 120 * 3, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
-=======
-	buttons->push_back(new ElementButton("Sand",	Vector2f(100, 35), 0, width * scale , 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
-	buttons->push_back(new ElementButton("Water",	Vector2f(100, 35), 0, width * scale + offset * scale , 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
-	buttons->push_back(new ElementButton("Rock",	Vector2f(100, 35), 0, width * scale + offset * scale * 2 , 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
-	buttons->push_back(new ElementButton("Smoke",   Vector2f(100, 35), 0, width * scale + offset * scale * 3 , 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
-
-	buttons->push_back(new ElementButton("Erase",	Vector2f(100, 35), 0, width * scale + offset * scale * 4 , 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
-	buttons->push_back(new Button("Clear",			Vector2f(100, 35), 120, width * scale + offset * scale * 4 , 30, Color(50, 50, 50), Color(0, 0, 0), font));
-	buttons->push_back(new Button("Pause",			Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4 , 30, Color(50, 50, 50), Color(0, 0, 0), font));
-
-	buttons->push_back(new ElementButton("Lava",    Vector2f(100, 35), 120, width * scale  , 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
-	buttons->push_back(new ElementButton("Vapor",   Vector2f(100, 35), 120, width * scale + offset * scale , 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
-	buttons->push_back(new ElementButton("Acid",    Vector2f(100, 35), 120, width * scale + offset * scale * 2  , 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
-	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3  , 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
-
-	buttons->push_back(new ElementButton("Dirt",    Vector2f(100, 35), 120 * 2, width * scale , 30, Color(50, 50, 50), Color(82,42,16), font, ElementTag::DIRT));
-	buttons->push_back(new ElementButton("Coal",	Vector2f(100, 35), 120 * 2, width * scale + offset * scale , 30, Color(50, 50, 50), Color(0,0,0,200), font, ElementTag::COAL));
-	buttons->push_back(new ElementButton("TNT",		Vector2f(100, 35), 120 * 2, width * scale + offset * scale *2 , 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
-	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 , 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
-
-	buttons->push_back(new ElementButton("Wood",	Vector2f(100, 35), 120 * 3, width * scale , 30, Color(50, 50, 50), Color(82*2, 42*2, 16*2), font, ElementTag::WOOD));
-	buttons->push_back(new ElementButton("Snow",	Vector2f(100, 35), 120 * 3, width * scale + offset * scale , 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
-	buttons->push_back(new ElementButton("Grass",	 Vector2f(100, 35),   120 * 3, width * scale + offset * scale *2, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
->>>>>>> Scale-work
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -244,11 +204,7 @@ void Setup()
 	MousePositionText.setFont(font);
 	MousePositionText.setFillColor(Color::White);
 	MousePositionText.setString("Sand");
-<<<<<<< HEAD
 	MousePositionText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale));
-=======
-	MousePositionText.setPosition(Vector2f(width * scale - width * scale /4, width * scale));
->>>>>>> Scale-work
 
 	ElementCountText.setFont(font);
 	ElementCountText.setFillColor(Color::White);
@@ -271,15 +227,9 @@ void Setup()
 	{
 		for (int x = 0; x < width; x++)
 		{
-<<<<<<< HEAD
 			if (scale != 1)
 			{
 				AddQuad(x, y);
-=======
-			if (scale!= 1)
-			{
-				//AddQuad(x, y);
->>>>>>> Scale-work
 			}
 			else
 			{
@@ -287,13 +237,8 @@ void Setup()
 				pixel.position = sf::Vector2f(x, y);
 				image.push_back(pixel);
 			}
-<<<<<<< HEAD
 
 
-=======
-			
-		
->>>>>>> Scale-work
 		}
 	}
 }
@@ -486,43 +431,6 @@ void HandleInput()
 int main()
 {
 	Setup();
-<<<<<<< HEAD
-=======
-	/*window.setView(view);
-	view.zoom(4);*/
-	sim = new Simulation(width, height);
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
-
-	//Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
-	//isPaused = true;
-
-
-	//Sand* s0 = new Sand(100, 196);
-	//dynamic_cast<MovableSolid*>(s0)->IsFreeFalling = false;
-	//Sand* s1 = new Sand(100, 197);
-	//dynamic_cast<MovableSolid*>(s1)->IsFreeFalling = false;
-	//Sand* s2 = new Sand(100, 198);
-	//dynamic_cast<MovableSolid*>(s2)->IsFreeFalling = false;
-	//Sand* s3 = new Sand(100, 199);
-	//dynamic_cast<MovableSolid*>(s3)->IsFreeFalling = false;
-	//
-	//sim->ReplaceElement(s1);
-	//sim->ReplaceElement(s2);
-	//sim->ReplaceElement(s3);
-	//sim->ReplaceElement(s0);
-
-	//sim->ReplaceElement(p);
-
-
-	/*sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::TNT, 101, 199));*/
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 100));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 100));
-	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
-	//const char* str = "test.txt";
-	//sim->SaveSimState(str);
->>>>>>> Scale-work
 
 	window.setFramerateLimit(60);
 	sim = new Simulation(width, height);
@@ -535,7 +443,6 @@ int main()
 
 		prevX = Mouse::getPosition(window).x / scale;
 		prevY = Mouse::getPosition(window).y / scale;
-<<<<<<< HEAD
 
 		auto start = std::chrono::high_resolution_clock::now();
 
@@ -543,23 +450,9 @@ int main()
 		{
 			sim->Update();
 			sim->ResetSimulation();
-=======
-		auto start = high_resolution_clock::now();
-		if (!isPaused)
-		{
-			
-
-			sim->Update();
-			sim->ResetSimulation();
-
-	
->>>>>>> Scale-work
 		}
 
 		Draw();
-		auto stop = high_resolution_clock::now();
-		auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
