@@ -73,6 +73,9 @@ void Simulation::UpdateSimulation(int updateStart, int updateEnd)
 	{
 		updateEnd = width;
 	}
+	//UpdateFromLeft = !UpdateFromLeft;
+
+	//UpdateFromLeft = !UpdateFromLeft;
 
 
 	for (int y = height - 1; y >= 0; y--)
