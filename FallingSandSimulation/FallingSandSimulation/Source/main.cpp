@@ -25,7 +25,14 @@ int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
+<<<<<<< Updated upstream
 sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "Falling sand simulation");
+=======
+int width = 200;
+int height = 200;
+
+sf::RenderWindow window(sf::VideoMode(width * scale, (height + (height /4)) * scale), "Falling sand simulation");
+>>>>>>> Stashed changes
 
 
 sf::Font font;
@@ -33,8 +40,12 @@ Simulation* sim;
 int prevX;
 int prevY;
 
+<<<<<<< Updated upstream
 int width = 200;
 int height = 200;
+=======
+
+>>>>>>> Stashed changes
 int offset = 10;
 bool isPaused = false;
 
@@ -163,7 +174,11 @@ void Draw()
 
 	}
 
+<<<<<<< Updated upstream
 	//window.draw(image.data(), imageRect.size(), sf::Quads);
+=======
+	
+>>>>>>> Stashed changes
 	window.draw(image.data(), image.size(), sf::Quads);
 
 	//UI
@@ -239,7 +254,22 @@ void Setup()
 	{
 		for (int x = 0; x < width; x++)
 		{
+<<<<<<< Updated upstream
 			AddQuad(x, y);
+=======
+			if (scale!= 1)
+			{
+				AddQuad(x, y);
+			}
+			else
+			{
+				sf::Vertex pixel;
+				pixel.position = sf::Vector2f(x, y);
+				image.push_back(pixel);
+			}
+			
+		
+>>>>>>> Stashed changes
 		}
 	}
 }
@@ -432,6 +462,7 @@ void HandleInput()
 int main()
 {
 	Setup();
+<<<<<<< Updated upstream
 	/*window.setView(view);
 	view.zoom(4);*/
 	sim = new Simulation(width, width);
@@ -466,19 +497,17 @@ int main()
 	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
 	//const char* str = "test.txt";
 	//sim->SaveSimState(str);
+=======
+>>>>>>> Stashed changes
 
+	sim = new Simulation(width, height);
+	window.setFramerateLimit(60);
 
 	while (window.isOpen())
 	{
-		//auto start3 = high_resolution_clock::now();
 
 		HandleInput();
 		window.clear();
-
-
-		//auto stop3 = high_resolution_clock::now();
-		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
-		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
 
 		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 
@@ -487,6 +516,7 @@ int main()
 
 		if (!isPaused)
 		{
+<<<<<<< Updated upstream
 			auto start = high_resolution_clock::now();
 
 			sim->Update();
@@ -495,18 +525,13 @@ int main()
 			auto stop = high_resolution_clock::now();
 			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+=======
+			sim->Update();
+			sim->ResetSimulation();
+>>>>>>> Stashed changes
 		}
 
-
-		//auto start2 = high_resolution_clock::now();
-
 		Draw();
-
-		//auto stop2 = high_resolution_clock::now();
-		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
-
-
-		//std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
 
 	}
 
