@@ -1,31 +1,22 @@
 #include <SFML/Graphics.hpp>
-
-#include "Elements/Concrete Elements/Solids/Sand.h"
-#include "Elements/Abstract elements/MovableSolid.h"
-#include "Elements/Abstract elements/Particle.h"
-
 #include "Simulation.h"
 #include "UI/ElementButton.h"
+
 #include <Windows.h>
 #include <chrono>
-#include <thread>
 #include <iostream>
 #include <algorithm>
 #include<string>
-#include <thread>
-
-
-using namespace std;
-using namespace std::chrono;
-
-
 
 int scale = 4;
 int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
-sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "Falling sand simulation");
+int width = 200;
+int height = 200;
+
+sf::RenderWindow window(sf::VideoMode(width* scale, (height + (height / 4))* scale), "Falling sand simulation");
 
 
 sf::Font font;
@@ -33,23 +24,21 @@ Simulation* sim;
 int prevX;
 int prevY;
 
-int width = 200;
-int height = 200;
+
 int offset = 10;
 bool isPaused = false;
 
-RectangleShape uiArea(Vector2f(width* scale, 50 * scale));
+RectangleShape uiArea(Vector2f(width* scale, height / 4 * scale));
 sf::Text SandText;
 sf::Text MousePositionText;
 sf::Text BrushSizeText;
 sf::Text ElementCountText;
 sf::Text WaterText;
 
-vector<Vertex> image;
-vector<Vertex> imageRect;
-vector<Vertex> imageQuads;
-vector<sf::Drawable> GUI;
-vector<Button*>* buttons = new vector<Button*>();
+std::vector<Vertex> image;
+std::vector<Vertex> imageRect;
+std::vector<sf::Drawable> GUI;
+std::vector<Button*>* buttons = new std::vector<Button*>();
 
 
 VertexArray CursorSize(LineStrip, 5);
@@ -59,7 +48,7 @@ VertexArray CursorSize(LineStrip, 5);
 /// </summary>
 /// <param name="integer"></param>
 /// <returns></returns>
-string toString(int integer)
+std::string toString(int integer)
 {
 	char numstr[10]; // enough to hold all numbers up to 32-bits
 	sprintf_s(numstr, "%i", integer);
@@ -104,7 +93,6 @@ void DrawUI()
 	float x = Mouse::getPosition(window).x;
 	float y = Mouse::getPosition(window).y;
 
-
 	//Cursor square
 	//TODO: odd numbers dosen't work completely
 	CursorSize[0].position = Vector2f(x - brushSize * scale / 2, y + brushSize / 2 * scale);
@@ -114,11 +102,10 @@ void DrawUI()
 	CursorSize[4].position = Vector2f(x - brushSize * scale / 2, y + brushSize / 2 * scale);
 
 	//Dont draw on the ui area
-	if (y / scale < 200)
+	if (y / scale < height)
 	{
 		window.draw(CursorSize);
 	}
-
 
 	MousePositionText.setString("X: " + toString(x / scale) + " Y: " + toString(y / scale));
 	BrushSizeText.setString("BrushSize: " + toString(brushSize));
@@ -158,7 +145,7 @@ void Draw()
 			{
 				SetColor(x, y, sim->GetElement(x, y)->GetColor());
 			}
-		
+
 		}
 
 	}
@@ -181,33 +168,34 @@ void Setup()
 	//TODO: relative path
 	if (!font.loadFromFile("Minecraft.ttf"))
 	{
-		cout << "Minecraft.ttf";
+		std::cout << "Minecraft.ttf";
 		system("pause");
 	}
 
+
 	//Buttons
-	buttons->push_back(new ElementButton("Sand",	Vector2f(100, 35), 0, width * scale + offset, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
-	buttons->push_back(new ElementButton("Water",	Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
-	buttons->push_back(new ElementButton("Rock",	Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
-	buttons->push_back(new ElementButton("Smoke",   Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
+	buttons->push_back(new ElementButton("Sand", Vector2f(100, 35), 0, width * scale, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
+	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
+	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
+	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
 
-	buttons->push_back(new ElementButton("Erase",	Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
-	buttons->push_back(new Button("Clear",			Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
-	buttons->push_back(new Button("Pause",			Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
+	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new Button("Pause", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4, 30, Color(50, 50, 50), Color(0, 0, 0), font));
 
-	buttons->push_back(new ElementButton("Lava",    Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
-	buttons->push_back(new ElementButton("Vapor",   Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
-	buttons->push_back(new ElementButton("Acid",    Vector2f(100, 35), 120, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
-	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
+	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
+	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
+	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
+	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
 
-	buttons->push_back(new ElementButton("Dirt",    Vector2f(100, 35), 120 * 2, width * scale + offset, 30, Color(50, 50, 50), Color(82,42,16), font, ElementTag::DIRT));
-	buttons->push_back(new ElementButton("Coal",	Vector2f(100, 35), 120 * 2, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color(0,0,0,200), font, ElementTag::COAL));
-	buttons->push_back(new ElementButton("TNT",		Vector2f(100, 35), 120 * 2, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
-	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
+	buttons->push_back(new ElementButton("Dirt", Vector2f(100, 35), 120 * 2, width * scale, 30, Color(50, 50, 50), Color(82, 42, 16), font, ElementTag::DIRT));
+	buttons->push_back(new ElementButton("Coal", Vector2f(100, 35), 120 * 2, width * scale + offset * scale, 30, Color(50, 50, 50), Color(0, 0, 0, 200), font, ElementTag::COAL));
+	buttons->push_back(new ElementButton("TNT", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
+	buttons->push_back(new ElementButton("InFlow", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
-	buttons->push_back(new ElementButton("Wood",	Vector2f(100, 35), 120 * 3, width * scale + offset, 30, Color(50, 50, 50), Color(82*2, 42*2, 16*2), font, ElementTag::WOOD));
-	buttons->push_back(new ElementButton("Snow",	Vector2f(100, 35), 120 * 3, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
-	buttons->push_back(new ElementButton("Grass", Vector2f(100, 35),   120 * 3, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
+	buttons->push_back(new ElementButton("Wood", Vector2f(100, 35), 120 * 3, width * scale, 30, Color(50, 50, 50), Color(82 * 2, 42 * 2, 16 * 2), font, ElementTag::WOOD));
+	buttons->push_back(new ElementButton("Snow", Vector2f(100, 35), 120 * 3, width * scale + offset * scale, 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
+	buttons->push_back(new ElementButton("Grass", Vector2f(100, 35), 120 * 3, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -216,30 +204,41 @@ void Setup()
 	MousePositionText.setFont(font);
 	MousePositionText.setFillColor(Color::White);
 	MousePositionText.setString("Sand");
-	MousePositionText.setPosition(Vector2f(width * scale - 200, width * scale));
+	MousePositionText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale));
 
 	ElementCountText.setFont(font);
 	ElementCountText.setFillColor(Color::White);
 	ElementCountText.setString("Sand");
-	ElementCountText.setPosition(Vector2f(width * scale - 200, width * scale + offset * scale));
+	ElementCountText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale + offset * scale));
 
 	BrushSizeText.setFont(font);
 	BrushSizeText.setFillColor(Color::White);
 	BrushSizeText.setString("Sand");
-	BrushSizeText.setPosition(Vector2f(width * scale - 200, width * scale + offset * 2 * scale));
+	BrushSizeText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale + offset * 2 * scale));
 
 	uiArea.setFillColor(Color(50, 50, 50));
 	uiArea.setPosition(Vector2f(0, width * scale));
 
-	
+
 	//reserves the space
-	image.reserve((width * height) * 4);
+	image.reserve((width * height) * scale);
 
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			AddQuad(x, y);
+			if (scale != 1)
+			{
+				AddQuad(x, y);
+			}
+			else
+			{
+				sf::Vertex pixel;
+				pixel.position = sf::Vector2f(x, y);
+				image.push_back(pixel);
+			}
+
+
 		}
 	}
 }
@@ -280,7 +279,7 @@ void HandleInput()
 			int x = Mouse::getPosition(window).x;
 			int y = Mouse::getPosition(window).y;
 
-			if (y / scale > 195)
+			if (y / scale > height)
 			{
 				for (auto i : *buttons)
 				{
@@ -384,12 +383,12 @@ void HandleInput()
 				if (isPaused)
 				{
 
-					auto start = high_resolution_clock::now();
+					auto start = std::chrono::high_resolution_clock::now();
 
-					sim->UpdateSimulation(50,150);
+					sim->UpdateSimulation(50, 150);
 
-					auto stop = high_resolution_clock::now();
-					auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+					auto stop = std::chrono::high_resolution_clock::now();
+					auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 					std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 				}
 			}
@@ -432,82 +431,32 @@ void HandleInput()
 int main()
 {
 	Setup();
-	/*window.setView(view);
-	view.zoom(4);*/
-	sim = new Simulation(width, width);
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
 
-	//Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
-	//isPaused = true;
-
-
-	//Sand* s0 = new Sand(100, 196);
-	//dynamic_cast<MovableSolid*>(s0)->IsFreeFalling = false;
-	//Sand* s1 = new Sand(100, 197);
-	//dynamic_cast<MovableSolid*>(s1)->IsFreeFalling = false;
-	//Sand* s2 = new Sand(100, 198);
-	//dynamic_cast<MovableSolid*>(s2)->IsFreeFalling = false;
-	//Sand* s3 = new Sand(100, 199);
-	//dynamic_cast<MovableSolid*>(s3)->IsFreeFalling = false;
-	//
-	//sim->ReplaceElement(s1);
-	//sim->ReplaceElement(s2);
-	//sim->ReplaceElement(s3);
-	//sim->ReplaceElement(s0);
-
-	//sim->ReplaceElement(p);
-
-
-	/*sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::TNT, 101, 199));*/
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 100));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 100));
-	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
-	//const char* str = "test.txt";
-	//sim->SaveSimState(str);
-
+	window.setFramerateLimit(60);
+	sim = new Simulation(width, height);
 
 	while (window.isOpen())
 	{
-		//auto start3 = high_resolution_clock::now();
-
 		HandleInput();
+
 		window.clear();
-
-
-		//auto stop3 = high_resolution_clock::now();
-		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
-		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
-
-		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 
 		prevX = Mouse::getPosition(window).x / scale;
 		prevY = Mouse::getPosition(window).y / scale;
 
+		auto start = std::chrono::high_resolution_clock::now();
+
 		if (!isPaused)
 		{
-			auto start = high_resolution_clock::now();
-
 			sim->Update();
 			sim->ResetSimulation();
-
-			auto stop = high_resolution_clock::now();
-			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
-			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 		}
-
-
-		//auto start2 = high_resolution_clock::now();
 
 		Draw();
 
-		//auto stop2 = high_resolution_clock::now();
-		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
-
-
-		//std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
-
+		auto stop = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 	}
 
 	return 0;
