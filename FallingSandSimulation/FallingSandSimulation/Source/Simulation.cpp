@@ -131,13 +131,20 @@ void Simulation::Update()
 	//TODO: thread pool;
 	//TODO: this is not particulary nice
 
-	int offset = rand() % 20 + (-10);
+	std::vector<std::thread> threads;
+	threads.reserve(10);
 
-	std::thread t0(&Simulation::UpdateSimulation, this, 0, 20+offset);
-	std::thread t2(&Simulation::UpdateSimulation, this, 40 + offset, 60 + offset);
-	std::thread t4(&Simulation::UpdateSimulation, this, 80 + offset, 100 + offset);
-	std::thread t6(&Simulation::UpdateSimulation, this, 120 + offset, 140 + offset);
-	std::thread t8(&Simulation::UpdateSimulation, this, 160 + offset, 180 + offset);
+	int offset = rand() % 80 + (-40);
+	
+
+
+	int scale = 4;
+
+	std::thread t0(&Simulation::UpdateSimulation, this, 0, 20* scale +offset);
+	std::thread t2(&Simulation::UpdateSimulation, this, 40* scale + offset, 60* scale + offset);
+	std::thread t4(&Simulation::UpdateSimulation, this, 80*scale + offset, 100*scale + offset);
+	std::thread t6(&Simulation::UpdateSimulation, this, 120*scale + offset, 140*scale + offset);
+	std::thread t8(&Simulation::UpdateSimulation, this, 160*scale + offset, 180*scale + offset);
 
 
 
@@ -147,11 +154,11 @@ void Simulation::Update()
 	t6.join();
 	t8.join();
 
-	std::thread t1(&Simulation::UpdateSimulation, this, 20 + offset, 40 + offset);
-	std::thread t3(&Simulation::UpdateSimulation, this, 60 + offset, 80 + offset);
-	std::thread t5(&Simulation::UpdateSimulation, this, 100 + offset, 120 + offset);
-	std::thread t7(&Simulation::UpdateSimulation, this, 140 + offset, 160 + offset);
-	std::thread t9(&Simulation::UpdateSimulation, this, 180 + offset, 200 + offset);
+	std::thread t1(&Simulation::UpdateSimulation, this, 20*scale + offset, 40*scale + offset);
+	std::thread t3(&Simulation::UpdateSimulation, this, 60*scale + offset, 80*scale + offset);
+	std::thread t5(&Simulation::UpdateSimulation, this, 100*scale + offset, 120*scale + offset);
+	std::thread t7(&Simulation::UpdateSimulation, this, 140*scale + offset, 160*scale + offset);
+	std::thread t9(&Simulation::UpdateSimulation, this, 180*scale + offset, 200*scale + offset);
 
 	t1.join();
 	t3.join();
