@@ -204,11 +204,9 @@ void Setup()
 	MousePositionText.setFont(font);
 	MousePositionText.setFillColor(Color::White);
 	MousePositionText.setString("Sand");
-<<<<<<< HEAD
-	MousePositionText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale));
-=======
+
 	MousePositionText.setPosition(Vector2f(width * scale - 200, width * scale));
->>>>>>> parent of a1581bb (Can now hold up to 640.000)
+
 
 	ElementCountText.setFont(font);
 	ElementCountText.setFillColor(Color::White);
@@ -439,21 +437,19 @@ int main()
 
 		if (!isPaused)
 		{
-			auto start = high_resolution_clock::now();
+			auto start = std::chrono::high_resolution_clock::now();
 
 			sim->Update();
 			sim->ResetSimulation();
 
-			auto stop = high_resolution_clock::now();
-			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+			auto stop = std::chrono::high_resolution_clock::now();
+			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 		}
 
 		Draw();
 
-		auto stop = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-		std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
+		
 	}
 
 	return 0;
