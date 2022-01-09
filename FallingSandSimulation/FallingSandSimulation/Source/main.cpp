@@ -432,53 +432,16 @@ void HandleInput()
 int main()
 {
 	Setup();
-	/*window.setView(view);
-	view.zoom(4);*/
+
 	sim = new Simulation(width, width);
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::ACID, 100, 100));
-
-	//Particle* p = new Particle(100, 100, ElementTag::SAND, sf::Color::Yellow, 1, -2);
-	//isPaused = true;
-
-
-	//Sand* s0 = new Sand(100, 196);
-	//dynamic_cast<MovableSolid*>(s0)->IsFreeFalling = false;
-	//Sand* s1 = new Sand(100, 197);
-	//dynamic_cast<MovableSolid*>(s1)->IsFreeFalling = false;
-	//Sand* s2 = new Sand(100, 198);
-	//dynamic_cast<MovableSolid*>(s2)->IsFreeFalling = false;
-	//Sand* s3 = new Sand(100, 199);
-	//dynamic_cast<MovableSolid*>(s3)->IsFreeFalling = false;
-	//
-	//sim->ReplaceElement(s1);
-	//sim->ReplaceElement(s2);
-	//sim->ReplaceElement(s3);
-	//sim->ReplaceElement(s0);
-
-	//sim->ReplaceElement(p);
-
-
-	/*sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::TNT, 101, 199));*/
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 100));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 100, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 101));
-	//sim->ReplaceElement(sim->CreateElementFromTag(ElementTag::SAND, 101, 100));
-	//sim->AddElementsInSquareArea(100, 100, 20, ElementTag::SAND);
-	//const char* str = "test.txt";
-	//sim->SaveSimState(str);
 
 
 	while (window.isOpen())
 	{
-		//auto start3 = high_resolution_clock::now();
 
 		HandleInput();
 		window.clear();
 
-
-		//auto stop3 = high_resolution_clock::now();
-		//auto duration3 = duration_cast<std::chrono::microseconds>(stop3 - start3);
-		//std::cout << "Time taken by Input: " << duration3.count() << " microseconds" << std::endl;
 
 		//Used for keeping track of the previous frames mouse positions, so it can be connected when drawing.
 
@@ -498,15 +461,8 @@ int main()
 		}
 
 
-		//auto start2 = high_resolution_clock::now();
-
 		Draw();
 
-		//auto stop2 = high_resolution_clock::now();
-		//auto duration2 = duration_cast<std::chrono::microseconds>(stop2 - start2);
-
-
-		//std::cout << "Time taken by Draw(): " << duration2.count() << " microseconds" << std::endl;
 
 	}
 
