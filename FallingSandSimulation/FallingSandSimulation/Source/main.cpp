@@ -8,15 +8,14 @@
 #include <algorithm>
 #include<string>
 
+
+
 int scale = 4;
 int brushSize = 2;
 ElementTag leftBrushMode = ElementTag::SAND;
 ElementTag rightBrushMode = ElementTag::EMPTY;
 
-int width = 200;
-int height = 200;
-
-sf::RenderWindow window(sf::VideoMode(width* scale, (height + (height / 4))* scale), "Falling sand simulation");
+sf::RenderWindow window(sf::VideoMode(200 * scale, 250 * scale), "Falling sand simulation");
 
 
 sf::Font font;
@@ -24,11 +23,12 @@ Simulation* sim;
 int prevX;
 int prevY;
 
-
+int width = 200;
+int height = 200;
 int offset = 10;
 bool isPaused = false;
 
-RectangleShape uiArea(Vector2f(width* scale, height / 4 * scale));
+RectangleShape uiArea(Vector2f(width* scale, 50 * scale));
 sf::Text SandText;
 sf::Text MousePositionText;
 sf::Text BrushSizeText;
@@ -93,6 +93,7 @@ void DrawUI()
 	float x = Mouse::getPosition(window).x;
 	float y = Mouse::getPosition(window).y;
 
+
 	//Cursor square
 	//TODO: odd numbers dosen't work completely
 	CursorSize[0].position = Vector2f(x - brushSize * scale / 2, y + brushSize / 2 * scale);
@@ -102,7 +103,7 @@ void DrawUI()
 	CursorSize[4].position = Vector2f(x - brushSize * scale / 2, y + brushSize / 2 * scale);
 
 	//Dont draw on the ui area
-	if (y / scale < height)
+	if (y / scale < 200)
 	{
 		window.draw(CursorSize);
 	}
@@ -172,30 +173,29 @@ void Setup()
 		system("pause");
 	}
 
-
 	//Buttons
-	buttons->push_back(new ElementButton("Sand", Vector2f(100, 35), 0, width * scale, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
-	buttons->push_back(new ElementButton("Water", Vector2f(100, 35), 0, width * scale + offset * scale, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
-	buttons->push_back(new ElementButton("Rock", Vector2f(100, 35), 0, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
-	buttons->push_back(new ElementButton("Smoke", Vector2f(100, 35), 0, width * scale + offset * scale * 3, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
+	buttons->push_back(new ElementButton("Sand",	Vector2f(100, 35), 0, width * scale + offset, 30, Color(50, 50, 50), Color::Yellow, font, ElementTag::SAND));
+	buttons->push_back(new ElementButton("Water",	Vector2f(100, 35), 0, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::Blue, font, ElementTag::WATER));
+	buttons->push_back(new ElementButton("Rock",	Vector2f(100, 35), 0, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color(100, 100, 100), font, ElementTag::ROCK));
+	buttons->push_back(new ElementButton("Smoke",   Vector2f(100, 35), 0, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color(180, 180, 180), font, ElementTag::SMOKE));
 
-	buttons->push_back(new ElementButton("Erase", Vector2f(100, 35), 0, width * scale + offset * scale * 4, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
-	buttons->push_back(new Button("Clear", Vector2f(100, 35), 120, width * scale + offset * scale * 4, 30, Color(50, 50, 50), Color(0, 0, 0), font));
-	buttons->push_back(new Button("Pause", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new ElementButton("Erase",	Vector2f(100, 35), 0, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font, ElementTag::EMPTY));
+	buttons->push_back(new Button("Clear",			Vector2f(100, 35), 120, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
+	buttons->push_back(new Button("Pause",			Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 4 + offset, 30, Color(50, 50, 50), Color(0, 0, 0), font));
 
-	buttons->push_back(new ElementButton("Lava", Vector2f(100, 35), 120, width * scale, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
-	buttons->push_back(new ElementButton("Vapor", Vector2f(100, 35), 120, width * scale + offset * scale, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
-	buttons->push_back(new ElementButton("Acid", Vector2f(100, 35), 120, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
-	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
+	buttons->push_back(new ElementButton("Lava",    Vector2f(100, 35), 120, width * scale + offset, 30, Color(50, 50, 50), Color::Red, font, ElementTag::LAVA));
+	buttons->push_back(new ElementButton("Vapor",   Vector2f(100, 35), 120, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color::White, font, ElementTag::VAPOR));
+	buttons->push_back(new ElementButton("Acid",    Vector2f(100, 35), 120, width * scale + offset * scale * 2 + offset, 30, Color(50, 50, 50), Color::Green, font, ElementTag::ACID));
+	buttons->push_back(new ElementButton("OutFlow", Vector2f(100, 35), 120, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Magenta, font, ElementTag::OUTFLOW));
 
-	buttons->push_back(new ElementButton("Dirt", Vector2f(100, 35), 120 * 2, width * scale, 30, Color(50, 50, 50), Color(82, 42, 16), font, ElementTag::DIRT));
-	buttons->push_back(new ElementButton("Coal", Vector2f(100, 35), 120 * 2, width * scale + offset * scale, 30, Color(50, 50, 50), Color(0, 0, 0, 200), font, ElementTag::COAL));
-	buttons->push_back(new ElementButton("TNT", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
-	buttons->push_back(new ElementButton("InFlow", Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
+	buttons->push_back(new ElementButton("Dirt",    Vector2f(100, 35), 120 * 2, width * scale + offset, 30, Color(50, 50, 50), Color(82,42,16), font, ElementTag::DIRT));
+	buttons->push_back(new ElementButton("Coal",	Vector2f(100, 35), 120 * 2, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color(0,0,0,200), font, ElementTag::COAL));
+	buttons->push_back(new ElementButton("TNT",		Vector2f(100, 35), 120 * 2, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(255, 0, 0), font, ElementTag::TNT));
+	buttons->push_back(new ElementButton("InFlow",  Vector2f(100, 35), 120 * 2, width * scale + offset * scale * 3 + offset, 30, Color(50, 50, 50), Color::Cyan, font, ElementTag::INFLOW));
 
-	buttons->push_back(new ElementButton("Wood", Vector2f(100, 35), 120 * 3, width * scale, 30, Color(50, 50, 50), Color(82 * 2, 42 * 2, 16 * 2), font, ElementTag::WOOD));
-	buttons->push_back(new ElementButton("Snow", Vector2f(100, 35), 120 * 3, width * scale + offset * scale, 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
-	buttons->push_back(new ElementButton("Grass", Vector2f(100, 35), 120 * 3, width * scale + offset * scale * 2, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
+	buttons->push_back(new ElementButton("Wood",	Vector2f(100, 35), 120 * 3, width * scale + offset, 30, Color(50, 50, 50), Color(82*2, 42*2, 16*2), font, ElementTag::WOOD));
+	buttons->push_back(new ElementButton("Snow",	Vector2f(100, 35), 120 * 3, width * scale + offset * scale + offset, 30, Color(50, 50, 50), Color(250, 250, 255), font, ElementTag::SNOW));
+	buttons->push_back(new ElementButton("Grass", Vector2f(100, 35),   120 * 3, width * scale + offset * scale *2 + offset, 30, Color(50, 50, 50), Color(188, 252, 119), font, ElementTag::GRASS));
 
 	//Making sure the default
 	(*buttons)[0]->Select();
@@ -204,17 +204,21 @@ void Setup()
 	MousePositionText.setFont(font);
 	MousePositionText.setFillColor(Color::White);
 	MousePositionText.setString("Sand");
+<<<<<<< HEAD
 	MousePositionText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale));
+=======
+	MousePositionText.setPosition(Vector2f(width * scale - 200, width * scale));
+>>>>>>> parent of a1581bb (Can now hold up to 640.000)
 
 	ElementCountText.setFont(font);
 	ElementCountText.setFillColor(Color::White);
 	ElementCountText.setString("Sand");
-	ElementCountText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale + offset * scale));
+	ElementCountText.setPosition(Vector2f(width * scale - 200, width * scale + offset * scale));
 
 	BrushSizeText.setFont(font);
 	BrushSizeText.setFillColor(Color::White);
 	BrushSizeText.setString("Sand");
-	BrushSizeText.setPosition(Vector2f(width * scale - width * scale / 4, width * scale + offset * 2 * scale));
+	BrushSizeText.setPosition(Vector2f(width * scale - 200, width * scale + offset * 2 * scale));
 
 	uiArea.setFillColor(Color(50, 50, 50));
 	uiArea.setPosition(Vector2f(0, width * scale));
@@ -227,18 +231,7 @@ void Setup()
 	{
 		for (int x = 0; x < width; x++)
 		{
-			if (scale != 1)
-			{
-				AddQuad(x, y);
-			}
-			else
-			{
-				sf::Vertex pixel;
-				pixel.position = sf::Vector2f(x, y);
-				image.push_back(pixel);
-			}
-
-
+			AddQuad(x, y);
 		}
 	}
 }
@@ -279,7 +272,7 @@ void HandleInput()
 			int x = Mouse::getPosition(window).x;
 			int y = Mouse::getPosition(window).y;
 
-			if (y / scale > height)
+			if (y / scale > 195)
 			{
 				for (auto i : *buttons)
 				{
@@ -444,12 +437,16 @@ int main()
 		prevX = Mouse::getPosition(window).x / scale;
 		prevY = Mouse::getPosition(window).y / scale;
 
-		auto start = std::chrono::high_resolution_clock::now();
-
 		if (!isPaused)
 		{
+			auto start = high_resolution_clock::now();
+
 			sim->Update();
 			sim->ResetSimulation();
+
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+			std::cout << "Time taken by Update(): " << duration.count() << " microseconds" << std::endl;
 		}
 
 		Draw();

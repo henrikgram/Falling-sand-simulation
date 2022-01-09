@@ -154,6 +154,7 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\OutFlow.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Acid.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Liquids\Lava.cpp" />
+    <ClCompile Include="Source\main2.cpp" />
     <ClCompile Include="Source\UI\ElementButton.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\Elements\Concrete Elements\Gas\Smoke.cpp" />

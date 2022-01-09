@@ -72,6 +72,9 @@
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\InFlow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\main2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Elements\Concrete Elements\Solids\Dirt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
